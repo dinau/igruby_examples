@@ -245,10 +245,10 @@ def main()
       txid = FFI::MemoryPointer.new(:ImTextureID)
       txid.write_pointer(pTextureID.unpack1('L'))
       imageBoxPosTop = ImGui::GetCursorScreenPos() # Get absolute pos.
-      ImGui::Image(txid.read_pointer, size, uv0, uv1, tint_col, border_col);
+      ImGui::Image(txid.read_pointer.to_i, size, uv0, uv1, tint_col, border_col);
       # Zoom glass
       if ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNone) then
-        zoomGlass(txid.read_pointer, width, height, imageBoxPosTop)
+        zoomGlass(txid.read_pointer.to_i, width, height, imageBoxPosTop)
       end
       #
       ImGui::End()

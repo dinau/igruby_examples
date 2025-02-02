@@ -22,7 +22,7 @@
 
 This is examples project using [ruby-imgui](https://github.com/vaiorabbit/ruby-imgui) library.
 
-ImGui / CImGui 1.91.1
+- [x] ImGui / CImGui 1.91.8 (2025/02)
 
 #### Prerequisites
 
@@ -30,17 +30,18 @@ ImGui / CImGui 1.91.1
 
 - [x] WindowsOS 10 or later
 - [ ] LinuxOS : N/A
-- Ruby 3.1.x or later installed:  https://rubyinstaller.org/downloads/
+- Ruby 3.1.x or later installed:  https://rubyinstaller.org/downloads/  
+OK: Devkit with or without 
 - Msys2 command line tools
 
 #### Install Ruby gems
 
 ---
 
-Note: Specify imgui-bindings version `0.1.15` at this moment.
+Note: Specify imgui-bindings version `0.1.17` at this moment.
 
 ```sh
-gem install imgui-bindings:0.1.15 sdl2-bindings stbimage aibika
+gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika
 ```
 
 #### Install dlls
@@ -115,7 +116,6 @@ That's all !
 - Gcc.exe (Rev2, Built by MSYS2 project) 14.2.0
 - Git version 2.46.0.windows.1
 - Make: GNU Make 4.4.1
-
 
 #### Other projects 
 

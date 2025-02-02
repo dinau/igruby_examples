@@ -13,20 +13,18 @@ Config = ImFontConfig.create
 
 case RUBY_PLATFORM
 when /mswin|msys|mingw|cygwin/
-  FontTable = [\
-               ["meiryo.ttc",  "メイリオ",14.5]     \
-              ,["YuGothM.ttc", "遊ゴシック M",11.0] \
-              ,["meiryob.ttc", "メイリオ B",14.0]   \
-              ,["msgothic.ttc","MS ゴシック",11.0]  \
-              ,["myricam.ttc", "MyricaM",11.0]      \
-              ,["segoeui.ttf", "Seoge UI",14.4]
+  FontTable = [["meiryo.ttc",  "メイリオ",14.5],     # Windows7, 8
+               ["YuGothM.ttc", "遊ゴシック M",11.0], # Windows10, 11
+               ["meiryob.ttc", "メイリオ B",14.0],
+               ["msgothic.ttc","MS ゴシック",11.0],
+               ["myricam.ttc", "MyricaM",11.0],
+               ["segoeui.ttf", "Seoge UI",14.4]      # English region standard font
              ]
 when /linux/
-  FontTable = [\
-                ["opentype/ipafont-gothic/ipag.ttf","IPAゴシック",14.0]          \
-               ,["opentype/ipafont-gothic/ipam.ttf","IPAゴシック M",14.0]        \
-               ,["opentype/noto/NotoSansCJK-Regular.ttc","Noto Sans CJK",14.0]   \
-               ,["truetype/liberation/LiberationMono-Regular.ttf","LiberationMono",13.0] \
+  FontTable = [["opentype/ipafont-gothic/ipag.ttf","IPAゴシック",14.0],        # Debian
+               ["opentype/ipafont-gothic/ipam.ttf","IPAゴシック M",14.0],      # Debian
+               ["opentype/noto/NotoSansCJK-Regular.ttc","Noto Sans CJK",14.0], # Linux Mint
+               ["truetype/liberation/LiberationMono-Regular.ttf","LiberationMono",13.0] # Ubuntu english
               ]
 else
   raise RuntimeError, "setupFonts.rb : Unknown OS: #{RUBY_PLATFORM}"
@@ -47,11 +45,7 @@ def setupFonts()
   FontTable.each do |fontInfo|
     fontFullPath = File.join(fontFolder, fontInfo[0])
     if File.exist?(fontFullPath) then
-      builder = ImFontGlyphRangesBuilder.create
-      additional_ranges = ImGui::ImVector_ImWchar_create() # ranges == ImVector_ImWchar*
-      builder.AddRanges(pio[:Fonts].GetGlyphRangesJapanese())
-      builder.BuildRanges(additional_ranges)
-      main_font = pio[:Fonts].AddFontFromFileTTF(fontFullPath, point2px(fontInfo[2]), Config, ImVector.new(additional_ranges)[:Data])
+      main_font = pio[:Fonts].AddFontFromFileTTF(fontFullPath, point2px(fontInfo[2]), Config, pio[:Fonts].GetGlyphRangesJapanese())
       if main_font != nil then
         puts "Loaded Base font: #{fontFullPath}"
         break

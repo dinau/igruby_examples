@@ -34,8 +34,8 @@ module ImGuiDemo
       ImGui::Text("io.ConfigFlags: 0x%08X", :uint, io[:ConfigFlags])
       ImGui::Text(" NavEnableKeyboard")     if (io[:ConfigFlags] & ImGuiConfigFlags_NavEnableKeyboard) != 0
       ImGui::Text(" NavEnableGamepad")      if (io[:ConfigFlags] & ImGuiConfigFlags_NavEnableGamepad) != 0
-      ImGui::Text(" NavEnableSetMousePos")  if (io[:ConfigFlags] & ImGuiConfigFlags_NavEnableSetMousePos) != 0
-      ImGui::Text(" NavNoCaptureKeyboard")  if (io[:ConfigFlags] & ImGuiConfigFlags_NavNoCaptureKeyboard) != 0
+      ImGui::Text(" NavEnableSetMousePos")  if (io[:ConfigFlags] and io[:ConfigNavMoveSetMousePos])
+      ImGui::Text(" NavNoCaptureKeyboard")  if (io[:ConfigFlags] and io[:ConfigNavCaptureKeyboard])
       ImGui::Text(" NoMouse")               if (io[:ConfigFlags] & ImGuiConfigFlags_NoMouse) != 0
       ImGui::Text(" NoMouseCursorChange")   if (io[:ConfigFlags] & ImGuiConfigFlags_NoMouseCursorChange) != 0
       ImGui::Text(" IsSRGB")                if (io[:ConfigFlags] & ImGuiConfigFlags_IsSRGB) != 0
