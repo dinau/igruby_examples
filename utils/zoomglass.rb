@@ -28,6 +28,8 @@ def zoomGlass(textureID, itemWidth, itemHeight, itemPosTop)
     uv1 = ImVec2.create((region_x + region_sz) / my_tex_w, (region_y + region_sz) / my_tex_h)
     tint_col   = ImVec4.create(1.0, 1.0, 1.0, 1.0)    # No tint
     border_col = ImVec4.create(0.22, 0.56, 0.22, 1.0) # Green
+    #ImGui::Text(ICON_FA_MAGNIFYING_GLASS + " (%.2d, %.2d)", :int, region_x, :int, region_y)
+    ImGui::Text(ICON_FA_MAGNIFYING_GLASS + " 4 x")
     ImGui::Image(textureID, ImVec2.create(region_sz * zoom, region_sz * zoom), uv0, uv1, tint_col, border_col)
     #
     ImGui::EndTooltip()

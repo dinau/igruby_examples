@@ -39,7 +39,6 @@ end
 # Load title bar icon for GLFW window
 #-------------------------------------
 def LoadTitleBarIcon(window, iconName)
-  winIcons = FFI::MemoryPointer.new(GLFW::GLFWimage,1)
   if File.exist? iconName then
     w = ' ' * 4
     h = ' ' * 4

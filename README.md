@@ -8,7 +8,8 @@
   - [Screen shots](#screen-shots)
     - [glfw_opengl3, sdl2_opengl3(WIP), sdl2_renderer(WIP)](#glfw_opengl3-sdl2_opengl3wip-sdl2_rendererwip)
     - [glfw_opengl3_jp](#glfw_opengl3_jp)
-    - [Generating single EXE file with Aibika](#generating-single-exe-file-with-aibika)
+    - [glfw_opengl3_iconfont_viewer](#glfw_opengl3_iconfont_viewer)
+    - [Generating single EXE file on Windows OS with Aibika](#generating-single-exe-file-on-windows-os-with-aibika)
   - [My tools version](#my-tools-version)
   - [Other projects](#other-projects)
   - [Similar project ImGui / CImGui](#similar-project-imgui--cimgui)
@@ -31,8 +32,8 @@ This is examples project using [ruby-imgui](https://github.com/vaiorabbit/ruby-i
 - [x] WindowsOS 10 or later
 - [ ] LinuxOS : N/A
 - Ruby 3.1.x or later installed:  https://rubyinstaller.org/downloads/  
-OK: Devkit with or without 
-- Msys2 command line tools
+OK: with or without Devkit 
+- MSys2 command line tools
 
 #### Install Ruby gems
 
@@ -41,7 +42,7 @@ OK: Devkit with or without
 Note: Specify imgui-bindings version `0.1.17` at this moment.
 
 ```sh
-gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika
+gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika 
 ```
 
 #### Install dlls
@@ -58,7 +59,7 @@ cp dlls_extra/*.dll c:/Ruby34-x64/bin/       # Specify your Ruby bin folder
 
 ------
 
-##### glfw_opengl3, sdl2_opengl3(WIP), sdl2_renderer(WIP)
+##### [glfw_opengl3](glfw_opengl3/glfw_opengl3.rb), sdl2_opengl3(WIP), sdl2_renderer(WIP)
 
 ---
 
@@ -68,14 +69,15 @@ For executing program for example,
 
 ```sh
 pwd 
-igruby_examples/glfw_opengl3
+igruby_examples
+cd glfw_opengl3
 ruby glfw_opengl3.rb    # Or double click glfw_opengl3.rbw in file explorer
 ```
 
 ![alt](img/glfw_opengl3.png)
 
 
-##### glfw_opengl3_jp
+##### [glfw_opengl3_jp](glfw_opengl3_jp/glfw_opengl3_jp.rb)
 
 ---
 
@@ -85,20 +87,40 @@ For executing program for example,
 
 ```sh
 pwd 
-igruby_examples/glfw_opengl3_jp
+igruby_examples
+cd glfw_opengl3_jp
 ruby glfw_opengl3_jp.rb    # Or double click glfw_opengl3_jp.rbw in file explorer
 ```
 
 ![alt](img/glfw_opengl3_jp.png)
 
-
-##### Generating single EXE file with [Aibika](https://github.com/tamatebako/aibika)
+##### [glfw_opengl3_iconfont_viewer](glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
 
 ---
 
+Icon fonts viewer
+
+For executing program for example,
+
 ```sh
 pwd 
-igruby_examples/glfw_opengl3
+igruby_examples
+cd glfw_opengl3_iconfont_viewer
+ruby glfw_opengl3_iconfont_viewer.rb    # Or double click glfw_opengl3_iconfont_viewer.rbw in file explorer
+```
+
+![alt](img/glfw_opengl3_iconfont_viewer.png)
+
+##### Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)
+
+---
+
+For instance,
+
+```sh
+pwd 
+igruby_examples
+cd glfw_opengl3
 make 
 ```
 

@@ -1,21 +1,13 @@
-TARGET = $(notdir $(CURDIR))
+ICON_EXE       = res/r.ico
+ICON_TITLE_BAR = res/r.png
 
-ifeq ($(OS),Windows_NT)
-	EXE = .exe
-endif
-
-CUR_FILES += ../dlls/glfw3.dll
-CUR_FILES += ../utils/fonticon/fa6/fa-solid-900.ttf
-CUR_FILES += res/r.png res/r.ico
-CUR_FILES += img/himeji-400.jpg
+ADDED_FILES += $(ICON_EXE) $(ICON_TITILE_BAR)
+ADDED_FILES += img/himeji-400.jpg
 
 #OPT += --debug-extract
 #OPT += --debug
 OPT += --windows
-OPT += --icon res/r.ico
+OPT += --icon $(ICON_EXE)
+#OPT += --no-lzma
 
-all:
-	aibika $(TARGET).rb $(OPT) $(CUR_FILES) $(RBIN_DLLS)
-
-
-$(TARGET)$(EXE): $(TARGET).rb
+include ../makefile.common.mk
