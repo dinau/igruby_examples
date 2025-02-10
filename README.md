@@ -9,7 +9,7 @@
     - [glfw_opengl3, sdl2_opengl3(WIP), sdl2_renderer(WIP)](#glfw_opengl3-sdl2_opengl3wip-sdl2_rendererwip)
     - [glfw_opengl3_jp](#glfw_opengl3_jp)
     - [glfw_opengl3_iconfont_viewer](#glfw_opengl3_iconfont_viewer)
-    - [Generating single EXE file on Windows OS with Aibika](#generating-single-exe-file-on-windows-os-with-aibika)
+  - [Generating single EXE file on Windows OS with Aibika](#generating-single-exe-file-on-windows-os-with-aibika)
   - [My tools version](#my-tools-version)
   - [Other projects](#other-projects)
   - [Similar project ImGui / CImGui](#similar-project-imgui--cimgui)
@@ -17,7 +17,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### IgRuby_Examples
+## IgRuby_Examples
 
 ---
 
@@ -25,7 +25,7 @@ This is examples project using [ruby-imgui](https://github.com/vaiorabbit/ruby-i
 
 - [x] ImGui / CImGui 1.91.8 (2025/02)
 
-#### Prerequisites
+### Prerequisites
 
 ---
 
@@ -35,7 +35,7 @@ This is examples project using [ruby-imgui](https://github.com/vaiorabbit/ruby-i
 OK: with or without Devkit 
 - MSys2 command line tools
 
-#### Install Ruby gems
+### Install Ruby gems
 
 ---
 
@@ -45,7 +45,7 @@ Note: Specify imgui-bindings version `0.1.17` at this moment.
 gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika 
 ```
 
-#### Install dlls
+### Install dlls
 
 ---
 
@@ -55,11 +55,11 @@ cd igruby_examples
 cp dlls_extra/*.dll c:/Ruby34-x64/bin/       # Specify your Ruby bin folder
 ```
 
-#### Screen shots
+### Screen shots
 
 ------
 
-##### [glfw_opengl3](glfw_opengl3/glfw_opengl3.rb), sdl2_opengl3(WIP), sdl2_renderer(WIP)
+#### [glfw_opengl3](glfw_opengl3/glfw_opengl3.rb), sdl2_opengl3(WIP), sdl2_renderer(WIP)
 
 ---
 
@@ -77,7 +77,7 @@ ruby glfw_opengl3.rb    # Or double click glfw_opengl3.rbw in file explorer
 ![alt](img/glfw_opengl3.png)
 
 
-##### [glfw_opengl3_jp](glfw_opengl3_jp/glfw_opengl3_jp.rb)
+#### [glfw_opengl3_jp](glfw_opengl3_jp/glfw_opengl3_jp.rb)
 
 ---
 
@@ -94,7 +94,7 @@ ruby glfw_opengl3_jp.rb    # Or double click glfw_opengl3_jp.rbw in file explore
 
 ![alt](img/glfw_opengl3_jp.png)
 
-##### [glfw_opengl3_iconfont_viewer](glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
+#### [glfw_opengl3_iconfont_viewer](glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
 
 ---
 
@@ -111,7 +111,7 @@ ruby glfw_opengl3_iconfont_viewer.rb    # Or double click glfw_opengl3_iconfont_
 
 ![alt](img/glfw_opengl3_iconfont_viewer.png)
 
-##### Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)
+### Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)
 
 ---
 
@@ -129,7 +129,7 @@ That's all !
 
 
 
-#### My tools version
+### My tools version
 
 ---
 
@@ -139,14 +139,14 @@ That's all !
 - Git version 2.46.0.windows.1
 - Make: GNU Make 4.4.1
 
-#### Other projects 
+### Other projects 
 
 ---
 
 - Using Ruby-ImGui project
    - https://github.com/vaiorabbit/blend2d-bindings
 
-#### Similar project ImGui / CImGui
+### Similar project ImGui / CImGui
 
 ---
 
@@ -159,7 +159,7 @@ That's all !
 | **NeLua**            | Compiler | [NeLuaImGui](https://github.com/dinau/neluaImGui)                                                                                               |
 | **Python**           | Script   | [DearPyGui for 32bit WindowsOS Binary](https://github.com/dinau/DearPyGui32/tree/win32)                                                         |
 
-#### SDL Game tutorial Platfromer
+### SDL Game tutorial Platfromer
 
 ---
 

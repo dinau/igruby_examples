@@ -3,3 +3,5 @@
 setenv.bat
 .ccache/
 whereisruby.rb
+glfw_opengl3_imnodes/
+utils/stb/

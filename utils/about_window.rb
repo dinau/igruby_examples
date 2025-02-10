@@ -1,5 +1,5 @@
 # This file has been copied from https://github.com/vaiorabbit/ruby-imgui/blob/master/examples/about_window.rb
-# and modified for recently ImGui.
+# and modified for recent Dear ImGui.
 
 # Ref.: imgui_demo.cpp (v1.76)
 # https://github.com/ocornut/imgui/blob/v1.76/imgui_demo.cpp

@@ -1,3 +1,4 @@
-require'./glfw_opengl3_jp.rb'
+require 'rake'
+require './'+ File.basename(__dir__).ext(".rb")
 
 main()

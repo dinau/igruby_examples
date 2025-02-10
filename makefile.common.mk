@@ -14,7 +14,7 @@ ADDED_FILES += ../utils/r.png
 #OPT += --icon res/r.ico
 #OPT += --no-lzma
 
-all:
+all: $(TARGET)$(EXE)
 	aibika $(TARGET).rb $(OPT) $(ADDED_FILES)
 
 
