@@ -2,6 +2,7 @@
 #
 require_relative '../utils/appImGui'
 require_relative './iconFontsTblDef'
+require_relative './iconFontsTbl2Def'
 
 #------
 # main
@@ -32,14 +33,13 @@ def main()
   # For Listbox
   item_current = FFI::MemoryPointer.new(:int)
   item_current.write(:int, 0)
-  string_pointers = $IconFontsTbl.map {|str| FFI::MemoryPointer.from_string(str)}
+  string_pointers = $IconFontsTbl.map { |str| FFI::MemoryPointer.from_string(str)}
   pIconFontsTbl   = FFI::MemoryPointer.new(:pointer, $IconFontsTbl.size)
   string_pointers.each_with_index do |ptr, i|
     pIconFontsTbl.put_pointer(i * FFI::Pointer.size, ptr)
   end
 
   pio = ImGuiIO.new(ImGui::GetIO())
-
   sRubyImGuiVersion = getRubyImGuiVersion()
 
   #-----------
@@ -56,7 +56,7 @@ def main()
     end
 
     #----------------------------------
-    # Show main window in left top side
+    # Show version info window
     #----------------------------------
     begin
       ImGui::Begin("ImGui window in Ruby  " + ICON_FA_WIFI + " 2025/02", nil)
@@ -83,7 +83,6 @@ def main()
       ImGui::Checkbox("ImGui demo", fShowDemoWindow)
       ImGui::ColorEdit3("Background color", window.ini.clearColor)
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
-
     ensure
       ImGui::End() # Window end proc
     end
@@ -115,6 +114,47 @@ def main()
       ImGui::NewLine()
       ImGui::SetNextItemWidth(listBoxWidth)
       ImGui::ListBox("##lsitbox1", item_current, pIconFontsTbl, $IconFontsTbl.length, 30)
+    ensure
+      ImGui::End()
+    end
+
+    #---------------------
+    # Show icons in Table
+    #---------------------
+    begin
+      ImGui::Begin("Icon Font Viewer2", nil, 0)
+      wsZoom = 2.5
+      wsNormal = 1.0
+      flags = ImGuiTableFlags_RowBg or ImGuiTableFlags_BordersOuter or ImGuiTableFlags_BordersV or ImGuiTableFlags_Resizable or ImGuiTableFlags_Reorderable or ImGuiTableFlags_Hideable
+      text_base_height = ImGui::GetTextLineHeightWithSpacing()
+      outer_size = ImVec2.create(0.0, text_base_height * 8)
+      col = 10
+      if ImGui::BeginTable("table_scrolly", col, flags, outer_size, 0)
+        for row in 0...(1390 / col) do
+          ImGui::TableNextRow(0, 0.0)
+          for column in 0 ... col do
+            ix = (row * col) + column
+            ImGui::TableSetColumnIndex(column)
+            ImGui::SetWindowFontScale(wsZoom)
+            ImGui::Text("%s", :string, $IconFontsTbl2[ix][0])
+            iconFontLabel = $IconFontsTbl2[ix][1]
+            setTooltip(iconFontLabel)
+            ImGui::SetWindowFontScale(wsNormal)
+            #
+            ImGui::PushID(ix)
+            if ImGui::BeginPopupContextItem("Contex Menu", 1)
+              if ImGui::MenuItem("Copy to clip board", "" , false, true)
+                #puts "#{$IconFontsTbl2[ix][1]}"
+                item_current.write(:int, ix)
+                ImGui::SetClipboardText($IconFontsTbl2[ix][1])
+              end
+              ImGui::EndPopup()
+            end
+            ImGui::PopID()
+          end
+        end
+        ImGui::EndTable()
+      end
     ensure
       ImGui::End()
     end

@@ -224,10 +224,10 @@ def loadIni(win)
 
   # Window pos
   dtj = jsdata[:window][:startupPosX]; raise eMsg if nil == dtj
-  dtj = 10 if 10 > dtj
+  dtj = 10 if (10 > dtj) or (dtj > 10000)
   win.ini.startupPosX = dtj
   dtj = jsdata[:window][:startupPosY]; raise eMsg if nil == dtj
-  dtj = 10 if 10 > dtj
+  dtj = 10 if (10 > dtj) or (dtj > 10000)
   win.ini.startupPosY = dtj
 
   # Window size

@@ -3,10 +3,12 @@ require_relative './themeMicrosoft'
 #---------------
 #--- setTooltip
 #---------------
-def setTooltip(str, delay=ImGuiHoveredFlags_DelayNormal)
+def setTooltip(str, delay = ImGuiHoveredFlags_DelayNormal, color = ImVec4.create(0.0, 1.0, 0.0, 1.0))
   if ImGui::IsItemHovered(delay) then
     if ImGui::BeginTooltip() then
+      ImGui::PushStyleColor(ImGuiCol_Text, color)
       ImGui::Text(str)
+      ImGui::PopStyleColor(1)
       ImGui::EndTooltip()
     end
   end
