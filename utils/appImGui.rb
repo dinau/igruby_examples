@@ -10,6 +10,10 @@ require_relative './togglebutton'
 require_relative './about_window'
 require_relative './utils'
 
+if defined? RubyVM::YJIT.enable
+  RubyVM::YJIT.enable
+end
+
 
 def check_error( desc )
   e = GL.GetError()
@@ -71,7 +75,7 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   end
 
   window.handle = 0
-  versions = [[4, 5], [4, 4], [4, 3], [4, 2], [4, 1], [4, 0], [3, 3]]
+  versions = [[4, 6],[4, 5], [4, 4], [4, 3], [4, 2], [4, 1], [4, 0], [3, 3]]
   ver_major = 0
   ver_minor = 0
   versions.each do |version|
@@ -117,6 +121,10 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
 
   # Set theme
   Theme::setTheme(window.ini.theme)
+
+  # FrameBordeerSize
+  style = ImGuiStyle.new(ImGui::GetStyle())
+  style[:FrameBorderSize] = 1.0
 
   return window
 end
@@ -180,7 +188,6 @@ end
 
 def getFrontendVersionString() GLFW.GetVersionString().to_s end
 def getBackendVersionString() GL.GetString(GL::VERSION).to_s end
-
 
 require 'json'
 

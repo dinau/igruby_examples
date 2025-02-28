@@ -2,14 +2,12 @@
 #
 require_relative '../utils/appImGui'
 
-#------
-# main
-#------
-def main()
-  window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
-
+#----------
+# gui_main
+#----------
+def gui_main(window)
   # Setup fonts
-  japanese_font = setupFonts()
+  setupFonts()
 
   # Load image file
   pTextureID = ' ' * 4
@@ -70,7 +68,6 @@ def main()
     # Show main window in left topside
     #----------------------------------
     begin
-      ImGui::PushFont(japanese_font) # open font
       ImGui::Begin("ImGui ウィンドウ in Ruby  " + ICON_FA_WIFI + " 2025/02", nil)
 
       # Toggle button for selecting theme
@@ -131,23 +128,21 @@ def main()
         " " + ICON_FA_BLOG)
     ensure
       ImGui::End() # Window end proc
-      ImGui::PopFont() # close font
     end
 
     #---------------------------------
     # Show image window left downside
     #---------------------------------
     begin
-      ImGui::PushFont(japanese_font) # open font
       ImGui::Begin("イメージ ウィンドウ", nil)
       # Load image
-      width  = pTexWidth.unpack1('L')
-      height = pTexHeight.unpack1('L')
-      size = ImVec2.create(width, height)
-      uv0 = ImVec2.create(0, 0)
-      uv1 = ImVec2.create(1, 1)
-      tint_col   = ImVec4.create(1, 1, 1, 1)
-      border_col = ImVec4.create(0, 0, 0, 0)
+      width          = pTexWidth.unpack1('L')
+      height         = pTexHeight.unpack1('L')
+      size           = ImVec2.create(width, height)
+      uv0            = ImVec2.create(0, 0)
+      uv1            = ImVec2.create(1, 1)
+      tint_col       = ImVec4.create(1, 1, 1, 1)
+      border_col     = ImVec4.create(0, 0, 0, 0)
       imageBoxPosTop = ImGui::GetCursorScreenPos() # Get absolute pos.
       ImGui::Image(pTextureID.unpack1('L'), size, uv0, uv1, tint_col, border_col);
       # Zoom glass
@@ -156,7 +151,6 @@ def main()
       end
     ensure
       ImGui::End()
-      ImGui::PopFont() # close font
     end
 
     # Render
@@ -166,7 +160,18 @@ def main()
 
   # Free resources
   GL::DeleteTextures(1, pTextureID)
-  destroyImGui(window)
+end
+
+#------
+# main
+#------
+def main()
+    begin
+      window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
+      gui_main(window)
+    ensure
+      destroyImGui(window) # Free resources
+    end
 end
 
 if __FILE__ == $PROGRAM_NAME

@@ -2,11 +2,10 @@
 #
 require_relative '../utils/appImGui'
 
-#------
-# main
-#------
-def main()
-  window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
+#----------
+# gui_main
+#----------
+def gui_main(window)
 
   # Setup fonts
   setupFonts()
@@ -138,13 +137,13 @@ def main()
     begin
       ImGui::Begin("Image window", nil)
       # Load image
-      width  = pTexWidth.unpack1('L')
-      height = pTexHeight.unpack1('L')
-      size = ImVec2.create(width, height)
-      uv0 = ImVec2.create(0, 0)
-      uv1 = ImVec2.create(1, 1)
-      tint_col   = ImVec4.create(1, 1, 1, 1)
-      border_col = ImVec4.create(0, 0, 0, 0)
+      width          = pTexWidth.unpack1('L')
+      height         = pTexHeight.unpack1('L')
+      size           = ImVec2.create(width, height)
+      uv0            = ImVec2.create(0, 0)
+      uv1            = ImVec2.create(1, 1)
+      tint_col       = ImVec4.create(1, 1, 1, 1)
+      border_col     = ImVec4.create(0, 0, 0, 0)
       imageBoxPosTop = ImGui::GetCursorScreenPos() # Get absolute pos.
       ImGui::Image(pTextureID.unpack1('L'), size, uv0, uv1, tint_col, border_col);
       # Zoom glass
@@ -162,7 +161,18 @@ def main()
 
   # Free resources
   GL::DeleteTextures(1, pTextureID)
-  destroyImGui(window)
+end
+
+#------
+# main
+#------
+def main()
+    begin
+      window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
+      gui_main(window)
+    ensure
+      destroyImGui(window) # Free resources
+    end
 end
 
 if __FILE__ == $PROGRAM_NAME
