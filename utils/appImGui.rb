@@ -118,6 +118,10 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   # Set theme
   Theme::setTheme(window.ini.theme)
 
+  # FrameBordeerSize
+  style = ImGuiStyle.new(ImGui::GetStyle())
+  style[:FrameBorderSize] = 1.0
+
   return window
 end
 
@@ -180,7 +184,6 @@ end
 
 def getFrontendVersionString() GLFW.GetVersionString().to_s end
 def getBackendVersionString() GL.GetString(GL::VERSION).to_s end
-
 
 require 'json'
 

@@ -4,11 +4,10 @@ require_relative '../utils/appImGui'
 require_relative './iconFontsTblDef'
 require_relative './iconFontsTbl2Def'
 
-#------
-# main
-#------
-def main()
-  window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
+#----------
+# gui_main
+#----------
+def gui_main(window)
 
   # Setup fonts
   setupFonts()
@@ -163,9 +162,18 @@ def main()
     render(window)
 
   end # end main loop
+end
 
-  # Free resources
-  destroyImGui(window)
+#------
+# main
+#------
+def main()
+    begin
+      window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
+      gui_main(window)
+    ensure
+      destroyImGui(window) # Free resources
+    end
 end
 
 if __FILE__ == $PROGRAM_NAME

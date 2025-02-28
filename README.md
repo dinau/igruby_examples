@@ -21,19 +21,21 @@
 
 ---
 
-This is examples project using [ruby-imgui](https://github.com/vaiorabbit/ruby-imgui) library.
+[Ruby-Imgui](https://github.com/vaiorabbit/ruby-imgui) is the wrapper library to use awesome GUI library [Dear ImGui](https://github.com/ocornut/imgui).
 
-- [x] ImGui / CImGui 1.91.8 (2025/02)
+
+This project has some examples using [Ruby-Imgui](https://github.com/vaiorabbit/ruby-imgui) library.
+
+ImGui / CImGui 1.91.8 (2025/02)
 
 ### Prerequisites
 
 ---
 
 - [x] WindowsOS 10 or later
-- [ ] LinuxOS : N/A
+- [ ] LinuxOS : N/A (Im not familiar with Ruby on Linux OS)
 - Ruby 3.1.x or later installed:  https://rubyinstaller.org/downloads/  
 OK: with or without Devkit 
-- MSys2 command line tools
 
 ### Install Ruby gems
 
@@ -52,14 +54,14 @@ gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika
 ```sh
 git clone https://github.com/dinau/igruby_examples
 cd igruby_examples
-cp dlls_extra/*.dll c:/Ruby34-x64/bin/       # Specify your Ruby bin folder
+copy dlls_extra\*.dll c:\Ruby34-x64\bin\       # Specify your Ruby bin folder 
 ```
 
 ### Screen shots
 
 ------
 
-#### [glfw_opengl3](glfw_opengl3/glfw_opengl3.rb), sdl2_opengl3(WIP), sdl2_renderer(WIP)
+#### [glfw_opengl3](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3/glfw_opengl3.rb), sdl2_opengl3(WIP), sdl2_renderer(WIP)
 
 ---
 
@@ -77,8 +79,7 @@ ruby glfw_opengl3.rb    # Or double click glfw_opengl3.rbw in file explorer
 ![alt](img/glfw_opengl3.png)
 
 
-#### [glfw_opengl3_jp](glfw_opengl3_jp/glfw_opengl3_jp.rb)
-
+#### [glfw_opengl3_jp](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_jp/glfw_opengl3_jp.rb)
 ---
 
 Image load and magnifying glass
@@ -94,8 +95,7 @@ ruby glfw_opengl3_jp.rb    # Or double click glfw_opengl3_jp.rbw in file explore
 
 ![alt](img/glfw_opengl3_jp.png)
 
-#### [glfw_opengl3_iconfont_viewer](glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
-
+#### [glfw_opengl3_iconfont_viewer](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
 ---
 
 Icon fonts viewer
@@ -132,8 +132,7 @@ That's all !
 ### My tools version
 
 ---
-
-- Ruby 3.4.1 (2024-12-25 revision 48d4efcb85) +PRISM [x64-mingw-ucrt]
+- Ruby 3.4.2 (2025-02-15 revision d2930f8e7a) +PRISM [x64-mingw-ucrt]
 - Cmake version 3.31.4
 - Gcc.exe (Rev2, Built by MSYS2 project) 14.2.0
 - Git version 2.46.0.windows.1
