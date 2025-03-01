@@ -4,6 +4,7 @@ setenv.bat
 .ccache/
 whereisruby.rb
 glfw_opengl3_imnodes/
+glfw_opengl3_bench/
 glfw_opengl3_ims*/
 utils/saveImage*
 utils/stb/
