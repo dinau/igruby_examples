@@ -9,6 +9,9 @@ require_relative './zoomglass'
 require_relative './togglebutton'
 require_relative './about_window'
 require_relative './utils'
+#require_relative './impl_glfw'
+#require_relative './impl_opengl3'
+
 
 if defined? RubyVM::YJIT.enable
   RubyVM::YJIT.enable

@@ -41,6 +41,10 @@ def gui_main(window)
   pio = ImGuiIO.new(ImGui::GetIO())
   sRubyImGuiVersion = getRubyImGuiVersion()
 
+  # For Slider
+  wsZoom = FFI::MemoryPointer.new(:float)
+  wsZoom.write(:float, 2.5)
+
   #-----------
   # main loop
   #-----------
@@ -65,7 +69,7 @@ def gui_main(window)
         if fToggleTheme.read(:bool)
           sTheme = setTheme(window, Theme::Light)
         else
-          sTheme = setTheme(window, Theme::Dark)
+          sTheme = setTheme(window, Theme::Classic)
         end
       end
       ImGui::SameLine()
@@ -120,11 +124,13 @@ def gui_main(window)
     #---------------------
     # Show icons in Table
     #---------------------
-    begin
-      ImGui::Begin("Icon Font Viewer2", nil, 0)
-      wsZoom = 2.5
+    begin ImGui::Begin("Icon Font Viewer2", nil, 0)
+      ImGui::Text("%s", :string, " Zoom x"); ImGui::SameLine(0,-1.0)
+      ImGui::SliderFloat("##Zoom1", wsZoom, 0.8, 5.0, "%.1f", 0)
+      ImGui::Separator()
+      ImGui::BeginChild("child2", ImVec2.create(0,0), 0, 0)
       wsNormal = 1.0
-      flags = ImGuiTableFlags_RowBg or ImGuiTableFlags_BordersOuter or ImGuiTableFlags_BordersV or ImGuiTableFlags_Resizable or ImGuiTableFlags_Reorderable or ImGuiTableFlags_Hideable
+      flags = ImGuiTableFlags_RowBg | ImGuiTableFlags_BordersOuter | ImGuiTableFlags_BordersV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable | ImGuiTableFlags_Hideable
       text_base_height = ImGui::GetTextLineHeightWithSpacing()
       outer_size = ImVec2.create(0.0, text_base_height * 8)
       col = 10
@@ -134,7 +140,7 @@ def gui_main(window)
           for column in 0 ... col do
             ix = (row * col) + column
             ImGui::TableSetColumnIndex(column)
-            ImGui::SetWindowFontScale(wsZoom)
+            ImGui::SetWindowFontScale(wsZoom.read(:float))
             ImGui::Text("%s", :string, $IconFontsTbl2[ix][0])
             iconFontLabel = $IconFontsTbl2[ix][1]
             setTooltip(iconFontLabel)
@@ -154,6 +160,7 @@ def gui_main(window)
         end
         ImGui::EndTable()
       end
+      ImGui::EndChild()
     ensure
       ImGui::End()
     end

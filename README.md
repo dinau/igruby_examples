@@ -24,9 +24,9 @@
 [Ruby-Imgui](https://github.com/vaiorabbit/ruby-imgui) is the wrapper library to use awesome GUI library [Dear ImGui](https://github.com/ocornut/imgui).
 
 
-This project has some examples using [Ruby-Imgui](https://github.com/vaiorabbit/ruby-imgui) library.
+This project has some basic examples using [Ruby-Imgui](https://github.com/vaiorabbit/ruby-imgui) library.
 
-ImGui / CImGui 1.91.8 (2025/02)
+ImGui / CImGui 1.91.8 (2025/03)
 
 ### Prerequisites
 
