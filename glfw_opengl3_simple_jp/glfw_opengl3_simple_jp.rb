@@ -30,7 +30,9 @@ def gui_main(window)
     newFrame()
 
     # Show ImGui demo window
-    ImGui::ShowDemoWindow(fShowDemoWindow)
+    if fShowDemoWindow.read(:bool)
+      ImGui::ShowDemoWindow(fShowDemoWindow)
+    end
 
     #----------------------------------
     # Show main window in left side
@@ -46,6 +48,7 @@ def gui_main(window)
       ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, getBackendVersionString())
 
       # Show some widgets
+      ImGui::Checkbox("ImGui demo", fShowDemoWindow)
       ImGui::ColorEdit3("背景色", window.ini.clearColor)
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
 

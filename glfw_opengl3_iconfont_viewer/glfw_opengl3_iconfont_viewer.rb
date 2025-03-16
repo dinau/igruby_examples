@@ -142,8 +142,12 @@ def gui_main(window)
             ImGui::TableSetColumnIndex(column)
             ImGui::SetWindowFontScale(wsZoom.read(:float))
             ImGui::Text("%s", :string, $IconFontsTbl2[ix][0])
+            if ImGui::IsItemHovered(0)
+              item_current.write(:int, ix)
+            end
             iconFontLabel = $IconFontsTbl2[ix][1]
             setTooltip(iconFontLabel)
+
             ImGui::SetWindowFontScale(wsNormal)
             #
             ImGui::PushID(ix)
@@ -161,6 +165,24 @@ def gui_main(window)
         ImGui::EndTable()
       end
       ImGui::EndChild()
+    ensure
+      ImGui::End()
+    end
+
+    #--------------------
+    # Text filtet window
+    #--------------------
+    begin
+      ImGui::Begin("Icon Font filter", nil, 0)
+      filter = ImGuiTextFilter.create()
+      filter.Draw()
+      tbl = $IconFontsTbl
+      for i in 0 ... tbl.size do
+        pstr = FFI::MemoryPointer.from_string(tbl[i])
+        if filter.PassFilter(pstr)
+          ImGui::Text("[%04d]  %s", :int, i, :string, tbl[i])
+        end
+      end
     ensure
       ImGui::End()
     end
