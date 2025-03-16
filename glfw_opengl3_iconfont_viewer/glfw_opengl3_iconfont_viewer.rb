@@ -45,6 +45,8 @@ def gui_main(window)
   wsZoom = FFI::MemoryPointer.new(:float)
   wsZoom.write(:float, 2.5)
 
+  filterAry = Array.new
+
   #-----------
   # main loop
   #-----------
@@ -170,17 +172,26 @@ def gui_main(window)
     end
 
     #--------------------
-    # Text filtet window
+    # Text filter window
     #--------------------
     begin
       ImGui::Begin("Icon Font filter", nil, 0)
+      ImGui::Text("(Copy)");
+      if ImGui::IsItemHovered(0)
+        filterAry[0]  =~ /.+(ICON.+)/
+        ImGui::SetClipboardText($1)
+      end
+      setTooltip("Copied first line to clipboard !") # Show tooltip help
+      ImGui::SameLine()
+      filterAry.clear
       filter = ImGuiTextFilter.create()
-      filter.Draw()
+      filter.Draw("Filter")
       tbl = $IconFontsTbl
       for i in 0 ... tbl.size do
         pstr = FFI::MemoryPointer.from_string(tbl[i])
         if filter.PassFilter(pstr)
           ImGui::Text("[%04d]  %s", :int, i, :string, tbl[i])
+          filterAry.push tbl[i]
         end
       end
     ensure
