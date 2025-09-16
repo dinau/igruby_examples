@@ -4,9 +4,9 @@
 - [IgRuby_Examples](#igruby_examples)
   - [Prerequisites](#prerequisites)
   - [Install Ruby gems](#install-ruby-gems)
-  - [Install dlls](#install-dlls)
-  - [Screen shots](#screen-shots)
-    - [glfw_opengl3, sdl2_opengl3(WIP), sdl2_renderer(WIP)](#glfw_opengl3-sdl2_opengl3wip-sdl2_rendererwip)
+  - [Install dlls on Windows OS](#install-dlls-on-windows-os)
+  - [Screenshots](#screenshots)
+    - [glfw_opengl3](#glfw_opengl3)
     - [glfw_opengl3_jp](#glfw_opengl3_jp)
     - [glfw_opengl3_iconfont_viewer](#glfw_opengl3_iconfont_viewer)
   - [Generating single EXE file on Windows OS with Aibika](#generating-single-exe-file-on-windows-os-with-aibika)
@@ -34,20 +34,20 @@ ImGui / CImGui 1.91.8 (2025/03)
 
 - [x] WindowsOS 10 or later
 - [ ] LinuxOS : N/A (Im not familiar with Ruby on Linux OS)
-- Ruby 3.1.x or later installed:  https://rubyinstaller.org/downloads/  
+- Use Ruby 3.4.5 or later : https://rubyinstaller.org/downloads/  
 OK: with or without Devkit 
 
 ### Install Ruby gems
 
 ---
 
-Note: Specify imgui-bindings version `0.1.17` at this moment.
+Note: As of now, specify imgui-bindings version `0.1.17` 
 
 ```sh
-gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika 
+gem install imgui-bindings:0.1.17 sdl2-bindings stbimage aibika rake
 ```
 
-### Install dlls
+### Install dlls on Windows OS
 
 ---
 
@@ -57,17 +57,18 @@ cd igruby_examples
 copy dlls_extra\*.dll c:\Ruby34-x64\bin\       # Specify your Ruby bin folder 
 ```
 
-### Screen shots
+### Screenshots
 
 ------
 
-#### [glfw_opengl3](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3/glfw_opengl3.rb), sdl2_opengl3(WIP), sdl2_renderer(WIP)
+#### glfw_opengl3
 
 ---
 
-Image load and magnifying glass
+[glfw_opengl3](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3/glfw_opengl3.rb)
 
-For executing program for example,
+- [x] Image loading
+- [x] Magnifying glass
 
 ```sh
 pwd 
@@ -78,13 +79,14 @@ ruby glfw_opengl3.rb    # Or double click glfw_opengl3.rbw in file explorer
 
 ![alt](img/glfw_opengl3.png)
 
+#### glfw_opengl3_jp
 
-#### [glfw_opengl3_jp](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_jp/glfw_opengl3_jp.rb)
 ---
 
-Image load and magnifying glass
+[glfw_opengl3_jp](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_jp/glfw_opengl3_jp.rb)
 
-For executing program for example,
+- [x] Image loading
+- [x] Magnifying glass
 
 ```sh
 pwd 
@@ -95,12 +97,14 @@ ruby glfw_opengl3_jp.rb    # Or double click glfw_opengl3_jp.rbw in file explore
 
 ![alt](img/glfw_opengl3_jp.png)
 
-#### [glfw_opengl3_iconfont_viewer](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
+#### glfw_opengl3_iconfont_viewer
+
 ---
 
-Icon fonts viewer
+[glfw_opengl3_iconfont_viewer](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
 
-For executing program for example,
+- [x] Icon fonts viewer
+- [x] Incremental search
 
 ```sh
 pwd 
@@ -111,9 +115,11 @@ ruby glfw_opengl3_iconfont_viewer.rb    # Or double click glfw_opengl3_iconfont_
 
 ![alt](img/glfw_opengl3_iconfont_viewer.png)
 
-### Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)
+### Generating single EXE file on Windows OS with Aibika
 
 ---
+
+Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)
 
 For instance,
 
@@ -127,16 +133,12 @@ make
 That's all !  
 `glfw_opengl3.exe` will be generated in current folder.
 
-
-
 ### My tools version
 
 ---
-- Ruby 3.4.2 (2025-02-15 revision d2930f8e7a) +PRISM [x64-mingw-ucrt]
-- Cmake version 3.31.4
-- Gcc.exe (Rev2, Built by MSYS2 project) 14.2.0
-- Git version 2.46.0.windows.1
-- Make: GNU Make 4.4.1
+
+- Ruby 3.4.5 (2025-07-16 revision 20cda200d3) +PRISM [x64-mingw-ucrt] **without Devkit**
+- Gcc.exe (Rev2, Built by MSYS2 project) 15.2.0
 
 ### Other projects 
 
@@ -155,7 +157,7 @@ That's all !
 | **Lua**              | Script   | [LuaJITImGui](https://github.com/dinau/luajitImGui)                                                                                             |
 | **Zig**, C lang.     | Compiler | [Dear_Bindings_Build](https://github.com/dinau/dear_bindings_build)                                                                             |
 | **Zig**              | Compiler | [ImGuinZ](https://github.com/dinau/imguinz)                                                                                                     |
-| **NeLua**            | Compiler | [NeLuaImGui](https://github.com/dinau/neluaImGui)                                                                                               |
+| **NeLua**            | Compiler | [NeLuaImGui](https://github.com/dinau/neluaImGui) / [NeLuaImGui2](https://github.com/dinau/neluaImGui2)                                         |
 | **Python**           | Script   | [DearPyGui for 32bit WindowsOS Binary](https://github.com/dinau/DearPyGui32/tree/win32)                                                         |
 
 ### SDL Game tutorial Platfromer
