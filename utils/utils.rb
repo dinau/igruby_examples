@@ -19,11 +19,12 @@ end
 #------------------------
 def getRubyImGuiVersion
   # Find Imgui-Ruby version from Gem folders
-  sRubyImGuiVersion = Gem.find_files('imgui.dll') # very slow function
-  if sRubyImGuiVersion[0] =~ /\/(\w+\-\w+\-\d\.\d\.\d+)\-.+\// then
-    sRubyImGuiVersion = $1
-  end
-  return sRubyImGuiVersion
+  #sRubyImGuiVersion = Gem.find_files('imgui.dll') # very slow function
+  #if sRubyImGuiVersion[0] =~ /\/(\w+\-\w+\-\d\.\d\.\d+)\-.+\// then
+  #  sRubyImGuiVersion = $1
+  #end
+  #return sRubyImGuiVersion
+  return " "
 end
 
 module Theme

@@ -1,6 +1,8 @@
 # coding: utf-8
 #
 require 'rake'
+#require 'opengl'
+#require 'glfw'
 require_relative './setup_dll'
 require_relative './setup_opengl_dll'
 require_relative './setupFonts'
@@ -11,12 +13,6 @@ require_relative './about_window'
 require_relative './utils'
 #require_relative './impl_glfw'
 #require_relative './impl_opengl3'
-
-
-if defined? RubyVM::YJIT.enable
-  RubyVM::YJIT.enable
-end
-
 
 def check_error( desc )
   e = GL.GetError()
@@ -64,6 +60,7 @@ Window = Struct.new(\
 #-------------
 # createImGui
 #-------------
+Null = Fiddle::Pointer.new(0)
 def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ + "/r.png")
   window = Window.new
   window.ini = IniData.new
@@ -72,12 +69,12 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   loadIni(window)
 
   GLFW.load_lib(SampleUtil.glfw_library_path)
+  #GLFW.load_lib(get_glfw_dll_path())
   if GLFW.Init() == GL::FALSE
     puts("Failed to init GLFW.")
     exit
   end
 
-  window.handle = 0
   versions = [[4, 6],[4, 5], [4, 4], [4, 3], [4, 2], [4, 1], [4, 0], [3, 3]]
   ver_major = 0
   ver_minor = 0
@@ -91,12 +88,16 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
     GLFW.WindowHint(GLFW::CONTEXT_VERSION_MINOR, ver_minor)
     # Hide window at start up
     GLFW.WindowHint(GLFW::VISIBLE, GLFW::FALSE)
-    window.handle = GLFW.CreateWindow(window.ini.viewportWidth, window.ini.viewportHeight, title, nil, nil)
-    break unless window.handle.null?
+    window.handle = GLFW.CreateWindow(window.ini.viewportWidth, window.ini.viewportHeight, title, Null, Null)
+    if not window.handle != Null
+      break
+    end
   end
-
-  if window.handle == 0
+  if window.handle == Null
     GLFW.Terminate()
+    puts "-----------------------------------"
+    puts "Fail GLFW::createWindow()"
+    puts "-----------------------------------"
     exit()
   end
   GLFW.SetWindowPos(window.handle, window.ini.startupPosX, window.ini.startupPosY)
@@ -166,6 +167,7 @@ def render(window)
     GL.ClearColor(ary3[0], ary3[1], ary3[2], 1.00)
     #
     GL.Clear(GL::COLOR_BUFFER_BIT)
+
     ImGui::ImplOpenGL3_RenderDrawData(ImGui::GetDrawData())
 
     GLFW.SwapBuffers( window.handle )
@@ -319,4 +321,29 @@ end
 def getTheme(win)
   theme = win.ini.theme
   return theme, Theme::getThemeString(theme)
+end
+
+
+require 'fiddle'
+require 'fiddle/import'
+
+module WinAPI
+  extend Fiddle::Importer
+ dlload 'kernel32.dll'
+  extern 'void* GetModuleHandleA(const char*)'
+  extern 'unsigned long GetModuleFileNameA(void*, char*, unsigned long)'
+end
+
+def get_glfw_dll_path
+  # glfw3.dll がロードされているか確認
+  hmod = WinAPI.GetModuleHandleA('glfw3.dll')
+  if hmod != 0
+    buffer = "\0" * 260
+    WinAPI.GetModuleFileNameA(hmod, buffer, buffer.size)
+    path = buffer.split("\0").first
+    puts "glfw3.dll path: #{path}"
+  else
+    puts "glfw3.dll はロードされていません"
+  end
+  return path
 end

@@ -119,15 +119,14 @@ ruby glfw_opengl3_iconfont_viewer.rb    # Or double click glfw_opengl3_iconfont_
 
 ---
 
-Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)
-
+Generating single EXE file on Windows OS with [Aibika](https://github.com/tamatebako/aibika)  
 For instance,
 
 ```sh
 pwd 
 igruby_examples
 cd glfw_opengl3
-make 
+ruby gen.rb      # or make 
 ```
 
 That's all !  
