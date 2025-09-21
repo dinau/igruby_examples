@@ -1,8 +1,8 @@
 # coding: utf-8
 #
 require 'rake'
-#require 'opengl'
-#require 'glfw'
+require 'opengl'
+require 'glfw'
 require_relative './setup_dll'
 require_relative './setup_opengl_dll'
 require_relative './setupFonts'
@@ -11,8 +11,8 @@ require_relative './zoomglass'
 require_relative './togglebutton'
 require_relative './about_window'
 require_relative './utils'
-#require_relative './impl_glfw'
-#require_relative './impl_opengl3'
+require_relative './impl_glfw'
+require_relative './impl_opengl3'
 
 def check_error( desc )
   e = GL.GetError()
@@ -68,8 +68,8 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   window.ini.clearColor = FFI::MemoryPointer.new(:float, 3)
   loadIni(window)
 
-  GLFW.load_lib(SampleUtil.glfw_library_path)
-  #GLFW.load_lib(get_glfw_dll_path())
+  #GLFW.load_lib(SampleUtil.glfw_library_path)
+  GLFW.load_lib(get_glfw_dll_path())
   if GLFW.Init() == GL::FALSE
     puts("Failed to init GLFW.")
     exit
@@ -114,7 +114,8 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   ImGui::CreateContext()
 
   glsl_version = "#version " + (ver_major * 100 + ver_minor * 10).to_s
-  ImGui::ImplGlfw_InitForOpenGL(window.handle, true)
+  windowHandleFFI = FFI::Pointer.new(window.handle.to_i)
+  ImGui::ImplGlfw_InitForOpenGL(windowHandleFFI, true)
   ImGui::ImplOpenGL3_Init(glsl_version)
 
   # Set window Icon

@@ -1,0 +1,28 @@
+PATH
+  remote: ../ruby-imgui-dev
+  specs:
+    imgui-bindings (0.1.17.dev)
+      ffi (~> 1.16)
+      opengl-bindings2 (~> 2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.17.2-x64-mingw-ucrt)
+    fiddle (1.1.6)
+    opengl-bindings2 (2.0.4)
+      fiddle (~> 1.0)
+    rake (13.3.0)
+    stbimage (1.0.0)
+
+PLATFORMS
+  x64-mingw-ucrt
+
+DEPENDENCIES
+  imgui-bindings!
+  opengl-bindings2
+  rake
+  stbimage
+
+BUNDLED WITH
+   2.7.1

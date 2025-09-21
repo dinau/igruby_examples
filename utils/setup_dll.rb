@@ -1,30 +1,43 @@
-require 'imgui'
+require'imgui'
 require 'imgui_internal'
-#require_relative '../glfw_opengl3_imnodes/imnodes'
-#require 'imnodes'
-
 require 'rubygems'
+
+local_dll = false
+
+if local_dll
+  require_relative '../glfw_opengl3_imnodes/imnodes'
+else
+  #require 'imnodes'
+end
+
 
 case RUBY_PLATFORM
 when /mswin|msys|mingw|cygwin/
-  if true then
-    ImGui.load_lib(Gem.find_files('imgui.dll'))
+  if false then
+    #dll_path =  (Dir.pwd + '/dlls/imgui.dll').gsub('/','\\')
+    dll_path =  'imgui.dll'
+    puts "DLL path: " + dll_path
+    ImGui.load_lib(dll_path)
   else
-    ImGui.load_lib(Dir.pwd + '/imgui.dll')
+    dll = Gem.find_files('imgui.dll')[0].gsub('/','\\')
+    ImGui.load_lib(dll)
   end
   ImGui.import_internal_symbols()
-#  ImNodes.load_lib(Gem.find_files('imnodes.dll'))
-  #ImNodes.load_lib(File.join(__dir__,'../glfw_opengl3_imnodes','imnodes.dll'),true)
+  if local_dll
+    ImNodes.load_lib(File.join(__dir__,'../glfw_opengl3_imnodes','imnodes.dll'),true)
+  else
+    #ImNodes.load_lib(Gem.find_files('imnodes.dll'))
+  end
 when /darwin/
   arch = RUBY_PLATFORM.split('-')[0]
   ImGui.load_lib(Dir.pwd + '/../lib/' + "imgui.#{arch}.dylib")
   ImGui.import_internal_symbols()
-#  ImNodes.load_lib(Dir.pwd + '/../lib/' + "imnodes.#{arch}.dylib")
+  ImNodes.load_lib(Dir.pwd + '/../lib/' + "imnodes.#{arch}.dylib")
 when /linux/
   arch = RUBY_PLATFORM.split('-')[0]
   ImGui.load_lib(Dir.pwd + '/../lib/' + "imgui.#{arch}.so")
   ImGui.import_internal_symbols()
-#  ImNodes.load_lib(Dir.pwd + '/../lib/' + "imnodes.#{arch}.so")
+  #ImNodes.load_lib(Dir.pwd + '/../lib/' + "imnodes.#{arch}.so")
 else
   raise RuntimeError, "setup_dll.rb : Unknown OS: #{RUBY_PLATFORM}"
 end

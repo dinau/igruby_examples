@@ -7,7 +7,7 @@
 
 # Converted in Ruby lang. by audin 2025/02.
 #
-require 'imgui'
+require'imgui'
 
 #----------
 # IM_COL32
