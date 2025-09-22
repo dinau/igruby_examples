@@ -4,7 +4,6 @@ setenv.bat
 .ccache/
 whereisruby.rb
 glfw_opengl3_bench/
-libs/*
 test_glfw*
 glfw_opengl3_imnodes/
 utils/stb/

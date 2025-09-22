@@ -1,49 +1,8 @@
 # coding: utf-8
 #
 require_relative '../utils/appImGui'
-require_relative '../utils/dll_path'
-
- require 'ffi'
- module ImGui
-   extend FFI::Library
-   ffi_lib get_imgui_dll_path()
-   # ImSpinner
-   attach_function :SpinnerDnaDots,   [:pointer, :float , :float ], :void
-   attach_function :SpinnerDnaDotsEx, [:pointer, :float , :float, :pointer, :float, :int, :float, :bool ], :void
-   attach_function :SpinnerAng8,    [:pointer, :float , :float ], :void
-   attach_function :SpinnerFadeTris,[:pointer, :float ], :void
-   attach_function :SpinnerAtom,    [:pointer, :float , :float ], :void
-   attach_function :demoSpinners,[], :void
-   attach_function :SpinnerBarChartRainbow, [:pointer, :float, :float, :pointer, :float], :void
-   # ImGui-Knobs
-   IgKnobFlags_NoTitle = 1        # 1 << 0,
-   IgKnobFlags_NoInput = 2        # 1 << 1,
-   IgKnobFlags_ValueTooltip = 4   # 1 << 2,
-   IgKnobFlags_DragHorizontal = 8 # 1 << 3,
-   IgKnobFlags_DragVertical = 16  # 1 << 4,
-
-   IgKnobVariant_Tick = 1         # 1 << 0,
-   IgKnobVariant_Dot = 2          # 1 << 1,
-   IgKnobVariant_Wiper = 4        # 1 << 2,
-   IgKnobVariant_WiperOnly = 8    # 1 << 3,
-   IgKnobVariant_WiperDot = 16    # 1 << 4,
-   IgKnobVariant_Stepped = 32     # 1 << 5,
-   IgKnobVariant_Space = 64       # 1 << 6,
-   attach_function :IgKnobFloat, [ :pointer,  # const char *label
-                                   :pointer,  # flaot *p_value
-                                   :float,    # float v_min
-                                   :float,    # float v_max
-                                   :float,    # float speed
-                                   :pointer,  # const char *format
-                                   :int,      # IgKnobVariant vairnat == int
-                                   :float,    # float size
-                                   :int,      # IgKnobsflags flags == int
-                                   :int,      # int steps
-                                   :float,    # flaot angle_min
-                                   :float],   # float angle_max
-                                   :bool
-   attach_function :IgKnobInt  , [:pointer, :pointer, :int,   :int,   :float, :pointer, :int,     :float, :int,   :int, :float, :float], :bool
- end
+require_relative '../libs/imknobs'
+require_relative '../libs/imspinner'
 
  #------
  # main
@@ -85,6 +44,7 @@ def main()
 
   red = ImColor.create(255,0,0,255)
 
+  # For ImKnobs
   val1 = FFI::MemoryPointer.new(:float)
   val1.write_float(0)
   val2 = FFI::MemoryPointer.new(:float)
@@ -177,10 +137,9 @@ def main()
       ImGui::End()
     end
 
-
-    #----------------------------------
-    # Show main window in left topside
-    #----------------------------------
+    #------------------
+    # Show info window
+    #------------------
     begin
       ImGui::Begin("ImGui window in Ruby  " + ICON_FA_WIFI + " 2025/02", nil)
 
