@@ -2,8 +2,7 @@
 # aibika
 #--------
 def aibika(exeName, options)
-  addedFiles = ["dlls/glfw3.dll",
-                "dlls/imgui.dll",
+  addedFiles = [
                 "../utils/fonticon/fa6/fa-solid-900.ttf",
                 "../utils/r.png"
                ]

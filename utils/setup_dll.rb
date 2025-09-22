@@ -4,11 +4,7 @@ require 'rubygems'
 
 local_dll = false
 
-if local_dll
-  require_relative '../glfw_opengl3_imnodes/imnodes'
-else
-  #require 'imnodes'
-end
+require 'imnodes'
 
 
 case RUBY_PLATFORM
@@ -23,11 +19,7 @@ when /mswin|msys|mingw|cygwin/
     ImGui.load_lib(dll)
   end
   ImGui.import_internal_symbols()
-  if local_dll
-    ImNodes.load_lib(File.join(__dir__,'../glfw_opengl3_imnodes','imnodes.dll'),true)
-  else
-    #ImNodes.load_lib(Gem.find_files('imnodes.dll'))
-  end
+  #ImNodes.load_lib(Gem.find_files('imnodes.dll'))
 when /darwin/
   arch = RUBY_PLATFORM.split('-')[0]
   ImGui.load_lib(Dir.pwd + '/../lib/' + "imgui.#{arch}.dylib")
