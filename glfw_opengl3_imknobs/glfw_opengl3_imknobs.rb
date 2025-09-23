@@ -76,12 +76,12 @@ def main()
     #-----------------------
     begin
       ImGui::Begin("ImKnobs in Ruby  " + ICON_FA_CAT , nil)
-        if ImGui::IgKnobFloat("Gain", val1, -6.0, 6.0, 0.1, "%.1fdB", ImGui::IgKnobVariant_Tick, 0, 0, 10, -1, -1 )
+        if ImGui::KnobEx("Gain", val1, -6.0, 6.0, 0.1, "%.1fdB", ImGui::IgKnobVariant_Tick, 0, 0, 10, -1, -1 )
             # value was changed
         end
         ImGui::SameLine()
 
-        if ImGui::IgKnobFloat("Mix", val2, -1.0, 1.0, 1.0, "%.1f", ImGui::IgKnobVariant_Stepped, 0, 0, 10, -1, -1 )
+        if ImGui::KnobEx("Mix", val2, -1.0, 1.0, 1.0, "%.1f", ImGui::IgKnobVariant_Stepped, 0, 0, 10, -1, -1 )
             # value was changed
         end
         if ImGui::IsItemActive() and ImGui::IsMouseDoubleClicked(0)
@@ -93,27 +93,27 @@ def main()
         ImGui::PushStyleColor_Vec4(ImGuiCol_ButtonActive,  ImVec4.create(255.0, 0,     0, 0.7))
         ImGui::PushStyleColor_Vec4(ImGuiCol_ButtonHovered, ImVec4.create(255.0, 0,     0, 1))
         ImGui::PushStyleColor_Vec4(ImGuiCol_Button,        ImVec4.create(0,     255.0, 0, 1))
-        if ImGui::IgKnobFloat("Pitch", val3, -6.0, 6.0, 0.1, "%.1f", ImGui::IgKnobVariant_WiperOnly, 0, 0, 10, -1, -1)
+        if ImGui::KnobEx("Pitch", val3, -6.0, 6.0, 0.1, "%.1f", ImGui::IgKnobVariant_WiperOnly, 0, 0, 10, -1, -1)
 
         end
         ImGui::PopStyleColor(3)
         ImGui::SameLine()
 
         # Custom min/max angle
-        if ImGui::IgKnobFloat("Dry", val4, -6.0, 6.0, 0.1, "%.1f", ImGui::IgKnobVariant_Stepped, 0, 0, 10, 1.570796, 3.141592)
+        if ImGui::KnobEx("Dry", val4, -6.0, 6.0, 0.1, "%.1f", ImGui::IgKnobVariant_Stepped, 0, 0, 10, 1.570796, 3.141592)
 
         end
         ImGui::SameLine()
 
 
-        if ImGui::IgKnobInt("Wet", val5, 1, 10, 0.1, "%i", ImGui::IgKnobVariant_Stepped, 0, 0, 10, -1, -1)
+        if ImGui::KnobIntEx("Wet", val5, 1, 10, 0.1, "%i", ImGui::IgKnobVariant_Stepped, 0, 0, 10, -1, -1)
           #window.ini.window.colBGy = @as(f32,@floatFromInt(st.val5)) / 10.0;
         end
         ImGui::SameLine()
 
 
         # Vertical drag only
-        if ImGui::IgKnobFloat("Vertical", val6, 0.0, 10.0, 0.1, "%.1f", ImGui::IgKnobVariant_Space, 0, ImGui::IgKnobFlags_DragVertical, 10, -1, -1)
+        if ImGui::KnobEx("Vertical", val6, 0.0, 10.0, 0.1, "%.1f", ImGui::IgKnobVariant_Space, 0, ImGui::IgKnobFlags_DragVertical, 10, -1, -1)
 
         end
         ImGui::NewLine()

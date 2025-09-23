@@ -13,7 +13,7 @@ def get_imgui_dll_path()
   # imgui.dll がロードされているか確認
   hmod = WinAPI.GetModuleHandleA('imgui.dll')
   if hmod != 0
-    buffer = "\0" * 260
+    buffer = "\0" * 2048
     WinAPI.GetModuleFileNameA(hmod, buffer, buffer.size)
     path = buffer.split("\0").first
     puts "imgui.dll path: #{path}"

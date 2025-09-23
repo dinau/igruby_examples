@@ -69,7 +69,7 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   loadIni(window)
 
   #GLFW.load_lib(SampleUtil.glfw_library_path)
-  GLFW.load_lib(get_glfw_dll_path())
+  GLFW.load_lib(get_glfw_dll_path(__method__))
   if GLFW.Init() == GL::FALSE
     puts("Failed to init GLFW.")
     exit
@@ -95,9 +95,9 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   end
   if window.handle == Null
     GLFW.Terminate()
-    puts "-----------------------------------"
+    puts "---------------------------"
     puts "Fail GLFW::createWindow()"
-    puts "-----------------------------------"
+    puts "---------------------------"
     exit()
   end
   GLFW.SetWindowPos(window.handle, window.ini.startupPosX, window.ini.startupPosY)
@@ -128,8 +128,8 @@ def createImGui(imnodes:false, title:"Ruby-ImGui window", titleBarIcon:__dir__ +
   Theme::setTheme(window.ini.theme)
 
   # FrameBordeerSize
-  style = ImGuiStyle.new(ImGui::GetStyle())
-  style[:FrameBorderSize] = 1.0
+  #style = ImGuiStyle.new(ImGui::GetStyle())
+  #style[:FrameBorderSize] = 1.0
 
   return window
 end
@@ -141,9 +141,6 @@ def destroyImGui(window)
   saveIni(window)
   ImGui::ImplOpenGL3_Shutdown()
   ImGui::ImplGlfw_Shutdown()
-  #when defined(ImNodesEnable):
-  #  if window.imnodes:
-  #    imnodes_DestroyContext(nil)
   ImGui::DestroyContext()
   GLFW.DestroyWindow(window.handle)
   GLFW.Terminate()
@@ -335,14 +332,14 @@ module WinAPI
   extern 'unsigned long GetModuleFileNameA(void*, char*, unsigned long)'
 end
 
-def get_glfw_dll_path
+def get_glfw_dll_path(place)
   # glfw3.dll がロードされているか確認
   hmod = WinAPI.GetModuleHandleA('glfw3.dll')
   if hmod != 0
     buffer = "\0" * 260
     WinAPI.GetModuleFileNameA(hmod, buffer, buffer.size)
     path = buffer.split("\0").first
-    puts "glfw3.dll path: #{path}"
+    puts "glfw3.dll path: #{path} : #{place}"
   else
     puts "glfw3.dll はロードされていません"
   end
