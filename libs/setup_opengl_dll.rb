@@ -1,13 +1,3 @@
-require 'opengl'
-require 'glfw'
-
-# require 'imgui_impl_opengl2'
-#require 'imgui_impl_opengl3'
-#require 'imgui_impl_glfw'
-
-require_relative './impl_opengl3'
-require_relative './impl_glfw'
-
 module SampleUtil
 
   def self.gl_library_path()
@@ -35,5 +25,4 @@ module SampleUtil
       raise RuntimeError, "Unsupported platform."
     end
   end
-
 end

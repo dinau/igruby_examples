@@ -1,6 +1,6 @@
 # This file is handwritten (not auto-generated). :-)
 
-require_relative '../utils/dll_path'
+require_relative './dll_path'
 
 require 'ffi'
 

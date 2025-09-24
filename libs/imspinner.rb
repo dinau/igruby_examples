@@ -25,7 +25,7 @@
 #  SOFTWARE.
 #
 
-require_relative '../utils/dll_path'
+require_relative './dll_path'
 
 require 'ffi'
 module ImGui

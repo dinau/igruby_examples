@@ -50,6 +50,10 @@ def main()
   while GLFW.WindowShouldClose( window.handle ) == 0
     GLFW.PollEvents()
 
+    # Iconify sleep
+    if window.isIconified()
+        next
+    end
     newFrame()
 
     # Show window for Dear ImGui official demo

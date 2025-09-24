@@ -1,4 +1,5 @@
 require_relative  __dir__  + '/fonticon/IconsFontAwesome6'
+require 'imgui'
 
 IconfontFullPath = File.join(__dir__ , 'fonticon','fa6','fa-solid-900.ttf')
 

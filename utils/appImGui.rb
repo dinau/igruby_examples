@@ -3,16 +3,16 @@
 require 'rake'
 require 'opengl'
 require 'glfw'
-require_relative './setup_dll'
-require_relative './setup_opengl_dll'
+require_relative '../libs/setup_dll'
+require_relative '../libs/setup_opengl_dll'
 require_relative './setupFonts'
 require_relative './loadImage'
 require_relative './zoomglass'
 require_relative './togglebutton'
 require_relative './about_window'
 require_relative './utils'
-require_relative './impl_glfw'
-require_relative './impl_opengl3'
+require_relative '../libs/impl_glfw'
+require_relative '../libs/impl_opengl3'
 
 def check_error( desc )
   e = GL.GetError()
@@ -56,6 +56,20 @@ Window = Struct.new(\
                     :showWindowDelay,
                     :ini
                    )
+
+#/-------------
+#/ isIconified
+#/-------------
+class Window
+  def isIconified() # bool
+    if 0 != GLFW.GetWindowAttrib(self.handle, GLFW::GLFW_ICONIFIED)
+      ImGui::ImplGlfw_Sleep(10)
+      return true
+    else
+      return false
+    end
+  end
+end
 
 #-------------
 # createImGui

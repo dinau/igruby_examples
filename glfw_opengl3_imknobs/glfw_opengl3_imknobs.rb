@@ -13,7 +13,6 @@ def main()
   # Setup fonts
   setupFonts()
 
-
   # For Input Text
   sbuf_size = 1024
   sBuf =  FFI::MemoryPointer.new(:char, sbuf_size)
@@ -64,6 +63,10 @@ def main()
   while GLFW.WindowShouldClose( window.handle ) == 0
     GLFW.PollEvents()
 
+    # Iconify sleep
+    if window.isIconified()
+        next
+    end
     newFrame()
 
     # Show window for Dear ImGui official demo
@@ -105,12 +108,10 @@ def main()
         end
         ImGui::SameLine()
 
-
         if ImGui::KnobIntEx("Wet", val5, 1, 10, 0.1, "%i", ImGui::IgKnobVariant_Stepped, 0, 0, 10, -1, -1)
           #window.ini.window.colBGy = @as(f32,@floatFromInt(st.val5)) / 10.0;
         end
         ImGui::SameLine()
-
 
         # Vertical drag only
         if ImGui::KnobEx("Vertical", val6, 0.0, 10.0, 0.1, "%.1f", ImGui::IgKnobVariant_Space, 0, ImGui::IgKnobFlags_DragVertical, 10, -1, -1)
