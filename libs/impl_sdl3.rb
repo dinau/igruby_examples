@@ -8,6 +8,8 @@ module ImGui
   ffi_lib  get_imgui_dll_path()
   # --- SDL3 ---
   typedef :pointer, :SDL_Gamepad
+  typedef :pointer, :SDL_Window
+  typedef :pointer, :SDL_Renderer
   enum :ImplSDL3_GamepadMode, [:AutoFirst, :AutoAll, :Manual]
   attach_function :ImplSDL3_InitForOpenGL,      :ImGui_ImplSDL3_InitForOpenGL,      [:SDL_Window, :pointer], :bool
   attach_function :ImplSDL3_InitForVulkan,      :ImGui_ImplSDL3_InitForVulkan,      [:SDL_Window], :bool

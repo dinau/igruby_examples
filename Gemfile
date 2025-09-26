@@ -8,3 +8,5 @@ gem "imgui-bindings", path: "../ruby-imgui-dev"
 gem "rake"
 gem "opengl-bindings2"
 gem "stbimage"
+gem "sdl2-bindings"
+#gem 'sdl3-bindings', git: 'https://github.com/vaiorabbit/sdl3-bindings'

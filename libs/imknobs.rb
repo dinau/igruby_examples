@@ -4,7 +4,7 @@ require_relative './dll_path'
 
 require 'ffi'
 
-module ImGui
+module ImKnobs
   extend FFI::Library
   ffi_lib get_imgui_dll_path()
 

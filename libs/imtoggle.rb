@@ -1,6 +1,6 @@
 require 'ffi'
 
-module ImGui
+module ImToggle
   extend FFI::Library
   ffi_lib get_imgui_dll_path()
 
@@ -26,7 +26,7 @@ module ImGui
   LabelA11yOnDefault = '1'
   LabelA11yOffDefault = '0'
 
-  # 列挙型
+  # Enum
   module ImGuiToggleFlags
     None = 0 # 0
     Animated = 1 # 1 << 0
@@ -55,7 +55,7 @@ module ImGui
   end
 
   class ImGuiTogglePalette < FFI::Struct
-    # 不透明な型として扱う（詳細はcimgui_toggle_palette.hに依存）
+    # opaque
   end
 
   class ImGuiToggleStateConfig < FFI::Struct
@@ -95,9 +95,6 @@ module ImGui
   extend FFI::Library
   ffi_lib get_imgui_dll_path()
 
-  # 依存するImGuiToggleFlags（cimgui_toggle.hから）
-
-  # 依存するImGuiToggleA11yStyle（cimgui_toggle.hから）
   enum :ImGuiToggleA11yStyle, [
     :Label, 0,
     :Glyph, 1,
@@ -105,7 +102,7 @@ module ImGui
     :Default, 0 # ImGuiToggleA11yStyle_Label
   ]
 
-  # 関数 TODO
+  # TODO
   #attach_function :TogglePresets_DefaultStyle,   :ImGuiTogglePresets_DefaultStyle, [], ImGuiToggleConfig
   #attach_function :TogglePresets_RectangleStyle, :ImGuiTogglePresets_RectangleStyle, [], ImGuiToggleConfig
   #attach_function :TogglePresets_GlowingStyle,   :ImGuiTogglePresets_GlowingStyle, [], ImGuiToggleConfig

@@ -48,7 +48,7 @@ def main()
   # main loop
   #-----------
   while GLFW.WindowShouldClose( window.handle ) == 0
-    GLFW.PollEvents()
+    window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
@@ -66,7 +66,7 @@ def main()
 
     begin
       ImGui::Begin("ImSpinner demo in C++               " , nil)
-      ImGui::demoSpinners()
+      ImSpinner::demoSpinners()
     ensure
       ImGui::End()
     end
@@ -76,22 +76,22 @@ def main()
     #-----------------------
     begin
       ImGui::Begin("ImSpinner in Ruby  " + ICON_FA_DOG , nil)
-        ImGui::SpinnerDnaDotsEx(       "DnaDots",  16, 2, red, 1.2, 8, 0.25, true); ImGui::SameLine()
-        ImGui::SpinnerFadeTris(        "fadetris", 16);                             ImGui::SameLine()
-        ImGui::SpinnerAng8(            "Ang8",     16, 2);                          ImGui::SameLine()
-        ImGui::SpinnerClock(           "Clock",    16, 2);                          ImGui::SameLine()
-        ImGui::SpinnerAtom(            "atom",     16, 2);                          ImGui::SameLine()
-        ImGui::SpinnerSwingDots(       "wheel",    16, 6);                          ImGui::SameLine()
-        ImGui::SpinnerDotsToBar(       "tobar",    16, 2, 0.5);                     ImGui::SameLine()
-        ImGui::SpinnerBarChartRainbow("rainbow",   16, 4, red, 4);
+        ImSpinner::DnaDotsEx(       "DnaDots",  16, 2, red, 1.2, 8, 0.25, true); ImGui::SameLine()
+        ImSpinner::FadeTris(        "fadetris", 16);                             ImGui::SameLine()
+        ImSpinner::Ang8(            "Ang8",     16, 2);                          ImGui::SameLine()
+        ImSpinner::Clock(           "Clock",    16, 2);                          ImGui::SameLine()
+        ImSpinner::Atom(            "atom",     16, 2);                          ImGui::SameLine()
+        ImSpinner::SwingDots(       "wheel",    16, 6);                          ImGui::SameLine()
+        ImSpinner::DotsToBar(       "tobar",    16, 2, 0.5);                     ImGui::SameLine()
+        ImSpinner::BarChartRainbow("rainbow",   16, 4, red, 4);
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
     ensure
       ImGui::End()
     end
 
-    #----------------------------------
-    # Show main window in left topside
-    #----------------------------------
+    #------------------
+    # Show info window
+    #------------------
     begin
       ImGui::Begin("Dear ImGui window in Ruby  " + ICON_FA_WIFI + " 2025/02", nil)
 

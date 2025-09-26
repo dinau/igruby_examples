@@ -3,8 +3,14 @@
 require 'rake'
 require 'opengl'
 require 'glfw'
+
+#--- Specify 'imgui.dll' (CImGui + GLFW + Opengl3) ---
+require_relative '../libs/imgui_dll'
+ImGui_DLL.name = 'imgui.dll'
 require_relative '../libs/setup_dll'
-require_relative '../libs/setup_opengl_dll'
+#-----------------------------------------------------
+
+#require_relative '../libs/setup_opengl_dll'
 require_relative './setupFonts'
 require_relative './loadImage'
 require_relative './zoomglass'
@@ -67,6 +73,23 @@ class Window
       return true
     else
       return false
+    end
+  end
+end
+
+#-----------
+# pollEvnet
+#-----------
+class Window
+  def pollEvents(*arg)
+    if arg.length == 0
+      GLFW.WaitEventsTimeout(1.0 / 60.0)  # Reduce CPU load
+    else
+      if arg[0] != 0
+        GLFW.WaitEventsTimeout(arg[0])    # Sepcify CPU performance
+      else
+        GLFW.PollEvents()  # arg[0] == 0  # Use standard PollEvents()
+      end
     end
   end
 end
@@ -319,6 +342,8 @@ def saveIni(win)
   }
 end
 
+
+
 #----------
 # setTheme
 #----------
@@ -347,7 +372,7 @@ module WinAPI
 end
 
 def get_glfw_dll_path(place)
-  # glfw3.dll がロードされているか確認
+  # Get load info about glfw3.dll
   hmod = WinAPI.GetModuleHandleA('glfw3.dll')
   if hmod != 0
     buffer = "\0" * 260
@@ -355,7 +380,7 @@ def get_glfw_dll_path(place)
     path = buffer.split("\0").first
     puts "glfw3.dll path: #{path} : #{place}"
   else
-    puts "glfw3.dll はロードされていません"
+    puts "Not loaded glfw3.dll"
   end
   return path
 end

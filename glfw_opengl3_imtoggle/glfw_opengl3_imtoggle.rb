@@ -17,20 +17,19 @@ def main()
   fShowDemoWindow.write(:bool, true)
 
   # For ImToggle
-  # 定数
   green = ImVec4.create(0.16, 0.66, 0.45,1.0)
   green_hover = ImVec4.create(0.0, 1.0, 0.57, 1.0)
   green_shadow = ImVec4.create(0.0, 1.0, 0.0, 0.4)
   size = ImVec2.create(0,0)
 
-  # 状態管理
+  # State
   values = [true, true, true, true, true, true, true, true]
 
   #-----------
   # main loop
   #-----------
   while GLFW.WindowShouldClose( window.handle ) == 0
-    GLFW.PollEvents()
+    window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
@@ -51,53 +50,53 @@ def main()
 
       value_index = 0
 
-      # デフォルトトグル
+      # Default
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.Toggle('Default Toggle', value_ptr, size)
+      ImToggle.Toggle('Default Toggle', value_ptr, size)
       values[value_index] = value_ptr.read_uint8 == 1
       ImGui.SameLine()
       value_index += 1
 
-      # アニメーショントグル
+      # Animation
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.ToggleAnim('Animated Toggle', value_ptr, ImGui::ImGuiToggleFlags::Animated, 1.0, size)
+      ImToggle.ToggleAnim('Animated Toggle', value_ptr, ImToggle::ImGuiToggleFlags::Animated, 1.0, size)
       values[value_index] = value_ptr.read_uint8 == 1
       value_index += 1
 
-      # ボーダー付きノブ
+      # Border
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.ToggleAnim('Bordered Knob', value_ptr, ImGui::ImGuiToggleFlags::Bordered, 1.0, size)
+      ImToggle.ToggleAnim('Bordered Knob', value_ptr, ImToggle::ImGuiToggleFlags::Bordered, 1.0, size)
       values[value_index] = value_ptr.read_uint8 == 1
       ImGui.SameLine()
       value_index += 1
 
-      # シャドウ付きノブ
+      # Shadow
       ImGui.PushStyleColor_Vec4(ImGuiCol_BorderShadow, green_shadow)
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.ToggleAnim('Shadowed Knob', value_ptr, ImGui::ImGuiToggleFlags::Shadowed, 1.0, size)
+      ImToggle.ToggleAnim('Shadowed Knob', value_ptr, ImToggle::ImGuiToggleFlags::Shadowed, 1.0, size)
       values[value_index] = value_ptr.read_uint8 == 1
       value_index += 1
 
-      # ボーダー＋シャドウ付きノブ
+      # Border + Shadow
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.ToggleAnim('Bordered + Shadowed Knob', value_ptr, ImGui::ImGuiToggleFlags::Bordered | ImGui::ImGuiToggleFlags::Shadowed, 1.0, size)
+      ImToggle.ToggleAnim('Bordered + Shadowed Knob', value_ptr, ImToggle::ImGuiToggleFlags::Bordered | ImToggle::ImGuiToggleFlags::Shadowed, 1.0, size)
       values[value_index] = value_ptr.read_uint8 == 1
       value_index += 1
       ImGui.PopStyleColor(1)
 
-      # グリーントグル
+      # Green
       ImGui.PushStyleColor_Vec4(ImGuiCol_Button, green)
       ImGui.PushStyleColor_Vec4(ImGuiCol_ButtonHovered, green_hover)
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.Toggle('Green Toggle', value_ptr, size)
+      ImToggle.Toggle('Green Toggle', value_ptr, size)
       values[value_index] = value_ptr.read_uint8 == 1
       ImGui.SameLine()
       ImGui.PopStyleColor(2)
       value_index += 1
 
-      # A11yラベル付きトグル
+      # A11y label
       value_ptr = FFI::MemoryPointer.new(:bool, 1).write_uint8(values[value_index] ? 1 : 0)
-      ImGui.ToggleFlag('Toggle with A11y Labels', value_ptr, ImGui::ImGuiToggleFlags::A11y, size)
+      ImToggle.ToggleFlag('Toggle with A11y Labels', value_ptr, ImToggle::ImGuiToggleFlags::A11y, size)
       values[value_index] = value_ptr.read_uint8 == 1
       value_index += 1
 

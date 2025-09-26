@@ -1,0 +1,166 @@
+# coding: utf-8
+#
+require_relative '../utils/appImGui'
+require_relative '../libs/imcolortextedit'
+
+ #------
+ # main
+ #------
+def main()
+  window = createImGui(title:"Dear ImGui: Ruby window 2025/09", titleBarIcon:__dir__ + "/res/r.png")
+
+  # Setup fonts
+  setupFonts()
+
+  # Theme
+  setTheme(window, Theme::Dark)
+
+  # For showing / hiding window
+  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
+  fShowDemoWindow.write(:bool, true)
+
+  # For ImImColorTextEdit
+  # This is a programing font. https://github.com/yuru7/NOTONOTO
+    fontFullPath = "./fonts/notonoto_v0.0.3/NOTONOTO-Regular.ttf"
+    fileName = "main.cpp"
+    sBuffer = File.read(fileName, encoding: "UTF-8")
+    editor = ImGuiColorTextEdit.TextEditor()
+    ImGuiColorTextEdit.SetLanguageDefinition(editor, ImGuiColorTextEdit::Cpp)
+    ImGuiColorTextEdit.SetText(editor, sBuffer)
+    ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Dark) # Dark, Light, etc
+
+    mLine = FFI::MemoryPointer.new(:int)
+    mColumn =FFI::MemoryPointer.new(:int)
+    fQuit = false
+
+    pio = ImGuiIO.new(ImGui::GetIO())
+    #//-- Setup programing fonts
+    textPoint = 14.5
+    textFont = pio[:Fonts].AddFontFromFileTTF(fontFullPath, 19, nil, nil)
+
+  #-----------
+  # main loop
+  #-----------
+  while GLFW.WindowShouldClose( window.handle ) == 0
+    window.pollEvents()
+
+    # Iconify sleep
+    if window.isIconified()
+        next
+    end
+    newFrame()
+
+    # Show window for Dear ImGui official demo
+    if fShowDemoWindow.read(:bool)
+      ImGui::ShowDemoWindow(fShowDemoWindow)
+    end
+
+    #-------------------------------
+    # Show ImImColorTextEdit window
+    #-------------------------------
+    begin
+      ImGui::Begin("ImImColorTextEdit in Ruby  " + ICON_FA_CAT + " 2025/09" , nil, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar)
+      ImGuiColorTextEdit.GetCursorPosition(editor, mLine, mColumn)
+      ImGui::SetWindowSize_Vec2(ImVec2.create(800, 600), ImGuiCond_FirstUseEver)
+      if ImGui::BeginMenuBar()
+        #-------------
+        #-- Menu File
+        #-------------
+        if ImGui::BeginMenu("File")
+          if ImGui::MenuItem_BoolPtr("Save", "Ctrl-S", FFI::Pointer::NULL)
+            sBuffer = ImGuiColorTextEdit.GetText(editor)
+            #--writeFile("main.cpp", strText)
+            #print"saved"
+          end
+          if ImGui::MenuItem_Bool("Quit", "Alt-F4")
+            fQuit = true
+          end
+          ImGui::EndMenu()
+        end
+        #-------------
+        #-- Menu Edit
+        #-------------
+        if ImGui::BeginMenu("Edit", true)
+          ro = FFI::MemoryPointer.new(:bool)
+          ro.write(:bool, ImGuiColorTextEdit.IsReadOnlyEnabled(editor))
+          if ImGui::MenuItem_BoolPtr("Read-only mode", "", ro)
+            ImGuiColorTextEdit.SetReadOnlyEnabled(editor, ro.read(:bool))
+          end
+          ImGui::Separator()
+          #
+          if ImGui::MenuItem_BoolPtr("Undo", "ALT-Backspace", nil, !ro.read(:bool) && ImGuiColorTextEdit.CanUndo(editor))
+            ImGuiColorTextEdit.Undo(editor, 1)
+          end
+          if ImGui::MenuItem_BoolPtr("Redo", "Ctrl-Y", nil, !ro.read(:bool) && ImGuiColorTextEdit.CanRedo(editor))
+            ImGuiColorTextEdit.Redo(editor, 1)
+          end
+          ImGui::Separator()
+          #
+          if ImGui::MenuItem_BoolPtr("Copy", "Ctrl-C", nil, ImGuiColorTextEdit.AnyCursorHasSelection(editor))
+            ImGuiColorTextEdit.Copy(editor)
+          end
+          if ImGui::MenuItem_BoolPtr("Cut", "Ctrl-X", nil, !ro.read(:bool) && ImGuiColorTextEdit.AnyCursorHasSelection(editor))
+            ImGuiColorTextEdit.Cut(editor)
+          end
+          if ImGui::MenuItem_BoolPtr("Paste", "Ctrl-V", nil, !ro.read(:bool) && ImGui::GetClipboardText() != nil)
+            ImGuiColorTextEdit.Paste(editor)
+          end
+          ImGui::Separator()
+          if ImGui::MenuItem_Bool("Select all", "Ctrl-A")
+            ImGuiColorTextEdit.SelectAll(editor)
+          end
+          ImGui::EndMenu()
+        end
+        #-------------
+        #-- Menu Theme
+        #-------------
+        if ImGui::BeginMenu("Theme", true)
+          if ImGui::MenuItem_Bool("Dark palette", nil)
+            ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Dark)
+          end
+          if ImGui::MenuItem_Bool("Light palette", nil)
+            ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Light)
+          end
+          if ImGui::MenuItem_Bool("Mariana palette", nil)
+            ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Mariana)
+          end
+          if ImGui::MenuItem_Bool("Retro blue palette", "Ctrl-B")
+            ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::RetroBlue)
+          end
+          ImGui::EndMenu()
+        end
+        ImGui::EndMenuBar()
+      end #-- menubar end
+
+      langNames = [ "None", "Cpp", "C", "Cs", "Python", "Lua", "Json", "Sql", "AngelScript", "Glsl", "Hlsl" ]
+      str1 =  "Ins"
+      if ImGuiColorTextEdit.IsOverwriteEnabled(editor)
+        str1 =  "Ovr"
+      end
+      str2 = ""
+      if ImGuiColorTextEdit.CanUndo(editor)
+        str2 =  "*"
+      end
+      ImGui::Text("%6d/%-6d %6d lines  | %s | %s | %s | %s",
+                  :int, mLine.read_int() + 1, :int, mColumn.read_int() + 1, :int, ImGuiColorTextEdit.GetLineCount(editor),
+                  :string, str1, :string, str2, :string, langNames[ImGuiColorTextEdit.GetLanguageDefinition(editor)], :string, fileName)
+
+      ImGui::PushFont(textFont)
+      ImGuiColorTextEdit.Render(editor, "texteditor", false, ImVec2.create(0, 0), false)
+      ImGui::PopFont()
+    ensure
+      ImGui::End()
+    end
+
+    # Render
+    render(window)
+
+  end # end main loop
+
+  # Free resources
+  destroyImGui(window)
+end
+
+if __FILE__ == $PROGRAM_NAME
+  main()
+end

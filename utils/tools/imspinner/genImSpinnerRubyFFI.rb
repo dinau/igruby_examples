@@ -37,10 +37,10 @@ StrHeader = <<EOF
 #  SOFTWARE.
 #
 
-require_relative '../utils/dll_path'
+require_relative '../libs/dll_path'
 
 require 'ffi'
-module ImGui
+module ImSpinner
   extend FFI::Library
   ffi_lib get_imgui_dll_path()
 EOF
@@ -94,13 +94,14 @@ File.foreach(ImSpinnerHeader) {|line|
     # Generate short arguments functions
     #------------------------------------
     cargs = cArgsShortDef.join(", ")
-    cppFile.push "  attach_function :#{funcname},   [#{cargs}], :void"
+    funcname_short = funcname.split("Spinner")[1].sub(/^(\d)/, 'x\1')
+    cppFile.push "  attach_function :#{funcname_short}, :#{funcname},   [#{cargs}], :void"
     #-----------------------------------
     # Generate long arguments functions
     #-----------------------------------
     if 0 != cArgsLongDef.length
       cargs = cargs + ", "  + cArgsLongDef.join(", ")
-      cppFile.push "  attach_function :#{funcname}Ex, [#{cargs}], :void"
+      cppFile.push "  attach_function :#{funcname_short}Ex, :#{funcname}Ex, [#{cargs}], :void"
     end
   end
 }

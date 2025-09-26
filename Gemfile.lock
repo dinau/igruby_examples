@@ -13,6 +13,8 @@ GEM
     opengl-bindings2 (2.0.4)
       fiddle (~> 1.0)
     rake (13.3.0)
+    sdl2-bindings (0.2.3)
+      ffi (~> 1.15)
     stbimage (1.0.0)
 
 PLATFORMS
@@ -22,6 +24,7 @@ DEPENDENCIES
   imgui-bindings!
   opengl-bindings2
   rake
+  sdl2-bindings
   stbimage
 
 BUNDLED WITH

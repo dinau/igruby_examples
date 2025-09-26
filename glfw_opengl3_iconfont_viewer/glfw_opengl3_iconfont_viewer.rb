@@ -51,7 +51,7 @@ def gui_main(window)
   # main loop
   #-----------
   while GLFW.WindowShouldClose( window.handle ) == 0
-    GLFW.PollEvents()
+    window.pollEvents()
 
     newFrame()
 

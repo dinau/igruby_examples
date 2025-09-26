@@ -61,6 +61,15 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 ![alt](img/imguizmo.png)
 
+#### ImGuiColorTextEdit / cimCTE
+
+---
+
+[ImGuiColorTextEdit](https://github.com/santaclose/ImGuiColorTextEdit) / [cimCTE](https://github.com/cimgui/cimCTE) 
+
+[glfw_opengl3_imcolortextedit.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imcolortextedit/glfw_opengl3_imcolortextedit.rb)  
+
+![alt](img/imicolortextedit.png)
 
 #### Iconfonts viewer
 
@@ -69,6 +78,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 [glfw_opengl3_iconfont_viewer.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
 
 ![alt](img/iconfont_viewer.png)
+
 
 #### Show image
 
@@ -85,3 +95,15 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 [glfw_opengl3_jp.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_jp/glfw_opengl3_jp.rb)
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/glfw_opengl3_jp.png)
+
+
+#### Memo
+
+---
+
+- Install sdl3 gem
+
+   ```sh
+   gem install specific_install
+   gem specific_install https://github.com/vaiorabbit/sdl3-bindings
+   ```
