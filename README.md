@@ -6,9 +6,11 @@
   - [ImGui-Knobs / CImGui-Knobs](#imgui-knobs--cimgui-knobs)
   - [ImSpinner / CImSpinner](#imspinner--cimspinner)
   - [ImGuizmo / CImGuizmo](#imguizmo--cimguizmo)
+  - [ImGuiColorTextEdit / cimCTE](#imguicolortextedit--cimcte)
   - [Iconfonts viewer](#iconfonts-viewer)
   - [Show image](#show-image)
   - [Show CJK fonts](#show-cjk-fonts)
+  - [Memo](#memo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -69,7 +71,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 [glfw_opengl3_imcolortextedit.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imcolortextedit/glfw_opengl3_imcolortextedit.rb)  
 
-![alt](img/imicolortextedit.png)
+![alt](img/imcolortextedit.png)
 
 #### Iconfonts viewer
 
@@ -78,6 +80,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 [glfw_opengl3_iconfont_viewer.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_iconfont_viewer/glfw_opengl3_iconfont_viewer.rb)
 
 ![alt](img/iconfont_viewer.png)
+
 
 
 #### Show image
