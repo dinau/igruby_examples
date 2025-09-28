@@ -5,6 +5,15 @@ setenv.bat
 whereisruby.rb
 glfw_opengl3_bench/
 test_glfw*
-glfw_opengl3_imnodes/
 utils/stb/
+utils/imnodes/
+utils/tools/imnodes/
+utils/implot/
+utils/tools/implot/
+utils/tools/imspinner/
 export_check.md
+sdl3_opengl3/
+temp.rb
+GPATH
+GTAGS
+GRTAGS

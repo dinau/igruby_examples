@@ -1,8 +1,8 @@
 *.zig linguist-vendored
-*.c linguist-vendored
-*.cpp linguist-vendored
-*.h linguist-vendored
-*.hpp linguist-vendored
+#*.c linguist-vendored
+#*.cpp linguist-vendored
+#*.h linguist-vendored
+#*.hpp linguist-vendored
 *.nim linguist-vendored
 *.lua linguist-vendored
 *.css linguist-vendored
