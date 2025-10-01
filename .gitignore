@@ -13,6 +13,7 @@ utils/tools/implot/
 utils/tools/imspinner/
 export_check.md
 sdl3_opengl3/
+sdl2_opengl3/
 temp.rb
 GPATH
 GTAGS

@@ -22,12 +22,10 @@ def gui_main(window)
   # For showing / hiding window
   fShowDemoWindow = FFI::MemoryPointer.new(:bool)
   fShowDemoWindow.write(:bool, true)
-  fShowAboutDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowAboutDemoWindow.write(:bool, false)
 
   # For theme color
   fToggleTheme = FFI::MemoryPointer.new(:bool)
-  theme, sTheme =  getTheme(window)
+  theme, sTheme =  window.getTheme()
   if theme == Theme::Light
     fToggleTheme.write(:bool, true)
   else
@@ -38,34 +36,27 @@ def gui_main(window)
   valf = FFI::MemoryPointer.new(:float)
   valf.write(:float, 0.33)
 
-  # FrameBordeerSize
-  style = ImGuiStyle.new(ImGui::GetStyle())
-  style[:FrameBorderSize] = 1.0
-
   # Other definitions
   counter = 0
   pio = ImGuiIO.new(ImGui::GetIO())
 
-  sRubyImGuiVersion = getRubyImGuiVersion()
+  sRubyImGuiVersion = window.getRubyImGuiVersion()
 
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
         next
     end
-    newFrame()
+    window.newFrame()
 
     # Show window for Dear ImGui official demo
     if fShowDemoWindow.read(:bool)
       ImGui::ShowDemoWindow(fShowDemoWindow)
-    end
-    if fShowAboutDemoWindow.read(:bool)
-      ImGuiDemo::ShowAboutWindow(fShowAboutDemoWindow)
     end
 
     #----------------------------------
@@ -77,9 +68,9 @@ def gui_main(window)
       # Toggle button for selecting theme
       if ImGui::ToggleButton("テーマ", fToggleTheme)
         if fToggleTheme.read(:bool)
-          sTheme = setTheme(window, Theme::Light)
+          sTheme = window.setTheme(Theme::Light)
         else
-          sTheme = setTheme(window, Theme::Dark)
+          sTheme = window.setTheme(Theme::Dark)
         end
       end
       ImGui::SameLine()
@@ -89,16 +80,15 @@ def gui_main(window)
       ImGui::Text(ICON_FA_APPLE_WHOLE  + "  Ruby:  %s",       :string, RUBY_VERSION)
       ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, sRubyImGuiVersion)
       ImGui::Text(ICON_FA_PAGER        + "  Dear ImGui:  %s", :string, ImGui::GetVersion().read_string)
-      ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, getFrontendVersionString())
-      ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, getBackendVersionString())
+      ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, window.getFrontendVersionString())
+      ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, window.getBackendVersionString())
 
       # Show some widgets
       ImGui::InputTextWithHint("日本語を入力","ここに入力", sBuf ,sbuf_size)
       ImGui::Text("入力結果: ");ImGui::SameLine(); ImGui::Text(sBuf.read_string)
       ImGui::Checkbox("ImGui デモ", fShowDemoWindow); ImGui::SameLine()
-      ImGui::Checkbox("About デモ", fShowAboutDemoWindow)
       ImGui::SliderFloat("浮動小数", valf, 0.0, 1.0)
-      ImGui::ColorEdit3("背景色", window.ini.clearColor)
+      ImGui::ColorEdit3("背景色", window.getBackgroundColorPtr())
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
 
       # Button for counter
@@ -158,7 +148,7 @@ def gui_main(window)
     end
 
     # Render
-    render(window)
+    window.render()
 
   end # end main loop
 
@@ -174,7 +164,7 @@ def main()
       window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
       gui_main(window)
     ensure
-      destroyImGui(window) # Free resources
+      window.destroyImGui() # Free resources
     end
 end
 

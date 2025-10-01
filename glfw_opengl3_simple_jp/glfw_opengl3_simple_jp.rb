@@ -7,8 +7,6 @@ require_relative '../utils/appImGui'
 #----------
 def gui_main(window)
 
-  setTheme(window, Theme::Classic)
-
   # Setup fonts
   setupFonts()
 
@@ -19,19 +17,18 @@ def gui_main(window)
   # Other definitions
   counter = 0
   pio = ImGuiIO.new(ImGui::GetIO())
-  sRubyImGuiVersion = getRubyImGuiVersion()
 
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
         next
     end
-    newFrame()
+    window.newFrame()
 
     # Show ImGui demo window
     if fShowDemoWindow.read(:bool)
@@ -45,14 +42,14 @@ def gui_main(window)
     begin
       # Show version info
       ImGui::Text(ICON_FA_APPLE_WHOLE  + "  Ruby:  %s",       :string, RUBY_VERSION)
-      ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, sRubyImGuiVersion)
+      #ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, sRubyImGuiVersion)
       ImGui::Text(ICON_FA_PAGER        + "  Dear ImGui:  %s", :string, ImGui::GetVersion().read_string)
-      ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, getFrontendVersionString())
-      ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, getBackendVersionString())
+      ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, window.getFrontendVersionString())
+      ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, window.getBackendVersionString())
 
       # Show some widgets
       ImGui::Checkbox("ImGui demo", fShowDemoWindow)
-      ImGui::ColorEdit3("背景色", window.ini.clearColor)
+      ImGui::ColorEdit3("背景色", window.getBackgroundColorPtr())
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
 
       if ImGui::Button("ボタン") # Button for counter
@@ -66,7 +63,7 @@ def gui_main(window)
     end
 
     # Render
-    render(window)
+    window.render()
 
   end # end while loop
 end
@@ -79,7 +76,7 @@ def main()
       window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
       gui_main(window)
     ensure
-      destroyImGui(window) # Free resources
+      window.destroyImGui() # Free resources
     end
 end
 

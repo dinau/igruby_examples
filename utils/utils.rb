@@ -14,18 +14,6 @@ def setTooltip(str, delay = ImGuiHoveredFlags_DelayNormal, color = ImVec4.create
   end
 end
 
-#------------------------
-#--- getRubyImguiVersion
-#------------------------
-def getRubyImGuiVersion
-  # Find Imgui-Ruby version from Gem folders
-  #sRubyImGuiVersion = Gem.find_files('imgui.dll') # very slow function
-  #if sRubyImGuiVersion[0] =~ /\/(\w+\-\w+\-\d\.\d\.\d+)\-.+\// then
-  #  sRubyImGuiVersion = $1
-  #end
-  #return sRubyImGuiVersion
-  return "WIP"
-end
 
 module Theme
   Light = 0

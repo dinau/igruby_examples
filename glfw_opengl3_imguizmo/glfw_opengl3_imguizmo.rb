@@ -8,14 +8,10 @@ require_relative '../libs/imguizmo'
 #----------
 def gui_main(window)
 
-  window.ini.clearColor.put_array_of_float(0, [0.1, 0.1, 0.15])
+  window.setBackgroundColor(0.1, 0.1, 0.12)
 
   # Setup fonts
   setupFonts()
-
-  # For showing / hiding window
-  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowDemoWindow.write(:bool, true)
 
   pio = ImGuiIO.new(ImGui::GetIO())
 
@@ -60,14 +56,14 @@ def gui_main(window)
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
         next
     end
-    newFrame()
+    window.newFrame()
 
     ImGuizmo.BeginFrame()
 
@@ -112,7 +108,7 @@ def gui_main(window)
     #--------
     # Render
     #--------
-    render(window)
+    window.render()
 
   end # end main loop
 
@@ -126,7 +122,7 @@ def main()
       window = createImGui(title:"Dear ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
       gui_main(window)
     ensure
-      destroyImGui(window) # Free resources
+      window.destroyImGui() # Free resources
     end
 end
 

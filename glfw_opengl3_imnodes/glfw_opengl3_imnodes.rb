@@ -112,17 +112,16 @@ def gui_main(window)
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
         next
     end
+    window.newFrame()
 
-    newFrame()
-
-    ImGui::ShowDemoWindow(nil)
+    window.infoWindow()
 
     #---------------------
     # Show ImNodes window
@@ -210,7 +209,7 @@ def gui_main(window)
     #--------
     # Render
     #--------
-    render(window)
+    window.render()
 
   end # end main loop
 
@@ -227,7 +226,7 @@ def main()
       window = createImGui(title:"ImGui: Ruby window", titleBarIcon:"./res/r.png")
       gui_main(window)
     ensure
-      destroyImGui(window) # Free resources
+      window.destroyImGui() # Free resources
     end
 end
 

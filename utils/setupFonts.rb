@@ -1,5 +1,6 @@
 require_relative  __dir__  + '/fonticon/IconsFontAwesome6'
 require 'imgui'
+require 'ffi'
 
 IconfontFullPath = File.join(__dir__ , 'fonticon','fa6','fa-solid-900.ttf')
 
@@ -35,7 +36,7 @@ end
 # setupFonts
 #------------
 def setupFonts()
-  main_font = nil
+  main_font = FFI::Pointer::NULL
   pio = ImGuiIO.new(ImGui::GetIO())
   case RUBY_PLATFORM
   when /mswin|msys|mingw|cygwin/
@@ -47,13 +48,13 @@ def setupFonts()
     fontFullPath = File.join(fontFolder, fontInfo[0])
     if File.exist?(fontFullPath) then
       main_font = pio[:Fonts].AddFontFromFileTTF(fontFullPath, point2px(fontInfo[2]), Config, pio[:Fonts].GetGlyphRangesJapanese())
-      if main_font != nil then
+      if main_font != FFI::Pointer::NULL then
         puts "Loaded Base font: #{fontFullPath}"
         break
       end
     end
   end
-  if main_font == nil
+  if main_font.null?
     pio[:Fonts].AddFontDefault()
     puts "------- Error!: Can't find available font \n"
   end
@@ -61,11 +62,7 @@ def setupFonts()
   ranges_icon_fonts = [ICON_MIN_FA,  ICON_MAX_FA, 0].pack("s3")
   if File.exist?(IconfontFullPath) then
     err = pio[:Fonts].AddFontFromFileTTF(IconfontFullPath, point2px(11), Config, ranges_icon_fonts)
-    if err == nil then
-      puts "------- Error! Load: #{IconfontFullPath}\n"
-    else
-      puts "Loaded Icon font: #{IconfontFullPath}"
-    end
+    err.null? ? (puts "------- Error! Load: #{IconfontFullPath}\n") : (puts "Loaded Icon font: #{IconfontFullPath}")
   else
     puts "Error!: Can't find Icon fonts: #{IconfontFullPath}"
   end

@@ -3,18 +3,12 @@
 require_relative '../utils/appImGui'
 require_relative '../libs/imtoggle'
 
- #------
- # main
- #------
-def main()
-  window = createImGui(title:"Dear ImGui: Ruby window 2025/09", titleBarIcon:__dir__ + "/res/r.png")
-
+#----------
+# gui_main
+#----------
+def gui_main(window)
   # Setup fonts
   setupFonts()
-
-  # For showing / hiding window
-  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowDemoWindow.write(:bool, true)
 
   # For ImToggle
   green = ImVec4.create(0.16, 0.66, 0.45,1.0)
@@ -28,19 +22,16 @@ def main()
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
         next
     end
-    newFrame()
+    window.newFrame()
 
-    # Show window for Dear ImGui official demo
-    if fShowDemoWindow.read(:bool)
-      ImGui::ShowDemoWindow(fShowDemoWindow)
-    end
+    window.infoWindow()
 
     #----------------------
     # Show ImToggle window
@@ -105,12 +96,21 @@ def main()
     end
 
     # Render
-    render(window)
+    window.render()
 
   end # end main loop
+end
 
-  # Free resources
-  destroyImGui(window)
+#------
+# main
+#------
+def main()
+    begin
+      window = createImGui(title:"ImGui: Ruby window", titleBarIcon:"./res/r.png")
+      gui_main(window)
+    ensure
+      window.destroyImGui() # Free resources
+    end
 end
 
 if __FILE__ == $PROGRAM_NAME

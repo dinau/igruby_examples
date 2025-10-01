@@ -8,6 +8,7 @@
   - [ImGuizmo / CImGuizmo](#imguizmo--cimguizmo)
   - [ImGuiColorTextEdit / cimCTE](#imguicolortextedit--cimcte)
   - [ImNodes / CImNodes](#imnodes--cimnodes)
+  - [ImGuiFileDialog](#imguifiledialog)
   - [Iconfonts viewer](#iconfonts-viewer)
   - [Show image](#show-image)
   - [Show CJK fonts](#show-cjk-fonts)
@@ -84,7 +85,15 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imnodes.png)
 
+#### ImGuiFileDialog 
 
+---
+
+[ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialog)
+
+[glfw_opengl3_imguifiledialog.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imguifiledialog/glfw_opengl3_imguifiledialog.rb)  
+
+![alt](https://github.com/dinau/igruby_examples/raw/main/img/imguifiledialog.png)
 
 #### Iconfonts viewer
 
@@ -94,15 +103,13 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 ![alt](img/iconfont_viewer.png)
 
-
-
-#### Show image
+#### Image loading
 
 ---
 
 [glfw_opengl3.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3/glfw_opengl3.rb)
 
-![alt](https://github.com/dinau/igruby_examples/raw/main/img/glfw_opengl3.png)  
+![alt](https://github.com/dinau/igruby_examples/raw/main/img/glfw_opengl3.gif)  
 
 #### Show CJK fonts
 
@@ -111,15 +118,3 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 [glfw_opengl3_jp.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_jp/glfw_opengl3_jp.rb)
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/glfw_opengl3_jp.png)
-
-
-#### Memo
-
----
-
-- Install sdl3 gem
-
-   ```sh
-   gem install specific_install
-   gem specific_install https://github.com/vaiorabbit/sdl3-bindings
-   ```

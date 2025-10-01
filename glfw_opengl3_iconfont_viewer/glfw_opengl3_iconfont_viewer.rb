@@ -12,23 +12,6 @@ def gui_main(window)
   # Setup fonts
   setupFonts()
 
-  # For showing demo window
-  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowDemoWindow.write(:bool, true)
-
-  # For theme color
-  fToggleTheme = FFI::MemoryPointer.new(:bool)
-  theme, sTheme =  getTheme(window)
-  if theme == Theme::Light
-  fToggleTheme.write(:bool, true)
-  else
-    fToggleTheme.write(:bool, false)
-  end
-
-  # FrameBordeerSize
-  style = ImGuiStyle.new(ImGui::GetStyle())
-  style[:FrameBorderSize] = 1.0
-
   # For Listbox
   item_current = FFI::MemoryPointer.new(:int)
   item_current.write(:int, 0)
@@ -37,9 +20,6 @@ def gui_main(window)
   string_pointers.each_with_index do |ptr, i|
     pIconFontsTbl.put_pointer(i * FFI::Pointer.size, ptr)
   end
-
-  pio = ImGuiIO.new(ImGui::GetIO())
-  sRubyImGuiVersion = getRubyImGuiVersion()
 
   # For Slider
   wsZoom = FFI::MemoryPointer.new(:float)
@@ -50,47 +30,14 @@ def gui_main(window)
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
-    newFrame()
-
-    # Show window for Dear ImGui official demo
-    if fShowDemoWindow.read(:bool)
-      ImGui::ShowDemoWindow(fShowDemoWindow)
+    # Iconify sleep
+    if window.isIconified()
+        next
     end
-
-    #----------------------------------
-    # Show version info window
-    #----------------------------------
-    begin
-      ImGui::Begin("ImGui window in Ruby  " + ICON_FA_WIFI + " 2025/02", nil)
-
-      # Toggle button for selecting theme
-      if ImGui::ToggleButton("Theme", fToggleTheme)
-        if fToggleTheme.read(:bool)
-          sTheme = setTheme(window, Theme::Light)
-        else
-          sTheme = setTheme(window, Theme::Classic)
-        end
-      end
-      ImGui::SameLine()
-      ImGui::Text(sTheme)
-
-      # Show version info
-      ImGui::Text(ICON_FA_APPLE_WHOLE  + "  Ruby:  %s",       :string, RUBY_VERSION)
-      ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, sRubyImGuiVersion)
-      ImGui::Text(ICON_FA_PAGER        + "  Dear ImGui:  %s", :string, ImGui::GetVersion().read_string)
-      ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, getFrontendVersionString())
-      ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, getBackendVersionString())
-
-      # Show some widgets
-      ImGui::Checkbox("ImGui demo", fShowDemoWindow)
-      ImGui::ColorEdit3("Background color", window.ini.clearColor)
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
-    ensure
-      ImGui::End() # Window end proc
-    end
+    window.newFrame()
 
     #--------------
     # Show ListBox
@@ -199,7 +146,7 @@ def gui_main(window)
     end
 
     # Render
-    render(window)
+    window.render()
 
   end # end main loop
 end
@@ -212,7 +159,7 @@ def main()
       window = createImGui(title:"ImGui: Ruby window", titleBarIcon:__dir__ + "/res/r.png")
       gui_main(window)
     ensure
-      destroyImGui(window) # Free resources
+      window.destroyImGui() # Free resources
     end
 end
 

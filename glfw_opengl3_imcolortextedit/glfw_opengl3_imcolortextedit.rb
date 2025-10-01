@@ -6,18 +6,10 @@ require_relative '../libs/imcolortextedit'
 #------
 # main
 #------
-def main()
-  window = createImGui(title:"Dear ImGui: Ruby window 2025/09", titleBarIcon:__dir__ + "/res/r.png")
+def gui_main(window)
 
   # Setup fonts
   setupFonts()
-
-  # Theme
-  setTheme(window, Theme::Dark)
-
-  # For showing / hiding window
-  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowDemoWindow.write(:bool, true)
 
   # For ImImColorTextEdit
   # This is a programing font. https://github.com/yuru7/NOTONOTO
@@ -34,26 +26,23 @@ def main()
   fQuit = false
 
   pio = ImGuiIO.new(ImGui::GetIO())
-  #//-- Setup programing fonts
+  # Setup programing fonts
   textPoint = 14.5
   textFont = pio[:Fonts].AddFontFromFileTTF(fontFullPath, 19, nil, nil)
 
   #-----------
   # main loop
   #-----------
-  while GLFW.WindowShouldClose( window.handle ) == 0
+  while window.shouldClose()
     window.pollEvents()
 
     # Iconify sleep
     if window.isIconified()
       next
     end
-    newFrame()
+    window.newFrame()
 
-    # Show window for Dear ImGui official demo
-    if fShowDemoWindow.read(:bool)
-      ImGui::ShowDemoWindow(fShowDemoWindow)
-    end
+    window.infoWindow()
 
     #-------------------------------
     # Show ImImColorTextEdit window
@@ -69,12 +58,12 @@ def main()
           #-------------
           if ImGui::BeginMenu("File")
             begin
-              if ImGui::MenuItem_BoolPtr("Save", "Ctrl-S", FFI::Pointer::NULL)
+              if ImGui::MenuItem_BoolPtr(ICON_FA_FLOPPY_DISK + " Save", "Ctrl-S", FFI::Pointer::NULL)
                 sBuffer = ImGuiColorTextEdit.GetText(editor)
                 #--writeFile("main.cpp", strText)
                 #print"saved"
               end
-              if ImGui::MenuItem_Bool("Quit", "Alt-F4")
+              if ImGui::MenuItem_Bool(ICON_FA_SQUARE_PLUS + " Quit", "Alt-F4")
                 fQuit = true
               end
             ensure
@@ -88,28 +77,28 @@ def main()
             begin
               ro = FFI::MemoryPointer.new(:bool)
               ro.write(:bool, ImGuiColorTextEdit.IsReadOnlyEnabled(editor))
-              if ImGui::MenuItem_BoolPtr("Read-only mode", "", ro)
+              if ImGui::MenuItem_BoolPtr(ICON_FA_LOCK + " Read-only mode", "", ro)
                 ImGuiColorTextEdit.SetReadOnlyEnabled(editor, ro.read(:bool))
               end
               ImGui::Separator()
-              if ImGui::MenuItem_BoolPtr("Undo", "ALT-Backspace", nil, !ro.read(:bool) && ImGuiColorTextEdit.CanUndo(editor))
+              if ImGui::MenuItem_BoolPtr(ICON_FA_ARROW_ROTATE_LEFT + " Undo", "ALT-Backspace", nil, !ro.read(:bool) && ImGuiColorTextEdit.CanUndo(editor))
                 ImGuiColorTextEdit.Undo(editor, 1)
               end
-              if ImGui::MenuItem_BoolPtr("Redo", "Ctrl-Y", nil, !ro.read(:bool) && ImGuiColorTextEdit.CanRedo(editor))
+              if ImGui::MenuItem_BoolPtr(ICON_FA_ARROW_ROTATE_RIGHT + " Redo", "Ctrl-Y", nil, !ro.read(:bool) && ImGuiColorTextEdit.CanRedo(editor))
                 ImGuiColorTextEdit.Redo(editor, 1)
               end
               ImGui::Separator()
-              if ImGui::MenuItem_BoolPtr("Copy", "Ctrl-C", nil, ImGuiColorTextEdit.AnyCursorHasSelection(editor))
+              if ImGui::MenuItem_BoolPtr(ICON_FA_COPY + " Copy", "Ctrl-C", nil, ImGuiColorTextEdit.AnyCursorHasSelection(editor))
                 ImGuiColorTextEdit.Copy(editor)
               end
-              if ImGui::MenuItem_BoolPtr("Cut", "Ctrl-X", nil, !ro.read(:bool) && ImGuiColorTextEdit.AnyCursorHasSelection(editor))
+              if ImGui::MenuItem_BoolPtr(ICON_FA_SCISSORS + " Cut", "Ctrl-X", nil, !ro.read(:bool) && ImGuiColorTextEdit.AnyCursorHasSelection(editor))
                 ImGuiColorTextEdit.Cut(editor)
               end
-              if ImGui::MenuItem_BoolPtr("Paste", "Ctrl-V", nil, !ro.read(:bool) && ImGui::GetClipboardText() != nil)
+              if ImGui::MenuItem_BoolPtr(ICON_FA_PASTE + " Paste", "Ctrl-V", nil, !ro.read(:bool) && ImGui::GetClipboardText() != nil)
                 ImGuiColorTextEdit.Paste(editor)
               end
               ImGui::Separator()
-              if ImGui::MenuItem_Bool("Select all", "Ctrl-A")
+              if ImGui::MenuItem_Bool(ICON_FA_SQUARE + " Select all", "Ctrl-A")
                 ImGuiColorTextEdit.SelectAll(editor)
               end
             ensure
@@ -121,16 +110,16 @@ def main()
           #-------------
           if ImGui::BeginMenu("Theme", true)
             begin
-              if ImGui::MenuItem_Bool("Dark palette", nil)
+              if ImGui::MenuItem_Bool(ICON_FA_STAR_AND_CRESCENT + " Dark palette", nil)
                 ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Dark)
               end
-              if ImGui::MenuItem_Bool("Light palette", nil)
+              if ImGui::MenuItem_Bool(ICON_FA_SUN + " Light palette", nil)
                 ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Light)
               end
-              if ImGui::MenuItem_Bool("Mariana palette", nil)
+              if ImGui::MenuItem_Bool(ICON_FA_M + " Mariana palette", nil)
                 ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Mariana)
               end
-              if ImGui::MenuItem_Bool("Retro blue palette", "Ctrl-B")
+              if ImGui::MenuItem_Bool(ICON_FA_CAMERA_RETRO + " Retro blue palette", "Ctrl-B")
                 ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::RetroBlue)
               end
             ensure
@@ -162,14 +151,24 @@ def main()
       ImGui::End()
     end
 
-
+    #--------
     # Render
-    render(window)
+    #--------
+    window.render()
 
   end # end main loop
+end
 
-  # Free resources
-  destroyImGui(window)
+#------
+# main
+#------
+def main()
+    begin
+      window = createImGui(title:"Dear ImGui: Ruby window 2025/09", titleBarIcon:__dir__ + "/res/r.png")
+      gui_main(window)
+    ensure
+      window.destroyImGui() # Free resources
+    end
 end
 
 if __FILE__ == $PROGRAM_NAME
