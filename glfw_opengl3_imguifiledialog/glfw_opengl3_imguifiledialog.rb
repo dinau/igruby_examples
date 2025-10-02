@@ -58,21 +58,30 @@ class App
         if ImGuiFileDialog.DisplayDialog(cfd, "filedlg", 0, min_size.pointer, max_size.pointer)
           ImGuiFileDialog.CloseDialog(cfd)
           if ImGuiFileDialog.IsOk(cfd)
-            pFilePathName = ImGuiFileDialog.GetFilePathName(cfd, ImGuiFileDialog::ResultMode_AddIfNoFileExt)
-            sFilePathName = pFilePathName.read_string  # copy content of char* to Ruby string (Ruby heap region)
-            ImGuiFileDialog.free(pFilePathName)        # free memory on the C side
-
-            pFileDirPath  = ImGuiFileDialog.GetCurrentPath(cfd)
-            sFileDirPath  = pFileDirPath.read_string
-            ImGuiFileDialog.free(pFileDirPath)
-
+            sFilePathName   = "?"
+            pFilePathName   = ImGuiFileDialog.GetFilePathName(cfd, ImGuiFileDialog::ResultMode_AddIfNoFileExt)
+            unless pFilePathName.null?
+              sFilePathName = pFilePathName.read_string  # copy content of char* to Ruby string (Ruby heap region)
+              ImGuiFileDialog.free(pFilePathName)        # free memory on the C side
+            end
+            sFileDirPath    = "?"
+            pFileDirPath    = ImGuiFileDialog.GetCurrentPath(cfd)
+            unless pFileDirPath.null?
+              sFileDirPath  = pFileDirPath.read_string
+              ImGuiFileDialog.free(pFileDirPath)
+            end
+            sFilter       = "?"
             pFilter       = ImGuiFileDialog.GetCurrentFilter(cfd)
-            sFilter       = pFilter.read_string
-            ImGuiFileDialog.free(pFilter)
-
+            unless pFilter.null?
+              sFilter       = pFilter.read_string
+              ImGuiFileDialog.free(pFilter)
+            end
+            sDatas        = "?"
             pDatas        = ImGuiFileDialog.GetUserDatas(cfd)
-            sDatas        = pDatas.null? ? "" : pDatas.read_string
-            ImGuiFileDialog.free(pDatas)
+            unless pDatas.null?
+              sDatas        = pDatas.null? ? "" : pDatas.read_string
+              ImGuiFileDialog.free(pDatas)
+            end
           end
         end
         # Show selected path
