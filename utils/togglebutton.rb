@@ -35,7 +35,7 @@ module ImGui
 
     ret = false
     if ImGui::InvisibleButton(str_id, ImVec2.create(width, @height)) then
-      pbVal.write(:bool, not pbVal.read(:bool))
+      pbVal.write(:bool,  !pbVal.read(:bool))
       ret = true
     end
     col_bg   = 0
