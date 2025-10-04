@@ -1,0 +1,92 @@
+name: rel_zip_win
+
+on:
+  push:
+    tags:
+      - 'v*'      # 例: v1.0.0
+      - '[0-9]*'  # 例: 1.0.0, 2.1.3
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    env:
+      REPO_NAME: "igruby_examples"
+      OTHER_REPO: "ruby-imgui-dev"
+      OTHER_REPO_OWNER: "dinau"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Run Makefile
+        run: |
+          make
+        shell: bash
+
+      - name: Download latest other tag source
+        run: |
+          mkdir -p "${RUNNER_TEMP}/mytemp"
+          pushd "${RUNNER_TEMP}/mytemp"
+          echo "Fetching tags from https://api.github.com/repos/${OTHER_REPO_OWNER}/${OTHER_REPO}/tags"
+          LATEST_TAG=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${OTHER_REPO_OWNER}/${OTHER_REPO}/tags | jq -r '.[0].name')
+          echo "Latest tag: ${LATEST_TAG}"
+          DOWNLOAD_URL="https://github.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/archive/refs/tags/${LATEST_TAG}.zip"
+          echo "Downloading from ${DOWNLOAD_URL}"
+          DOWNLOADED_TAG="${OTHER_REPO}-${LATEST_TAG}"
+          curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o "${DOWNLOADED_TAG}.zip" "${DOWNLOAD_URL}"
+          if [ ! -f "${DOWNLOADED_TAG}.zip" ]; then
+            echo "Error: Failed to download ${DOWNLOADED_TAG}.zip"
+            ls -la
+            exit 1
+          fi
+          unzip -o "${DOWNLOADED_TAG}.zip"  # -o enable overwrite
+          rm "${DOWNLOADED_TAG}.zip"
+          mv "${DOWNLOADED_TAG}" "${OTHER_REPO}"   # remove tag number
+          pushd "${OTHER_REPO}"
+          shopt -s extglob    # for glob rm
+          rm -rf !(
+              ChangeLog|
+              LICENSE.txt|
+              README.md|
+              imgui-bindings.gemspec|
+              lib/glfw3.dll|
+              lib/imgui.dll|
+              lib/imgui.rb|
+              imgui_internal.rb
+            )
+          popd
+          echo "Working in $(pwd)"
+          tree
+          popd
+        shell: bash
+
+      - name: Create zip
+        run: |
+          REF_NAME="${{ github.ref_name }}"
+          ZIP_FILE="${REPO_NAME}-${REF_NAME}.zip"
+          zip -r "$ZIP_FILE" dir1/text1.txt dir2/text2.txt Makefile README.md
+          cp "$ZIP_FILE" "${RUNNER_TEMP}/mytemp/"
+          pushd "${RUNNER_TEMP}/mytemp"
+          unzip -o "${ZIP_FILE}" -d "${REPO_NAME}"
+          rm "${ZIP_FILE}"
+          tree -d
+          echo zip -r  "${ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
+          zip -r  "${ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
+          tree -d
+          popd
+          echo "ZIP_FILE=${RUNNER_TEMP}/mytemp/${ZIP_FILE}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "${{ env.ZIP_FILE }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
