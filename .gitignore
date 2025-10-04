@@ -1,3 +1,4 @@
+*.lock
 *.exe
 *.html
 setenv.bat

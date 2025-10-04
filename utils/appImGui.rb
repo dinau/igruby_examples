@@ -431,6 +431,13 @@ class Window
     @ini.clearColor
   end
 
+  #--------------
+  # swapInterval
+  #--------------
+  def swapInterval(n)
+    GLFW.SwapInterval(n) # Wait VSync
+  end
+
   #------------------------
   # getRubyImguiVersion
   #------------------------

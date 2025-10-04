@@ -3,6 +3,7 @@
 
 - [IgRuby Examples](#igruby-examples)
   - [ImGui-Toggle / CImGui-Toggle](#imgui-toggle--cimgui-toggle)
+  - [ImDrawList party](#imdrawlist-party)
   - [ImGui-Knobs / CImGui-Knobs](#imgui-knobs--cimgui-knobs)
   - [ImSpinner / CImSpinner](#imspinner--cimspinner)
   - [ImGuizmo / CImGuizmo](#imguizmo--cimguizmo)
@@ -10,9 +11,8 @@
   - [ImNodes / CImNodes](#imnodes--cimnodes)
   - [ImGuiFileDialog](#imguifiledialog)
   - [Iconfonts viewer](#iconfonts-viewer)
-  - [Show image](#show-image)
+  - [Image loading](#image-loading)
   - [Show CJK fonts](#show-cjk-fonts)
-  - [Memo](#memo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -34,6 +34,16 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 [glfw_opengl3_imtoggle.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imtoggle/glfw_opengl3_imtoggle.rb)  
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imtoggle.png)  
+
+#### ImDrawList party 
+
+---
+
+Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://github.com/ocornut/imgui/issues/3606)
+
+[glfw_opengl3_imdrawlistparty.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imdrawlistparty/imDrawListParty.rb)  
+
+![alt](https://github.com/dinau/igruby_examples/raw/main/img/imdrawlistparty.gif)  
 
 #### ImGui-Knobs / CImGui-Knobs
 
