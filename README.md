@@ -46,7 +46,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 1. Execute bundler command,
 
    ```sh
-   $ cd  igruby_examples-1.9x.y.w 
+   $ cd igruby_examples-1.9x.y.w/igruby_examples
    $ bundle install
 
    Fetching gem metadata from https://rubygems.org/..
@@ -61,8 +61,8 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
    ```sh
    cd  glfw_opengl3
-   r.bat              # or double click glfw_opengl3.rbw in Windows explorer
-                      # Ignore many warnings emmited on console
+   r.bat              # Or double click glfw_opengl3.rbw in Windows explorer
+                      # Ignore many warnings emmited in console
    ```
 
 

@@ -58,6 +58,7 @@ jobs:
 
       - name: Create release zip
         run: |
+          rm -fr .git .github
           zip -r "${REPO_NAME}.zip" . -x "*/.*"                                 # generate: ./igruby_example.zip
           unzip -o "${REPO_NAME}.zip" -d "${RUNNER_TEMP}/mytemp/${REPO_NAME}"
           #
