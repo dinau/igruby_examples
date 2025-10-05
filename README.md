@@ -21,11 +21,49 @@
 
 ---
 
-Ruby language + Dear ImGui + Extra libraries project
+Ruby language + Dear ImGui + Additional libraries project
 
 See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev) 
 
-#### ImGui-Toggle / CImGui-Toggle
+#### Prerequisites
+
+---
+
+✅ Windows10 or later  
+- Install [RubyInstaller + **Devkit** ](https://rubyinstaller.org/downloads/) 3.4.6 or later  
+  (Install Devkit (MSys2/MinGW))
+
+🟥 ~~Linux OS~~
+
+
+#### Donwload and running examples
+---
+
+1. Download `igruby_examples-1.9x.y.w.zip` from [Release page](https://github.com/dinau/igruby_examples/releases) and extract zip file.
+1. Execute bundler command,
+
+   ```sh
+   cd  igruby_examples-1.9x.y.w 
+   bundle install
+   ```
+
+   Note: Only supported under bundler enviroment at this moment 
+
+1. Execute one of the example script,
+
+   ```sh
+   cd  glfw_opengl3
+   r.bat              # or double click glfw_opengl3.rbw in Windows explorer
+   ```
+
+
+#### Snapshots
+
+---
+
+
+
+##### ImGui-Toggle / CImGui-Toggle
 
 ---
 
@@ -35,7 +73,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imtoggle.png)  
 
-#### ImDrawList party 
+##### ImDrawList party 
 
 ---
 
@@ -45,7 +83,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imdrawlistparty.gif)  
 
-#### ImGui-Knobs / CImGui-Knobs
+##### ImGui-Knobs / CImGui-Knobs
 
 ---
 
@@ -55,7 +93,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](img/imknobs.png)  
 
-#### ImSpinner / CImSpinner
+##### ImSpinner / CImSpinner
 
 ---
 
@@ -63,9 +101,11 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 [glfw_opengl3_imspinner.rb](glfw_opengl3_imspinner/glfw_opengl3_imspinner.rb)  
 
+Amazing !
+
 ![alt](img/imspinner.gif)
 
-#### ImGuizmo / CImGuizmo
+##### ImGuizmo / CImGuizmo
 
 ---
 
@@ -75,7 +115,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](img/imguizmo.png)
 
-#### ImGuiColorTextEdit / cimCTE
+##### ImGuiColorTextEdit / cimCTE
 
 ---
 
@@ -85,7 +125,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](img/imcolortextedit.png)
 
-#### ImNodes / CImNodes
+##### ImNodes / CImNodes
 
 ---
 
@@ -95,7 +135,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imnodes.png)
 
-#### ImGuiFileDialog 
+##### ImGuiFileDialog 
 
 ---
 
@@ -105,7 +145,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imguifiledialog.png)
 
-#### Iconfonts viewer
+##### Iconfonts viewer
 
 ---
 
@@ -113,7 +153,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](img/iconfont_viewer.png)
 
-#### Image loading
+##### Image loading
 
 ---
 
@@ -121,7 +161,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/glfw_opengl3.gif)  
 
-#### Show CJK fonts
+##### Showing CJK fonts
 
 ---
 

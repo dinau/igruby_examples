@@ -30,63 +30,50 @@ jobs:
           make
         shell: bash
 
-      - name: Download latest other tag source
+      - name: Download latest taged ruby-imgui-dev files
         run: |
           mkdir -p "${RUNNER_TEMP}/mytemp"
           pushd "${RUNNER_TEMP}/mytemp"
+          #
+          mkdir -p ${OTHER_REPO}/lib
+          pushd ${OTHER_REPO}
+          #
           echo "Fetching tags from https://api.github.com/repos/${OTHER_REPO_OWNER}/${OTHER_REPO}/tags"
           LATEST_TAG=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${OTHER_REPO_OWNER}/${OTHER_REPO}/tags | jq -r '.[0].name')
-          echo "Latest tag: ${LATEST_TAG}"
-          DOWNLOAD_URL="https://github.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/archive/refs/tags/${LATEST_TAG}.zip"
-          echo "Downloading from ${DOWNLOAD_URL}"
-          DOWNLOADED_TAG="${OTHER_REPO}-${LATEST_TAG}"
-          curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o "${DOWNLOADED_TAG}.zip" "${DOWNLOAD_URL}"
-          if [ ! -f "${DOWNLOADED_TAG}.zip" ]; then
-            echo "Error: Failed to download ${DOWNLOADED_TAG}.zip"
-            ls -la
-            exit 1
-          fi
-          unzip -o "${DOWNLOADED_TAG}.zip"  # -o enable overwrite
-          rm "${DOWNLOADED_TAG}.zip"
-          mv "${DOWNLOADED_TAG}" "${OTHER_REPO}"   # remove tag number
-          pushd "${OTHER_REPO}"
-          shopt -s extglob    # for glob rm
-          rm -rf !(
-              ChangeLog|
-              LICENSE.txt|
-              README.md|
-              imgui-bindings.gemspec|
-              lib/glfw3.dll|
-              lib/imgui.dll|
-              lib/imgui.rb|
-              imgui_internal.rb
-            )
-          popd
+          echo "Download tag version ${OTHER_REPO}: ${LATEST_TAG}"
+          #
+          curl -L --fail -o  ChangeLog              https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/ChangeLog
+          curl -L --fail -o  LICENSE.txt            https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/LICENSE.txt
+          curl -L --fail -o  README.md              https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/README.md
+          curl -L --fail -o  imgui-bindings.gemspec https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/imgui-bindings.gemspec
+          curl -L --fail -o  lib/glfw3.dll          https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/lib/glfw3.dll
+          curl -L --fail -o  lib/imgui.dll          https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/lib/imgui.dll
+          curl -L --fail -o  lib/imgui.rb           https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/lib/imgui.rb
+          curl -L --fail -o  lib/imgui_internal.rb  https://raw.githubusercontent.com/${OTHER_REPO_OWNER}/${OTHER_REPO}/${LATEST_TAG}/lib/imgui_internal.rb
+          #
           echo "Working in $(pwd)"
+          popd  ### ${OTHER_REPO}
           tree
-          popd
         shell: bash
 
-      - name: Create zip
+      - name: Create release zip
         run: |
-          REF_NAME="${{ github.ref_name }}"
-          ZIP_FILE="${REPO_NAME}-${REF_NAME}.zip"
-          find . -not -path "*/\.*" -exec zip "${REPO_NAME}.zip"  {} +  # gen: ./igruby_example.zip
-          cp "${REPO_NAME}.zip"  "${RUNNER_TEMP}/mytemp/"
+          zip -r "${REPO_NAME}.zip" . -x "*/.*"                                 # generate: ./igruby_example.zip
+          unzip -o "${REPO_NAME}.zip" -d "${RUNNER_TEMP}/mytemp/${REPO_NAME}"
+          #
           pushd "${RUNNER_TEMP}/mytemp"
-          unzip -o "${REPO_NAME}.zip"
-          rm "${REPO_NAME}.zip"
+          REF_NAME="${{ github.ref_name }}"                                     # Latest tag number of igruby_example
+          RELEASE_ZIP_FILE="${REPO_NAME}-${REF_NAME}.zip"
           tree -d
-          echo zip -r  "${ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
-          zip -r  "${ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
-          tree -d
-          popd
-          echo "ZIP_FILE=${RUNNER_TEMP}/mytemp/${ZIP_FILE}" >> $GITHUB_ENV
+          echo zip -r "${RELEASE_ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
+          zip      -r "${RELEASE_ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
+          #
+          echo "RELEASE_ZIP_FILE=${RUNNER_TEMP}/mytemp/${RELEASE_ZIP_FILE}" >> $GITHUB_ENV
         shell: bash
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
         with:
-          files: "${{ env.ZIP_FILE }}"
+          files: "${{ env.RELEASE_ZIP_FILE }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
