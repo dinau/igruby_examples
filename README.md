@@ -2,17 +2,20 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [IgRuby Examples](#igruby-examples)
-  - [ImGui-Toggle / CImGui-Toggle](#imgui-toggle--cimgui-toggle)
-  - [ImDrawList party](#imdrawlist-party)
-  - [ImGui-Knobs / CImGui-Knobs](#imgui-knobs--cimgui-knobs)
-  - [ImSpinner / CImSpinner](#imspinner--cimspinner)
-  - [ImGuizmo / CImGuizmo](#imguizmo--cimguizmo)
-  - [ImGuiColorTextEdit / cimCTE](#imguicolortextedit--cimcte)
-  - [ImNodes / CImNodes](#imnodes--cimnodes)
-  - [ImGuiFileDialog](#imguifiledialog)
-  - [Iconfonts viewer](#iconfonts-viewer)
-  - [Image loading](#image-loading)
-  - [Show CJK fonts](#show-cjk-fonts)
+  - [Prerequisites](#prerequisites)
+  - [Donwload and running examples](#donwload-and-running-examples)
+  - [Snapshots](#snapshots)
+    - [ImGui-Toggle / CImGui-Toggle](#imgui-toggle--cimgui-toggle)
+    - [ImDrawList party](#imdrawlist-party)
+    - [ImGui-Knobs / CImGui-Knobs](#imgui-knobs--cimgui-knobs)
+    - [ImSpinner / CImSpinner](#imspinner--cimspinner)
+    - [ImGuizmo / CImGuizmo](#imguizmo--cimguizmo)
+    - [ImGuiColorTextEdit / cimCTE](#imguicolortextedit--cimcte)
+    - [ImNodes / CImNodes](#imnodes--cimnodes)
+    - [ImGuiFileDialog](#imguifiledialog)
+    - [Iconfonts viewer](#iconfonts-viewer)
+    - [Image loading](#image-loading)
+    - [Showing CJK fonts](#showing-cjk-fonts)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -43,8 +46,13 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 1. Execute bundler command,
 
    ```sh
-   cd  igruby_examples-1.9x.y.w 
-   bundle install
+   $ cd  igruby_examples-1.9x.y.w 
+   $ bundle install
+
+   Fetching gem metadata from https://rubygems.org/..
+   Resolving dependencies...
+   Bundle complete! 6 Gemfile dependencies, 9 gems now installed.
+   Use `bundle info [gemname]` to see where a bundled gem is installed.
    ```
 
    Note: Only supported under bundler enviroment at this moment 
@@ -54,6 +62,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
    ```sh
    cd  glfw_opengl3
    r.bat              # or double click glfw_opengl3.rbw in Windows explorer
+                      # Ignore many warnings emmited on console
    ```
 
 
