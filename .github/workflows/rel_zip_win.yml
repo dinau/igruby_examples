@@ -65,8 +65,8 @@ jobs:
           pushd "${RUNNER_TEMP}/mytemp"
           REF_NAME="${{ github.ref_name }}"                                     # Latest tag number of igruby_example
           RELEASE_ZIP_FILE="${REPO_NAME}-${REF_NAME}.zip"
-          tree -d -L1 "${OTHER_REPO}"
-          tree -d -L1 "${REPO_NAME}"
+          tree -d  "${OTHER_REPO}"
+          tree -d  "${REPO_NAME}"
           echo zip -r "${RELEASE_ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
           zip      -r "${RELEASE_ZIP_FILE}" "${OTHER_REPO}" "${REPO_NAME}"
           #
