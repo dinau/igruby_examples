@@ -3,16 +3,6 @@
 require_relative '../utils/appImGui'
 require_relative '../libs/imspinner'
 
-class ImColorInt < FFI::Struct
-  layout(
-    :x, :int,
-    :y, :int,
-    :z, :int,
-    :w, :int
-  )
-end
-
-
 #----------
 # gui_main
 #----------

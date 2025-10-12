@@ -13,10 +13,7 @@ class App
 
     cfd = ImGuiFileDialog.Create()
 
-    case RUBY_PLATFORM
-    when /mswin|msys|mingw|cygwin/
-      setFileStyle(cfd, main_font) # TODO
-    end
+    setFileStyle(cfd, main_font) # Colorization files
 
     sFilePathName = ""
     sFileDirPath  = ""

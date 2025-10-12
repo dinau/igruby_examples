@@ -89,7 +89,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://github.com/ocornut/imgui/issues/3606)
 
-[glfw_opengl3_imdrawlistparty.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imdrawlistparty/imDrawListParty.rb)  
+[imDrawListParty.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_imdrawlistparty/imDrawListParty.rb)  
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/imdrawlistparty.gif)  
 
@@ -103,11 +103,11 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 
 ![alt](img/imknobs.png)  
 
-##### ImSpinner / CImSpinner
+##### ImSpinner 
 
 ---
 
-[ImSpinner](https://github.com/dalerank/imspinner) / [CImSpinner](https://github.com/dinau/cimspinner)
+[ImSpinner](https://github.com/dalerank/imspinner)
 
 [glfw_opengl3_imspinner.rb](glfw_opengl3_imspinner/glfw_opengl3_imspinner.rb)  
 

@@ -114,9 +114,11 @@ module ImGuiFileDialog
   attach_function :Destroy, :IGFD_Destroy, [:pointer], :void
 
   # Thumbnail callbacks (USE_THUMBNAILS)
-  attach_function :SetCreateThumbnailCallback, [:pointer, :pointer], :void # IGFD_CreateThumbnailFun -> pointer
+  callback :CreateThumbnailFun, [:pointer], :void
+  attach_function :SetCreateThumbnailCallback, [:pointer, :CreateThumbnailFun], :void # IGFD_CreateThumbnailFun -> pointer
 
-  attach_function :SetDestroyThumbnailCallback, :SetDestroyThumbnailCallback, [:pointer, :pointer], :void
+  callback :DestroyThumbnailFun, [:pointer], :void
+  attach_function :SetDestroyThumbnailCallback, :SetDestroyThumbnailCallback, [:pointer, :DestroyThumbnailFun], :void
 
   attach_function :ManageGPUThumbnails, :ManageGPUThumbnails, [:pointer], :void
 
@@ -167,8 +169,8 @@ module ImGuiFileDialog
 
   # File style settings
   # IGFD_SetFileStyle (ImVec4 vColor, const char* vIconText, ImFont* vFont)
-  attach_function :IGFD_SetFileStyle, [:pointer, :int, :string, :pointer, :string, :pointer], :void
-  attach_function :SetFileStyle, :IGFD_SetFileStyle, [:pointer, :int, :string, :pointer, :string, :pointer], :void
+  attach_function :IGFD_SetFileStyle, [:pointer, :int, :string, ImVec4.by_value, :string, :pointer], :void
+  attach_function :SetFileStyle, :IGFD_SetFileStyle, [:pointer, :int, :string, ImVec4.by_value, :string, :pointer], :void
 
   # IGFD_SetFileStyle2 with RGBA floats
   attach_function :IGFD_SetFileStyle2, [:pointer, :int, :string, :float, :float, :float, :float, :string, :pointer], :void
