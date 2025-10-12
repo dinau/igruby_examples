@@ -13,8 +13,7 @@ def gui_main(window)
   setupFonts()
 
   # For Listbox
-  item_current = FFI::MemoryPointer.new(:int)
-  item_current.write(:int, 0)
+  item_current = FFIint.new()
   string_pointers = $IconFontsTbl.map { |str| FFI::MemoryPointer.from_string(str)}
   pIconFontsTbl   = FFI::MemoryPointer.new(:pointer, $IconFontsTbl.size)
   string_pointers.each_with_index do |ptr, i|
@@ -22,8 +21,7 @@ def gui_main(window)
   end
 
   # For Slider
-  wsZoom = FFI::MemoryPointer.new(:float)
-  wsZoom.write(:float, 2.5)
+  wsZoom = FFIfloat.new(2.5)
 
   filterAry = Array.new
 
@@ -48,8 +46,8 @@ def gui_main(window)
       #
       listBoxWidth = 340
       begin
-        ImGui::Text("No.[%4d]", :int, item_current.read_int); ImGui::SameLine()
-        sBuf = $IconFontsTbl[item_current.read_int]
+        ImGui::Text("No.[%4d]", :int, item_current.read); ImGui::SameLine()
+        sBuf = $IconFontsTbl[item_current.read]
         if ImGui::Button(ICON_FA_COPY + " Copy to", ImVec2.create(0, 0))
           if sBuf =~ /.+(ICON.+)/
             ImGui::SetClipboardText($1)
@@ -65,7 +63,7 @@ def gui_main(window)
       # Show ListBox main
       ImGui::NewLine()
       ImGui::SetNextItemWidth(listBoxWidth)
-      ImGui::ListBox("##lsitbox1", item_current, pIconFontsTbl, $IconFontsTbl.length, 30)
+      ImGui::ListBox("##lsitbox1", item_current.addr, pIconFontsTbl, $IconFontsTbl.length, 30)
     ensure
       ImGui::End()
     end
@@ -75,7 +73,7 @@ def gui_main(window)
     #---------------------
     begin ImGui::Begin("Icon Font Viewer2", nil, 0)
       ImGui::Text("%s", :string, " Zoom x"); ImGui::SameLine(0,-1.0)
-      ImGui::SliderFloat("##Zoom1", wsZoom, 0.8, 5.0, "%.1f", 0)
+      ImGui::SliderFloat("##Zoom1", wsZoom.addr, 0.8, 5.0, "%.1f", 0)
       ImGui::Separator()
       ImGui::BeginChild("child2", ImVec2.create(0,0), 0, 0)
       wsNormal = 1.0
@@ -89,10 +87,10 @@ def gui_main(window)
           for column in 0 ... col do
             ix = (row * col) + column
             ImGui::TableSetColumnIndex(column)
-            ImGui::SetWindowFontScale(wsZoom.read(:float))
+            ImGui::SetWindowFontScale(wsZoom.read)
             ImGui::Text("%s", :string, $IconFontsTbl2[ix][0])
             if ImGui::IsItemHovered(0)
-              item_current.write(:int, ix)
+              item_current.set(ix)
             end
             iconFontLabel = $IconFontsTbl2[ix][1]
             setTooltip(iconFontLabel)
@@ -103,7 +101,7 @@ def gui_main(window)
             if ImGui::BeginPopupContextItem("Contex Menu", 1)
               if ImGui::MenuItem("Copy to clip board", "" , false, true)
                 #puts "#{$IconFontsTbl2[ix][1]}"
-                item_current.write(:int, ix)
+                item_current.set(ix)
                 ImGui::SetClipboardText($IconFontsTbl2[ix][1])
               end
               ImGui::EndPopup()

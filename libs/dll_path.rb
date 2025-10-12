@@ -28,4 +28,10 @@ when /mswin|msys|mingw|cygwin/
     end
     return path
   end
+
+else
+    def get_imgui_dll_path()
+      ""
+    end
+
 end

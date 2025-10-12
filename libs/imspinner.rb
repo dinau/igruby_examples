@@ -34,668 +34,669 @@ module ImSpinner
 
 # [  1] C++ definition
 #     void Spinner::SpinnerRainbow(const char *label, float radius, float thickness, const ImColor &color, float speed, float ang_min = 0.f, float ang_max = PI_2, int arcs = 1, int mode = 0)
-  attach_function :Rainbow, :SpinnerRainbow,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :RainbowEx, :SpinnerRainbowEx, [:string, :float, :float, :pointer, :float, :float, :float, :int, :int], :void
+  attach_function :Rainbow, :SpinnerRainbow,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :RainbowEx, :SpinnerRainbowEx, [:string, :float, :float, ImColor.by_value, :float, :float, :float, :int, :int], :void
 
 # [  2] C++ definition
 #     void Spinner::SpinnerRainbowMix(const char *label, float radius, float thickness, const ImColor &color, float speed, float ang_min = 0.f, float ang_max = PI_2, int arcs = 1, int mode = 0)
-  attach_function :RainbowMix, :SpinnerRainbowMix,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :RainbowMixEx, :SpinnerRainbowMixEx, [:string, :float, :float, :pointer, :float, :float, :float, :int, :int], :void
+  attach_function :RainbowMix, :SpinnerRainbowMix,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :RainbowMixEx, :SpinnerRainbowMixEx, [:string, :float, :float, ImColor.by_value, :float, :float, :float, :int, :int], :void
 
 # [  3] C++ definition
 #     void Spinner::SpinnerRotatingHeart(const char *label, float radius, float thickness, const ImColor &color, float speed, float ang_min = 0.f)
-  attach_function :RotatingHeart, :SpinnerRotatingHeart,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :RotatingHeartEx, :SpinnerRotatingHeartEx, [:string, :float, :float, :pointer, :float, :float], :void
+  attach_function :RotatingHeart, :SpinnerRotatingHeart,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :RotatingHeartEx, :SpinnerRotatingHeartEx, [:string, :float, :float, ImColor.by_value, :float, :float], :void
 
 # [  4] C++ definition
 #     void Spinner::SpinnerAng(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = white, float speed = 2.8f, float angle = IM_PI, int mode = 0)
   attach_function :Ang, :SpinnerAng,   [:string, :float, :float], :void
-  attach_function :AngEx, :SpinnerAngEx, [:string, :float, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :AngEx, :SpinnerAngEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # [  5] C++ definition
 #     void Spinner::SpinnerAng8(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = white, float speed = 2.8f, float angle = IM_PI, int mode = 0, float rkoef = 0.5f)
   attach_function :Ang8, :SpinnerAng8,   [:string, :float, :float], :void
-  attach_function :Ang8Ex, :SpinnerAng8Ex, [:string, :float, :float, :pointer, :pointer, :float, :float, :int, :float], :void
+  attach_function :Ang8Ex, :SpinnerAng8Ex, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int, :float], :void
 
 # [  6] C++ definition
 #     void Spinner::SpinnerAngMix(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, float angle = IM_PI, int arcs = 4, int mode = 0)
   attach_function :AngMix, :SpinnerAngMix,   [:string, :float, :float], :void
-  attach_function :AngMixEx, :SpinnerAngMixEx, [:string, :float, :float, :pointer, :float, :float, :int, :int], :void
+  attach_function :AngMixEx, :SpinnerAngMixEx, [:string, :float, :float, ImColor.by_value, :float, :float, :int, :int], :void
 
 # [  7] C++ definition
 #     void Spinner::SpinnerLoadingRing(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f, int segments = 5)
   attach_function :LoadingRing, :SpinnerLoadingRing,   [:string, :float, :float], :void
-  attach_function :LoadingRingEx, :SpinnerLoadingRingEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :LoadingRingEx, :SpinnerLoadingRingEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [  8] C++ definition
 #     void Spinner::SpinnerClock(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f)
   attach_function :Clock, :SpinnerClock,   [:string, :float, :float], :void
-  attach_function :ClockEx, :SpinnerClockEx, [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :ClockEx, :SpinnerClockEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [  9] C++ definition
 #     void Spinner::SpinnerPulsar(const char *label, float radius, float thickness, const ImColor &bg = half_white, float speed = 2.8f, bool sequence = true, float angle = 0.f, int mode = 0)
   attach_function :Pulsar, :SpinnerPulsar,   [:string, :float, :float], :void
-  attach_function :PulsarEx, :SpinnerPulsarEx, [:string, :float, :float, :pointer, :float, :bool, :float, :int], :void
+  attach_function :PulsarEx, :SpinnerPulsarEx, [:string, :float, :float, ImColor.by_value, :float, :bool, :float, :int], :void
 
 # [ 10] C++ definition
 #     void Spinner::SpinnerDoubleFadePulsar(const char *label, float radius, float thickness, const ImColor &bg = half_white, float speed = 2.8f)
   attach_function :DoubleFadePulsar, :SpinnerDoubleFadePulsar,   [:string, :float, :float], :void
-  attach_function :DoubleFadePulsarEx, :SpinnerDoubleFadePulsarEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :DoubleFadePulsarEx, :SpinnerDoubleFadePulsarEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 11] C++ definition
 #     void Spinner::SpinnerTwinPulsar(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int rings = 2, int mode = 0)
   attach_function :TwinPulsar, :SpinnerTwinPulsar,   [:string, :float, :float], :void
-  attach_function :TwinPulsarEx, :SpinnerTwinPulsarEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :TwinPulsarEx, :SpinnerTwinPulsarEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 12] C++ definition
 #     void Spinner::SpinnerFadePulsar(const char *label, float radius, const ImColor &color = white, float speed = 2.8f, int rings = 2, int mode = 0)
   attach_function :FadePulsar, :SpinnerFadePulsar,   [:string, :float], :void
-  attach_function :FadePulsarEx, :SpinnerFadePulsarEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :FadePulsarEx, :SpinnerFadePulsarEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 13] C++ definition
 #     void Spinner::SpinnerFadePulsarSquare(const char *label, float radius, const ImColor &color = white, float speed = 2.8f, int rings = 2, int mode = 0)
   attach_function :FadePulsarSquare, :SpinnerFadePulsarSquare,   [:string, :float], :void
-  attach_function :FadePulsarSquareEx, :SpinnerFadePulsarSquareEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :FadePulsarSquareEx, :SpinnerFadePulsarSquareEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 14] C++ definition
 #     void Spinner::SpinnerCircularLines(const char *label, float radius, const ImColor &color = white, float speed = 1.8f, int lines = 8, int mode = 0)
   attach_function :CircularLines, :SpinnerCircularLines,   [:string, :float], :void
-  attach_function :CircularLinesEx, :SpinnerCircularLinesEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :CircularLinesEx, :SpinnerCircularLinesEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 15] C++ definition
 #     void Spinner::SpinnerDots(const char *label, float *nextdot, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 12, float minth = -1.f, int mode = 0)
   attach_function :Dots, :SpinnerDots,   [:string, :pointer, :float, :float], :void
-  attach_function :DotsEx, :SpinnerDotsEx, [:string, :pointer, :float, :float, :pointer, :float, :int, :float, :int], :void
+  attach_function :DotsEx, :SpinnerDotsEx, [:string, :pointer, :float, :float, ImColor.by_value, :float, :int, :float, :int], :void
 
 # [ 16] C++ definition
 #     void Spinner::SpinnerVDots(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bgcolor = white, float speed = 2.8f, size_t dots = 12, size_t mdots = 6, int mode = 0)
   attach_function :VDots, :SpinnerVDots,   [:string, :float, :float], :void
-  attach_function :VDotsEx, :SpinnerVDotsEx, [:string, :float, :float, :pointer, :pointer, :float, :int, :int, :int], :void
+  attach_function :VDotsEx, :SpinnerVDotsEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int, :int, :int], :void
 
 # [ 17] C++ definition
 #     void Spinner::SpinnerBounceDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 3, int mode = 0)
   attach_function :BounceDots, :SpinnerBounceDots,   [:string, :float, :float], :void
-  attach_function :BounceDotsEx, :SpinnerBounceDotsEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :BounceDotsEx, :SpinnerBounceDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 18] C++ definition
 #     void Spinner::SpinnerZipDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 5)
   attach_function :ZipDots, :SpinnerZipDots,   [:string, :float, :float], :void
-  attach_function :ZipDotsEx, :SpinnerZipDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :ZipDotsEx, :SpinnerZipDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 19] C++ definition
 #     void Spinner::SpinnerDotsToPoints(const char *label, float radius, float thickness, float offset_k, const ImColor &color = white, float speed = 1.8f, size_t dots = 5)
   attach_function :DotsToPoints, :SpinnerDotsToPoints,   [:string, :float, :float, :float], :void
-  attach_function :DotsToPointsEx, :SpinnerDotsToPointsEx, [:string, :float, :float, :float, :pointer, :float, :int], :void
+  attach_function :DotsToPointsEx, :SpinnerDotsToPointsEx, [:string, :float, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 20] C++ definition
 #     void Spinner::SpinnerDotsToBar(const char *label, float radius, float thickness, float offset_k, const ImColor &color = white, float speed = 2.8f, size_t dots = 5)
   attach_function :DotsToBar, :SpinnerDotsToBar,   [:string, :float, :float, :float], :void
-  attach_function :DotsToBarEx, :SpinnerDotsToBarEx, [:string, :float, :float, :float, :pointer, :float, :int], :void
+  attach_function :DotsToBarEx, :SpinnerDotsToBarEx, [:string, :float, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 21] C++ definition
 #     void Spinner::SpinnerWaveDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int lt = 8)
   attach_function :WaveDots, :SpinnerWaveDots,   [:string, :float, :float], :void
-  attach_function :WaveDotsEx, :SpinnerWaveDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :WaveDotsEx, :SpinnerWaveDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 22] C++ definition
 #     void Spinner::SpinnerFadeDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int lt = 8, int mode = 0)
   attach_function :FadeDots, :SpinnerFadeDots,   [:string, :float, :float], :void
-  attach_function :FadeDotsEx, :SpinnerFadeDotsEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :FadeDotsEx, :SpinnerFadeDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 23] C++ definition
 #     void Spinner::SpinnerThreeDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int lt = 8)
   attach_function :ThreeDots, :SpinnerThreeDots,   [:string, :float, :float], :void
-  attach_function :ThreeDotsEx, :SpinnerThreeDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :ThreeDotsEx, :SpinnerThreeDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 24] C++ definition
 #     void Spinner::SpinnerFiveDots(const char *label, float radius, float thickness, const ImColor &color = 0xffffffff, float speed = 2.8f, int lt = 8)
   attach_function :FiveDots, :SpinnerFiveDots,   [:string, :float, :float], :void
-  attach_function :FiveDotsEx, :SpinnerFiveDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :FiveDotsEx, :SpinnerFiveDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 25] C++ definition
 #     void Spinner::Spinner4Caleidospcope(const char *label, float radius, float thickness, const ImColor &color = 0xffffffff, float speed = 2.8f, int lt = 8)
   attach_function :x4Caleidospcope, :Spinner4Caleidospcope,   [:string, :float, :float], :void
-  attach_function :x4CaleidospcopeEx, :Spinner4CaleidospcopeEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :x4CaleidospcopeEx, :Spinner4CaleidospcopeEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 26] C++ definition
 #     void Spinner::SpinnerMultiFadeDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int lt = 8)
   attach_function :MultiFadeDots, :SpinnerMultiFadeDots,   [:string, :float, :float], :void
-  attach_function :MultiFadeDotsEx, :SpinnerMultiFadeDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :MultiFadeDotsEx, :SpinnerMultiFadeDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 27] C++ definition
 #     void Spinner::SpinnerThickToSin(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int nt = 1, int lt = 8, int mode = 0)
   attach_function :ThickToSin, :SpinnerThickToSin,   [:string, :float, :float], :void
-  attach_function :ThickToSinEx, :SpinnerThickToSinEx, [:string, :float, :float, :pointer, :float, :int, :int, :int], :void
+  attach_function :ThickToSinEx, :SpinnerThickToSinEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int, :int], :void
 
 # [ 28] C++ definition
 #     void Spinner::SpinnerScaleDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int lt = 8)
   attach_function :ScaleDots, :SpinnerScaleDots,   [:string, :float, :float], :void
-  attach_function :ScaleDotsEx, :SpinnerScaleDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :ScaleDotsEx, :SpinnerScaleDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 29] C++ definition
 #     void Spinner::SpinnerSquareSpins(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SquareSpins, :SpinnerSquareSpins,   [:string, :float, :float], :void
-  attach_function :SquareSpinsEx, :SpinnerSquareSpinsEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SquareSpinsEx, :SpinnerSquareSpinsEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 30] C++ definition
 #     void Spinner::SpinnerMovingDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 3)
   attach_function :MovingDots, :SpinnerMovingDots,   [:string, :float, :float], :void
-  attach_function :MovingDotsEx, :SpinnerMovingDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :MovingDotsEx, :SpinnerMovingDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 31] C++ definition
 #     void Spinner::SpinnerRotateDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int dots = 2, int mode = 0)
   attach_function :RotateDots, :SpinnerRotateDots,   [:string, :float, :float], :void
-  attach_function :RotateDotsEx, :SpinnerRotateDotsEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RotateDotsEx, :SpinnerRotateDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 32] C++ definition
 #     void Spinner::SpinnerOrionDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int arcs = 4)
   attach_function :OrionDots, :SpinnerOrionDots,   [:string, :float, :float], :void
-  attach_function :OrionDotsEx, :SpinnerOrionDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :OrionDotsEx, :SpinnerOrionDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 33] C++ definition
 #     void Spinner::SpinnerGalaxyDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int arcs = 4)
   attach_function :GalaxyDots, :SpinnerGalaxyDots,   [:string, :float, :float], :void
-  attach_function :GalaxyDotsEx, :SpinnerGalaxyDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :GalaxyDotsEx, :SpinnerGalaxyDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 34] C++ definition
 #     void Spinner::SpinnerTwinAng(const char *label, float radius1, float radius2, float thickness, const ImColor &color1 = white, const ImColor &color2 = red, float speed = 2.8f, float angle = IM_PI, int mode = 0)
   attach_function :TwinAng, :SpinnerTwinAng,   [:string, :float, :float, :float], :void
-  attach_function :TwinAngEx, :SpinnerTwinAngEx, [:string, :float, :float, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :TwinAngEx, :SpinnerTwinAngEx, [:string, :float, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # [ 35] C++ definition
 #     void Spinner::SpinnerFilling(const char *label, float radius, float thickness, const ImColor &color1 = white, const ImColor &color2 = red, float speed = 2.8f)
   attach_function :Filling, :SpinnerFilling,   [:string, :float, :float], :void
-  attach_function :FillingEx, :SpinnerFillingEx, [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :FillingEx, :SpinnerFillingEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [ 36] C++ definition
 #     void Spinner::SpinnerFillingMem(const char *label, float radius, float thickness, const ImColor &color, ImColor &colorbg, float speed)
-  attach_function :FillingMem, :SpinnerFillingMem,   [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :FillingMem, :SpinnerFillingMem,   [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [ 37] C++ definition
 #     void Spinner::SpinnerTopup(const char *label, float radius1, float radius2, const ImColor &color = red, const ImColor &fg = white, const ImColor &bg = white, float speed = 2.8f)
   attach_function :Topup, :SpinnerTopup,   [:string, :float, :float], :void
-  attach_function :TopupEx, :SpinnerTopupEx, [:string, :float, :float, :pointer, :pointer, :pointer, :float], :void
+  attach_function :TopupEx, :SpinnerTopupEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [ 38] C++ definition
 #     void Spinner::SpinnerTwinAng180(const char *label, float radius1, float radius2, float thickness, const ImColor &color1 = white, const ImColor &color2 = red, float speed = 2.8f, float angle = PI_DIV_4, int mode = 0)
   attach_function :TwinAng180, :SpinnerTwinAng180,   [:string, :float, :float, :float], :void
-  attach_function :TwinAng180Ex, :SpinnerTwinAng180Ex, [:string, :float, :float, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :TwinAng180Ex, :SpinnerTwinAng180Ex, [:string, :float, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # [ 39] C++ definition
 #     void Spinner::SpinnerTwinAng360(const char *label, float radius1, float radius2, float thickness, const ImColor &color1 = white, const ImColor &color2 = red, float speed1 = 2.8f, float speed2 = 2.5f, int mode = 0)
   attach_function :TwinAng360, :SpinnerTwinAng360,   [:string, :float, :float, :float], :void
-  attach_function :TwinAng360Ex, :SpinnerTwinAng360Ex, [:string, :float, :float, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :TwinAng360Ex, :SpinnerTwinAng360Ex, [:string, :float, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # [ 40] C++ definition
 #     void Spinner::SpinnerIncDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 6)
   attach_function :IncDots, :SpinnerIncDots,   [:string, :float, :float], :void
-  attach_function :IncDotsEx, :SpinnerIncDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :IncDotsEx, :SpinnerIncDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 41] C++ definition
 #     void Spinner::SpinnerIncFullDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 4)
   attach_function :IncFullDots, :SpinnerIncFullDots,   [:string, :float, :float], :void
-  attach_function :IncFullDotsEx, :SpinnerIncFullDotsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :IncFullDotsEx, :SpinnerIncFullDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 42] C++ definition
 #     void Spinner::SpinnerFadeBars(const char *label, float w, const ImColor &color = white, float speed = 2.8f, size_t bars = 3, bool scale = false)
   attach_function :FadeBars, :SpinnerFadeBars,   [:string, :float], :void
-  attach_function :FadeBarsEx, :SpinnerFadeBarsEx, [:string, :float, :pointer, :float, :int, :bool], :void
+  attach_function :FadeBarsEx, :SpinnerFadeBarsEx, [:string, :float, ImColor.by_value, :float, :int, :bool], :void
 
 # [ 43] C++ definition
 #     void Spinner::SpinnerFadeTris(const char *label, float radius, const ImColor &color = white, float speed = 2.8f, size_t dim = 2, bool scale = false, int mode = 0)
   attach_function :FadeTris, :SpinnerFadeTris,   [:string, :float], :void
-  attach_function :FadeTrisEx, :SpinnerFadeTrisEx, [:string, :float, :pointer, :float, :int, :bool, :int], :void
+  attach_function :FadeTrisEx, :SpinnerFadeTrisEx, [:string, :float, ImColor.by_value, :float, :int, :bool, :int], :void
 
 # [ 44] C++ definition
 #     void Spinner::SpinnerBarsRotateFade(const char *label, float rmin, float rmax , float thickness, const ImColor &color = white, float speed = 2.8f, size_t bars = 6)
   attach_function :BarsRotateFade, :SpinnerBarsRotateFade,   [:string, :float, :float, :float], :void
-  attach_function :BarsRotateFadeEx, :SpinnerBarsRotateFadeEx, [:string, :float, :float, :float, :pointer, :float, :int], :void
+  attach_function :BarsRotateFadeEx, :SpinnerBarsRotateFadeEx, [:string, :float, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 45] C++ definition
 #     void Spinner::SpinnerBarsScaleMiddle(const char *label, float w, const ImColor &color = white, float speed = 2.8f, size_t bars = 3)
   attach_function :BarsScaleMiddle, :SpinnerBarsScaleMiddle,   [:string, :float], :void
-  attach_function :BarsScaleMiddleEx, :SpinnerBarsScaleMiddleEx, [:string, :float, :pointer, :float, :int], :void
+  attach_function :BarsScaleMiddleEx, :SpinnerBarsScaleMiddleEx, [:string, :float, ImColor.by_value, :float, :int], :void
 
 # [ 46] C++ definition
 #     void Spinner::SpinnerAngTwin(const char *label, float radius1, float radius2, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f, float angle = IM_PI, size_t arcs = 1, int mode = 0)
   attach_function :AngTwin, :SpinnerAngTwin,   [:string, :float, :float, :float], :void
-  attach_function :AngTwinEx, :SpinnerAngTwinEx, [:string, :float, :float, :float, :pointer, :pointer, :float, :float, :int, :int], :void
+  attach_function :AngTwinEx, :SpinnerAngTwinEx, [:string, :float, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int, :int], :void
 
 # [ 47] C++ definition
 #     void Spinner::SpinnerArcRotation(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, int mode = 0)
   attach_function :ArcRotation, :SpinnerArcRotation,   [:string, :float, :float], :void
-  attach_function :ArcRotationEx, :SpinnerArcRotationEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :ArcRotationEx, :SpinnerArcRotationEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 48] C++ definition
 #     void Spinner::SpinnerArcFade(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, int mode = 0)
   attach_function :ArcFade, :SpinnerArcFade,   [:string, :float, :float], :void
-  attach_function :ArcFadeEx, :SpinnerArcFadeEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :ArcFadeEx, :SpinnerArcFadeEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 49] C++ definition
 #     void Spinner::SpinnerSimpleArcFade(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SimpleArcFade, :SpinnerSimpleArcFade,   [:string, :float, :float], :void
-  attach_function :SimpleArcFadeEx, :SpinnerSimpleArcFadeEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SimpleArcFadeEx, :SpinnerSimpleArcFadeEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 50] C++ definition
 #     void Spinner::SpinnerSquareStrokeFade(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SquareStrokeFade, :SpinnerSquareStrokeFade,   [:string, :float, :float], :void
-  attach_function :SquareStrokeFadeEx, :SpinnerSquareStrokeFadeEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SquareStrokeFadeEx, :SpinnerSquareStrokeFadeEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 51] C++ definition
 #     void Spinner::SpinnerAsciiSymbolPoints(const char *label, const char* text, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :AsciiSymbolPoints, :SpinnerAsciiSymbolPoints,   [:string, :string, :float, :float], :void
-  attach_function :AsciiSymbolPointsEx, :SpinnerAsciiSymbolPointsEx, [:string, :string, :float, :float, :pointer, :float], :void
+  attach_function :AsciiSymbolPointsEx, :SpinnerAsciiSymbolPointsEx, [:string, :string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 52] C++ definition
 #     void Spinner::SpinnerTextFading(const char *label, const char* text, float radius, float fsize, const ImColor &color = white, float speed = 2.8f)
   attach_function :TextFading, :SpinnerTextFading,   [:string, :string, :float, :float], :void
-  attach_function :TextFadingEx, :SpinnerTextFadingEx, [:string, :string, :float, :float, :pointer, :float], :void
+  attach_function :TextFadingEx, :SpinnerTextFadingEx, [:string, :string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 53] C++ definition
 #     void Spinner::SpinnerSevenSegments(const char *label, const char* text, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SevenSegments, :SpinnerSevenSegments,   [:string, :string, :float, :float], :void
-  attach_function :SevenSegmentsEx, :SpinnerSevenSegmentsEx, [:string, :string, :float, :float, :pointer, :float], :void
+  attach_function :SevenSegmentsEx, :SpinnerSevenSegmentsEx, [:string, :string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 54] C++ definition
 #     void Spinner::SpinnerSquareStrokeFill(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SquareStrokeFill, :SpinnerSquareStrokeFill,   [:string, :float, :float], :void
-  attach_function :SquareStrokeFillEx, :SpinnerSquareStrokeFillEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SquareStrokeFillEx, :SpinnerSquareStrokeFillEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 55] C++ definition
 #     void Spinner::SpinnerSquareStrokeLoading(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SquareStrokeLoading, :SpinnerSquareStrokeLoading,   [:string, :float, :float], :void
-  attach_function :SquareStrokeLoadingEx, :SpinnerSquareStrokeLoadingEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SquareStrokeLoadingEx, :SpinnerSquareStrokeLoadingEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 56] C++ definition
 #     void Spinner::SpinnerSquareLoading(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SquareLoading, :SpinnerSquareLoading,   [:string, :float, :float], :void
-  attach_function :SquareLoadingEx, :SpinnerSquareLoadingEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SquareLoadingEx, :SpinnerSquareLoadingEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 57] C++ definition
 #     void Spinner::SpinnerFilledArcFade(const char *label, float radius, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, int mode = 0)
   attach_function :FilledArcFade, :SpinnerFilledArcFade,   [:string, :float], :void
-  attach_function :FilledArcFadeEx, :SpinnerFilledArcFadeEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :FilledArcFadeEx, :SpinnerFilledArcFadeEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 58] C++ definition
 #     void Spinner::SpinnerPointsRoller(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t points = 8, int circles = 2, float rspeed = 1.f)
   attach_function :PointsRoller, :SpinnerPointsRoller,   [:string, :float, :float], :void
-  attach_function :PointsRollerEx, :SpinnerPointsRollerEx, [:string, :float, :float, :pointer, :float, :int, :int, :float], :void
+  attach_function :PointsRollerEx, :SpinnerPointsRollerEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int, :float], :void
 
 # [ 59] C++ definition
 #     void Spinner::SpinnerPointsArcBounce(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t points = 4, int circles = 2, float rspeed = 0.f)
   attach_function :PointsArcBounce, :SpinnerPointsArcBounce,   [:string, :float, :float], :void
-  attach_function :PointsArcBounceEx, :SpinnerPointsArcBounceEx, [:string, :float, :float, :pointer, :float, :int, :int, :float], :void
+  attach_function :PointsArcBounceEx, :SpinnerPointsArcBounceEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int, :float], :void
 
 # [ 60] C++ definition
 #     void Spinner::SpinnerFilledArcColor(const char *label, float radius, const ImColor &color = red, const ImColor &bg = white, float speed = 2.8f, size_t arcs = 4)
   attach_function :FilledArcColor, :SpinnerFilledArcColor,   [:string, :float], :void
-  attach_function :FilledArcColorEx, :SpinnerFilledArcColorEx, [:string, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :FilledArcColorEx, :SpinnerFilledArcColorEx, [:string, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [ 61] C++ definition
 #     void Spinner::SpinnerFilledArcRing(const char *label, float radius, float thickness, const ImColor &color = red, const ImColor &bg = white, float speed = 2.8f, size_t arcs = 4)
   attach_function :FilledArcRing, :SpinnerFilledArcRing,   [:string, :float, :float], :void
-  attach_function :FilledArcRingEx, :SpinnerFilledArcRingEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :FilledArcRingEx, :SpinnerFilledArcRingEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [ 62] C++ definition
 #     void Spinner::SpinnerArcWedges(const char *label, float radius, const ImColor &color = red, float speed = 2.8f, size_t arcs = 4, int mode = 0)
   attach_function :ArcWedges, :SpinnerArcWedges,   [:string, :float], :void
-  attach_function :ArcWedgesEx, :SpinnerArcWedgesEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :ArcWedgesEx, :SpinnerArcWedgesEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 63] C++ definition
 #     void Spinner::SpinnerTwinBall(const char *label, float radius1, float radius2, float thickness, float b_thickness, const ImColor &ball = white, const ImColor &bg = half_white, float speed = 2.8f, size_t balls = 2, int mode = 0)
   attach_function :TwinBall, :SpinnerTwinBall,   [:string, :float, :float, :float, :float], :void
-  attach_function :TwinBallEx, :SpinnerTwinBallEx, [:string, :float, :float, :float, :float, :pointer, :pointer, :float, :int, :int], :void
+  attach_function :TwinBallEx, :SpinnerTwinBallEx, [:string, :float, :float, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int, :int], :void
 
 # [ 64] C++ definition
 #     void Spinner::SpinnerSolarBalls(const char *label, float radius, float thickness, const ImColor &ball = white, const ImColor &bg = half_white, float speed = 2.8f, size_t balls = 4)
   attach_function :SolarBalls, :SpinnerSolarBalls,   [:string, :float, :float], :void
-  attach_function :SolarBallsEx, :SpinnerSolarBallsEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :SolarBallsEx, :SpinnerSolarBallsEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [ 65] C++ definition
 #     void Spinner::SpinnerSolarScaleBalls(const char *label, float radius, float thickness, const ImColor &ball = white, float speed = 2.8f, size_t balls = 4)
   attach_function :SolarScaleBalls, :SpinnerSolarScaleBalls,   [:string, :float, :float], :void
-  attach_function :SolarScaleBallsEx, :SpinnerSolarScaleBallsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :SolarScaleBallsEx, :SpinnerSolarScaleBallsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 66] C++ definition
 #     void Spinner::SpinnerSolarArcs(const char *label, float radius, float thickness, const ImColor &ball = white, const ImColor &bg = half_white, float speed = 2.8f, size_t balls = 4)
   attach_function :SolarArcs, :SpinnerSolarArcs,   [:string, :float, :float], :void
-  attach_function :SolarArcsEx, :SpinnerSolarArcsEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :SolarArcsEx, :SpinnerSolarArcsEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [ 67] C++ definition
 #     void Spinner::SpinnerMovingArcs(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4)
   attach_function :MovingArcs, :SpinnerMovingArcs,   [:string, :float, :float], :void
-  attach_function :MovingArcsEx, :SpinnerMovingArcsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :MovingArcsEx, :SpinnerMovingArcsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 68] C++ definition
 #     void Spinner::SpinnerRainbowCircle(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, float mode = 1)
   attach_function :RainbowCircle, :SpinnerRainbowCircle,   [:string, :float, :float], :void
-  attach_function :RainbowCircleEx, :SpinnerRainbowCircleEx, [:string, :float, :float, :pointer, :float, :int, :float], :void
+  attach_function :RainbowCircleEx, :SpinnerRainbowCircleEx, [:string, :float, :float, ImColor.by_value, :float, :int, :float], :void
 
 # [ 69] C++ definition
 #     void Spinner::SpinnerBounceBall(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int dots = 1, bool shadow = false)
   attach_function :BounceBall, :SpinnerBounceBall,   [:string, :float, :float], :void
-  attach_function :BounceBallEx, :SpinnerBounceBallEx, [:string, :float, :float, :pointer, :float, :int, :bool], :void
+  attach_function :BounceBallEx, :SpinnerBounceBallEx, [:string, :float, :float, ImColor.by_value, :float, :int, :bool], :void
 
 # [ 70] C++ definition
 #     void Spinner::SpinnerPulsarBall(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, bool shadow = false, int mode = 0)
   attach_function :PulsarBall, :SpinnerPulsarBall,   [:string, :float, :float], :void
-  attach_function :PulsarBallEx, :SpinnerPulsarBallEx, [:string, :float, :float, :pointer, :float, :bool, :int], :void
+  attach_function :PulsarBallEx, :SpinnerPulsarBallEx, [:string, :float, :float, ImColor.by_value, :float, :bool, :int], :void
 
 # [ 71] C++ definition
 #     void Spinner::SpinnerIncScaleDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 6, float angle = 0.f, int mode = 0)
   attach_function :IncScaleDots, :SpinnerIncScaleDots,   [:string, :float, :float], :void
-  attach_function :IncScaleDotsEx, :SpinnerIncScaleDotsEx, [:string, :float, :float, :pointer, :float, :int, :float, :int], :void
+  attach_function :IncScaleDotsEx, :SpinnerIncScaleDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :float, :int], :void
 
 # [ 72] C++ definition
 #     void Spinner::SpinnerSomeScaleDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t dots = 6, int mode = 0)
   attach_function :SomeScaleDots, :SpinnerSomeScaleDots,   [:string, :float, :float], :void
-  attach_function :SomeScaleDotsEx, :SpinnerSomeScaleDotsEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :SomeScaleDotsEx, :SpinnerSomeScaleDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 73] C++ definition
 #     void Spinner::SpinnerAngTriple(const char *label, float radius1, float radius2, float radius3, float thickness, const ImColor &c1 = white, const ImColor &c2 = half_white, const ImColor &c3 = white, float speed = 2.8f, float angle = IM_PI)
   attach_function :AngTriple, :SpinnerAngTriple,   [:string, :float, :float, :float, :float], :void
-  attach_function :AngTripleEx, :SpinnerAngTripleEx, [:string, :float, :float, :float, :float, :pointer, :pointer, :pointer, :float, :float], :void
+  attach_function :AngTripleEx, :SpinnerAngTripleEx, [:string, :float, :float, :float, :float, ImColor.by_value, ImColor.by_value, ImColor.by_value, :float, :float], :void
 
 # [ 74] C++ definition
 #     void Spinner::SpinnerAngEclipse(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, float angle = IM_PI)
   attach_function :AngEclipse, :SpinnerAngEclipse,   [:string, :float, :float], :void
-  attach_function :AngEclipseEx, :SpinnerAngEclipseEx, [:string, :float, :float, :pointer, :float, :float], :void
+  attach_function :AngEclipseEx, :SpinnerAngEclipseEx, [:string, :float, :float, ImColor.by_value, :float, :float], :void
 
 # [ 75] C++ definition
 #     void Spinner::SpinnerIngYang(const char *label, float radius, float thickness, bool reverse, float yang_detlta_r, const ImColor &colorI = white, const ImColor &colorY = white, float speed = 2.8f, float angle = IM_PI * 0.7f, int mode = 0)
   attach_function :IngYang, :SpinnerIngYang,   [:string, :float, :float, :bool, :float], :void
-  attach_function :IngYangEx, :SpinnerIngYangEx, [:string, :float, :float, :bool, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :IngYangEx, :SpinnerIngYangEx, [:string, :float, :float, :bool, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # [ 76] C++ definition
 #     void Spinner::SpinnerGooeyBalls(const char *label, float radius, const ImColor &color, float speed, int mode = 0)
-  attach_function :GooeyBalls, :SpinnerGooeyBalls,   [:string, :float, :pointer, :float], :void
-  attach_function :GooeyBallsEx, :SpinnerGooeyBallsEx, [:string, :float, :pointer, :float, :int], :void
+  attach_function :GooeyBalls, :SpinnerGooeyBalls,   [:string, :float, ImColor.by_value, :float], :void
+  attach_function :GooeyBallsEx, :SpinnerGooeyBallsEx, [:string, :float, ImColor.by_value, :float, :int], :void
 
 # [ 77] C++ definition
 #     void Spinner::SpinnerDotsLoading(const char *label, float radius, float thickness, const ImColor &color, const ImColor &bg, float speed)
-  attach_function :DotsLoading, :SpinnerDotsLoading,   [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :DotsLoading, :SpinnerDotsLoading,   [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [ 78] C++ definition
 #     void Spinner::SpinnerRotateGooeyBalls(const char *label, float radius, float thickness, const ImColor &color, float speed, int balls, int mode = 0)
-  attach_function :RotateGooeyBalls, :SpinnerRotateGooeyBalls,   [:string, :float, :float, :pointer, :float, :int], :void
-  attach_function :RotateGooeyBallsEx, :SpinnerRotateGooeyBallsEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RotateGooeyBalls, :SpinnerRotateGooeyBalls,   [:string, :float, :float, ImColor.by_value, :float, :int], :void
+  attach_function :RotateGooeyBallsEx, :SpinnerRotateGooeyBallsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 79] C++ definition
 #     void Spinner::SpinnerHerbertBalls(const char *label, float radius, float thickness, const ImColor &color, float speed, int balls)
-  attach_function :HerbertBalls, :SpinnerHerbertBalls,   [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :HerbertBalls, :SpinnerHerbertBalls,   [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 80] C++ definition
 #     void Spinner::SpinnerHerbertBalls3D(const char *label, float radius, float thickness, const ImColor &color, float speed)
-  attach_function :HerbertBalls3D, :SpinnerHerbertBalls3D,   [:string, :float, :float, :pointer, :float], :void
+  attach_function :HerbertBalls3D, :SpinnerHerbertBalls3D,   [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [ 81] C++ definition
 #     void Spinner::SpinnerRotateTriangles(const char *label, float radius, float thickness, const ImColor &color, float speed, int tris, int mode = 0)
-  attach_function :RotateTriangles, :SpinnerRotateTriangles,   [:string, :float, :float, :pointer, :float, :int], :void
-  attach_function :RotateTrianglesEx, :SpinnerRotateTrianglesEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RotateTriangles, :SpinnerRotateTriangles,   [:string, :float, :float, ImColor.by_value, :float, :int], :void
+  attach_function :RotateTrianglesEx, :SpinnerRotateTrianglesEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 82] C++ definition
 #     void Spinner::SpinnerRotateShapes(const char *label, float radius, float thickness, const ImColor &color, float speed, int shapes, int pnt)
-  attach_function :RotateShapes, :SpinnerRotateShapes,   [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RotateShapes, :SpinnerRotateShapes,   [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [ 83] C++ definition
 #     void Spinner::SpinnerSinSquares(const char *label, float radius, float thickness, const ImColor &color, float speed, int mode = 0)
-  attach_function :SinSquares, :SpinnerSinSquares,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :SinSquaresEx, :SpinnerSinSquaresEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :SinSquares, :SpinnerSinSquares,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :SinSquaresEx, :SpinnerSinSquaresEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 84] C++ definition
 #     void Spinner::SpinnerMoonLine(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = red, float speed = 2.8f, float angle = IM_PI)
   attach_function :MoonLine, :SpinnerMoonLine,   [:string, :float, :float], :void
-  attach_function :MoonLineEx, :SpinnerMoonLineEx, [:string, :float, :float, :pointer, :pointer, :float, :float], :void
+  attach_function :MoonLineEx, :SpinnerMoonLineEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float], :void
 
 # [ 85] C++ definition
 #     void Spinner::SpinnerCircleDrop(const char *label, float radius, float thickness, float thickness_drop, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f, float angle = IM_PI)
   attach_function :CircleDrop, :SpinnerCircleDrop,   [:string, :float, :float, :float], :void
-  attach_function :CircleDropEx, :SpinnerCircleDropEx, [:string, :float, :float, :float, :pointer, :pointer, :float, :float], :void
+  attach_function :CircleDropEx, :SpinnerCircleDropEx, [:string, :float, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float], :void
 
 # [ 86] C++ definition
 #     void Spinner::SpinnerSurroundedIndicator(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f)
   attach_function :SurroundedIndicator, :SpinnerSurroundedIndicator,   [:string, :float, :float], :void
-  attach_function :SurroundedIndicatorEx, :SpinnerSurroundedIndicatorEx, [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :SurroundedIndicatorEx, :SpinnerSurroundedIndicatorEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [ 87] C++ definition
 #     void Spinner::SpinnerWifiIndicator(const char *label, float radius, float thickness, const ImColor &color = red, const ImColor &bg = half_white, float speed = 2.8f, float cangle = 0.f, int dots = 3)
   attach_function :WifiIndicator, :SpinnerWifiIndicator,   [:string, :float, :float], :void
-  attach_function :WifiIndicatorEx, :SpinnerWifiIndicatorEx, [:string, :float, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :WifiIndicatorEx, :SpinnerWifiIndicatorEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # [ 88] C++ definition
 #     void Spinner::SpinnerTrianglesSelector(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f, size_t bars = 8)
   attach_function :TrianglesSelector, :SpinnerTrianglesSelector,   [:string, :float, :float], :void
-  attach_function :TrianglesSelectorEx, :SpinnerTrianglesSelectorEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :TrianglesSelectorEx, :SpinnerTrianglesSelectorEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [ 89] C++ definition
 #     void Spinner::SpinnerCamera(const char *label, float radius, float thickness, LeafColor *leaf_color, float speed = 2.8f, size_t bars = 8, int mode = 0)
-  attach_function :Camera, :SpinnerCamera,   [:string, :float, :float, :pointer], :void
-  attach_function :CameraEx, :SpinnerCameraEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  callback :leafcolor_callback, [:int], ImColor.by_value
+  attach_function :Camera, :SpinnerCamera,   [:string, :float, :float, :leafcolor_callback], :void
+  attach_function :CameraEx, :SpinnerCameraEx, [:string, :float, :float, :leafcolor_callback, :float, :int, :int], :void
 
 # [ 90] C++ definition
 #     void Spinner::SpinnerFlowingGradient(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = red, float speed = 2.8f, float angle = IM_PI)
   attach_function :FlowingGradient, :SpinnerFlowingGradient,   [:string, :float, :float], :void
-  attach_function :FlowingGradientEx, :SpinnerFlowingGradientEx, [:string, :float, :float, :pointer, :pointer, :float, :float], :void
+  attach_function :FlowingGradientEx, :SpinnerFlowingGradientEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float], :void
 
 # [ 91] C++ definition
 #     void Spinner::SpinnerRotateSegments(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, size_t layers = 1, int mode = 0)
   attach_function :RotateSegments, :SpinnerRotateSegments,   [:string, :float, :float], :void
-  attach_function :RotateSegmentsEx, :SpinnerRotateSegmentsEx, [:string, :float, :float, :pointer, :float, :int, :int, :int], :void
+  attach_function :RotateSegmentsEx, :SpinnerRotateSegmentsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int, :int], :void
 
 # [ 92] C++ definition
 #     void Spinner::SpinnerLemniscate(const char* label, float radius, float thickness, const ImColor& color = white, float speed = 2.8f, float angle = IM_PI / 2.0f)
   attach_function :Lemniscate, :SpinnerLemniscate,   [:string, :float, :float], :void
-  attach_function :LemniscateEx, :SpinnerLemniscateEx, [:string, :float, :float, :pointer, :float, :float], :void
+  attach_function :LemniscateEx, :SpinnerLemniscateEx, [:string, :float, :float, ImColor.by_value, :float, :float], :void
 
 # [ 93] C++ definition
 #     void Spinner::SpinnerRotateGear(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t pins = 12)
   attach_function :RotateGear, :SpinnerRotateGear,   [:string, :float, :float], :void
-  attach_function :RotateGearEx, :SpinnerRotateGearEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :RotateGearEx, :SpinnerRotateGearEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 94] C++ definition
 #     void Spinner::SpinnerRotateWheel(const char *label, float radius, float thickness, const ImColor &bg_color = white, const ImColor &color = white, float speed = 2.8f, size_t pins = 12)
   attach_function :RotateWheel, :SpinnerRotateWheel,   [:string, :float, :float], :void
-  attach_function :RotateWheelEx, :SpinnerRotateWheelEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :RotateWheelEx, :SpinnerRotateWheelEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [ 95] C++ definition
 #     void Spinner::SpinnerAtom(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3)
   attach_function :Atom, :SpinnerAtom,   [:string, :float, :float], :void
-  attach_function :AtomEx, :SpinnerAtomEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :AtomEx, :SpinnerAtomEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 96] C++ definition
 #     void Spinner::SpinnerPatternRings(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3)
   attach_function :PatternRings, :SpinnerPatternRings,   [:string, :float, :float], :void
-  attach_function :PatternRingsEx, :SpinnerPatternRingsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :PatternRingsEx, :SpinnerPatternRingsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 97] C++ definition
 #     void Spinner::SpinnerPatternEclipse(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3, float delta_a = 2.f, float delta_y = 0.f)
   attach_function :PatternEclipse, :SpinnerPatternEclipse,   [:string, :float, :float], :void
-  attach_function :PatternEclipseEx, :SpinnerPatternEclipseEx, [:string, :float, :float, :pointer, :float, :int, :float, :float], :void
+  attach_function :PatternEclipseEx, :SpinnerPatternEclipseEx, [:string, :float, :float, ImColor.by_value, :float, :int, :float, :float], :void
 
 # [ 98] C++ definition
 #     void Spinner::SpinnerPatternSphere(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3)
   attach_function :PatternSphere, :SpinnerPatternSphere,   [:string, :float, :float], :void
-  attach_function :PatternSphereEx, :SpinnerPatternSphereEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :PatternSphereEx, :SpinnerPatternSphereEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [ 99] C++ definition
 #     void Spinner::SpinnerRingSynchronous(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3)
   attach_function :RingSynchronous, :SpinnerRingSynchronous,   [:string, :float, :float], :void
-  attach_function :RingSynchronousEx, :SpinnerRingSynchronousEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :RingSynchronousEx, :SpinnerRingSynchronousEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [100] C++ definition
 #     void Spinner::SpinnerRingWatermarks(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3)
   attach_function :RingWatermarks, :SpinnerRingWatermarks,   [:string, :float, :float], :void
-  attach_function :RingWatermarksEx, :SpinnerRingWatermarksEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :RingWatermarksEx, :SpinnerRingWatermarksEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [101] C++ definition
 #     void Spinner::SpinnerRotatedAtom(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int elipses = 3, int mode = 0)
   attach_function :RotatedAtom, :SpinnerRotatedAtom,   [:string, :float, :float], :void
-  attach_function :RotatedAtomEx, :SpinnerRotatedAtomEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RotatedAtomEx, :SpinnerRotatedAtomEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [102] C++ definition
 #     void Spinner::SpinnerRainbowBalls(const char *label, float radius, float thickness, const ImColor &color, float speed, int balls = 5, int mode = 0, int rings = 1, int mx = 1)
-  attach_function :RainbowBalls, :SpinnerRainbowBalls,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :RainbowBallsEx, :SpinnerRainbowBallsEx, [:string, :float, :float, :pointer, :float, :int, :int, :int, :int], :void
+  attach_function :RainbowBalls, :SpinnerRainbowBalls,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :RainbowBallsEx, :SpinnerRainbowBallsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int, :int, :int], :void
 
 # [103] C++ definition
 #     void Spinner::SpinnerRainbowShot(const char *label, float radius, float thickness, const ImColor &color, float speed, int balls = 5, int mode = 0)
-  attach_function :RainbowShot, :SpinnerRainbowShot,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :RainbowShotEx, :SpinnerRainbowShotEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RainbowShot, :SpinnerRainbowShot,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :RainbowShotEx, :SpinnerRainbowShotEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [104] C++ definition
 #     void Spinner::SpinnerSpiral(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4)
   attach_function :Spiral, :SpinnerSpiral,   [:string, :float, :float], :void
-  attach_function :SpiralEx, :SpinnerSpiralEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :SpiralEx, :SpinnerSpiralEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [105] C++ definition
 #     void Spinner::SpinnerSpiralEye(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SpiralEye, :SpinnerSpiralEye,   [:string, :float, :float], :void
-  attach_function :SpiralEyeEx, :SpinnerSpiralEyeEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SpiralEyeEx, :SpinnerSpiralEyeEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [106] C++ definition
 #     void Spinner::SpinnerBarChartSine(const char *label, float radius, float thickness, const ImColor &color, float speed, int bars = 5, int mode = 0)
-  attach_function :BarChartSine, :SpinnerBarChartSine,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :BarChartSineEx, :SpinnerBarChartSineEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :BarChartSine, :SpinnerBarChartSine,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :BarChartSineEx, :SpinnerBarChartSineEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [107] C++ definition
 #     void Spinner::SpinnerBarChartAdvSine(const char *label, float radius, float thickness, const ImColor &color, float speed, int mode = 0)
-  attach_function :BarChartAdvSine, :SpinnerBarChartAdvSine,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :BarChartAdvSineEx, :SpinnerBarChartAdvSineEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :BarChartAdvSine, :SpinnerBarChartAdvSine,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :BarChartAdvSineEx, :SpinnerBarChartAdvSineEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [108] C++ definition
 #     void Spinner::SpinnerBarChartAdvSineFade(const char *label, float radius, float thickness, const ImColor &color, float speed, int mode = 0)
-  attach_function :BarChartAdvSineFade, :SpinnerBarChartAdvSineFade,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :BarChartAdvSineFadeEx, :SpinnerBarChartAdvSineFadeEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :BarChartAdvSineFade, :SpinnerBarChartAdvSineFade,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :BarChartAdvSineFadeEx, :SpinnerBarChartAdvSineFadeEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [109] C++ definition
 #     void Spinner::SpinnerBarChartRainbow(const char *label, float radius, float thickness, const ImColor &color, float speed, int bars = 5, int mode = 0)
-  attach_function :BarChartRainbow, :SpinnerBarChartRainbow,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :BarChartRainbowEx, :SpinnerBarChartRainbowEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :BarChartRainbow, :SpinnerBarChartRainbow,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :BarChartRainbowEx, :SpinnerBarChartRainbowEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [110] C++ definition
 #     void Spinner::SpinnerBlocks(const char *label, float radius, float thickness, const ImColor &bg, const ImColor &color, float speed)
-  attach_function :Blocks, :SpinnerBlocks,   [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :Blocks, :SpinnerBlocks,   [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [111] C++ definition
 #     void Spinner::SpinnerTwinBlocks(const char *label, float radius, float thickness, const ImColor &bg, const ImColor &color, float speed)
-  attach_function :TwinBlocks, :SpinnerTwinBlocks,   [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :TwinBlocks, :SpinnerTwinBlocks,   [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [112] C++ definition
 #     void Spinner::SpinnerSquareRandomDots(const char *label, float radius, float thickness, const ImColor &bg, const ImColor &color, float speed)
-  attach_function :SquareRandomDots, :SpinnerSquareRandomDots,   [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :SquareRandomDots, :SpinnerSquareRandomDots,   [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [113] C++ definition
 #     void Spinner::SpinnerScaleBlocks(const char *label, float radius, float thickness, const ImColor &color, float speed, int mode = 0)
-  attach_function :ScaleBlocks, :SpinnerScaleBlocks,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :ScaleBlocksEx, :SpinnerScaleBlocksEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :ScaleBlocks, :SpinnerScaleBlocks,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :ScaleBlocksEx, :SpinnerScaleBlocksEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [114] C++ definition
 #     void Spinner::SpinnerScaleSquares(const char *label, float radius, float thikness, const ImColor &color, float speed)
-  attach_function :ScaleSquares, :SpinnerScaleSquares,   [:string, :float, :float, :pointer, :float], :void
+  attach_function :ScaleSquares, :SpinnerScaleSquares,   [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [115] C++ definition
 #     void Spinner::SpinnerSquishSquare(const char *label, float radius, const ImColor &color, float speed)
-  attach_function :SquishSquare, :SpinnerSquishSquare,   [:string, :float, :pointer, :float], :void
+  attach_function :SquishSquare, :SpinnerSquishSquare,   [:string, :float, ImColor.by_value, :float], :void
 
 # [116] C++ definition
 #     void Spinner::SpinnerFluid(const char *label, float radius, const ImColor &color, float speed, int bars = 3)
-  attach_function :Fluid, :SpinnerFluid,   [:string, :float, :pointer, :float], :void
-  attach_function :FluidEx, :SpinnerFluidEx, [:string, :float, :pointer, :float, :int], :void
+  attach_function :Fluid, :SpinnerFluid,   [:string, :float, ImColor.by_value, :float], :void
+  attach_function :FluidEx, :SpinnerFluidEx, [:string, :float, ImColor.by_value, :float, :int], :void
 
 # [117] C++ definition
 #     void Spinner::SpinnerFluidPoints(const char *label, float radius, float thickness, const ImColor &color, float speed, size_t dots = 6, float delta = 0.35f)
-  attach_function :FluidPoints, :SpinnerFluidPoints,   [:string, :float, :float, :pointer, :float], :void
-  attach_function :FluidPointsEx, :SpinnerFluidPointsEx, [:string, :float, :float, :pointer, :float, :int, :float], :void
+  attach_function :FluidPoints, :SpinnerFluidPoints,   [:string, :float, :float, ImColor.by_value, :float], :void
+  attach_function :FluidPointsEx, :SpinnerFluidPointsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :float], :void
 
 # [118] C++ definition
 #     void Spinner::SpinnerArcPolarFade(const char *label, float radius, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, int mode = 0)
   attach_function :ArcPolarFade, :SpinnerArcPolarFade,   [:string, :float], :void
-  attach_function :ArcPolarFadeEx, :SpinnerArcPolarFadeEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :ArcPolarFadeEx, :SpinnerArcPolarFadeEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [119] C++ definition
 #     void Spinner::SpinnerArcPolarRadius(const char *label, float radius, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, int mode = 0)
   attach_function :ArcPolarRadius, :SpinnerArcPolarRadius,   [:string, :float], :void
-  attach_function :ArcPolarRadiusEx, :SpinnerArcPolarRadiusEx, [:string, :float, :pointer, :float, :int, :int], :void
+  attach_function :ArcPolarRadiusEx, :SpinnerArcPolarRadiusEx, [:string, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [120] C++ definition
 #     void Spinner::SpinnerCaleidoscope(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 6, int mode = 0)
   attach_function :Caleidoscope, :SpinnerCaleidoscope,   [:string, :float, :float], :void
-  attach_function :CaleidoscopeEx, :SpinnerCaleidoscopeEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :CaleidoscopeEx, :SpinnerCaleidoscopeEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [121] C++ definition
 #     void Spinner::SpinnerHboDots(const char *label, float radius, float thickness, const ImColor &color = white, float minfade = 0.0f, float ryk = 0.f, float speed = 1.1f, size_t dots = 6, int mode = 0)
   attach_function :HboDots, :SpinnerHboDots,   [:string, :float, :float], :void
-  attach_function :HboDotsEx, :SpinnerHboDotsEx, [:string, :float, :float, :pointer, :float, :float, :float, :int, :int], :void
+  attach_function :HboDotsEx, :SpinnerHboDotsEx, [:string, :float, :float, ImColor.by_value, :float, :float, :float, :int, :int], :void
 
 # [122] C++ definition
 #     void Spinner::SpinnerMoonDots(const char *label, float radius, float thickness, const ImColor &first, const ImColor &second, float speed = 1.1f)
-  attach_function :MoonDots, :SpinnerMoonDots,   [:string, :float, :float, :pointer, :pointer], :void
-  attach_function :MoonDotsEx, :SpinnerMoonDotsEx, [:string, :float, :float, :pointer, :pointer, :float], :void
+  attach_function :MoonDots, :SpinnerMoonDots,   [:string, :float, :float, ImColor.by_value, ImColor.by_value], :void
+  attach_function :MoonDotsEx, :SpinnerMoonDotsEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float], :void
 
 # [123] C++ definition
 #     void Spinner::SpinnerTwinHboDots(const char *label, float radius, float thickness, const ImColor &color = white, float minfade = 0.0f, float ryk = 0.f, float speed = 1.1f, size_t dots = 6, float delta = 0.f)
   attach_function :TwinHboDots, :SpinnerTwinHboDots,   [:string, :float, :float], :void
-  attach_function :TwinHboDotsEx, :SpinnerTwinHboDotsEx, [:string, :float, :float, :pointer, :float, :float, :float, :int, :float], :void
+  attach_function :TwinHboDotsEx, :SpinnerTwinHboDotsEx, [:string, :float, :float, ImColor.by_value, :float, :float, :float, :int, :float], :void
 
 # [124] C++ definition
 #     void Spinner::SpinnerThreeDotsStar(const char *label, float radius, float thickness, const ImColor &color = white, float minfade = 0.0f, float ryk = 0.f, float speed = 1.1f, float delta = 0.f)
   attach_function :ThreeDotsStar, :SpinnerThreeDotsStar,   [:string, :float, :float], :void
-  attach_function :ThreeDotsStarEx, :SpinnerThreeDotsStarEx, [:string, :float, :float, :pointer, :float, :float, :float, :float], :void
+  attach_function :ThreeDotsStarEx, :SpinnerThreeDotsStarEx, [:string, :float, :float, ImColor.by_value, :float, :float, :float, :float], :void
 
 # [125] C++ definition
 #     void Spinner::SpinnerSineArcs(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SineArcs, :SpinnerSineArcs,   [:string, :float, :float], :void
-  attach_function :SineArcsEx, :SpinnerSineArcsEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SineArcsEx, :SpinnerSineArcsEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [126] C++ definition
 #     void Spinner::SpinnerTrianglesShift(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f, size_t bars = 8)
   attach_function :TrianglesShift, :SpinnerTrianglesShift,   [:string, :float, :float], :void
-  attach_function :TrianglesShiftEx, :SpinnerTrianglesShiftEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :TrianglesShiftEx, :SpinnerTrianglesShiftEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [127] C++ definition
 #     void Spinner::SpinnerPointsShift(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = half_white, float speed = 2.8f, size_t bars = 8)
   attach_function :PointsShift, :SpinnerPointsShift,   [:string, :float, :float], :void
-  attach_function :PointsShiftEx, :SpinnerPointsShiftEx, [:string, :float, :float, :pointer, :pointer, :float, :int], :void
+  attach_function :PointsShiftEx, :SpinnerPointsShiftEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :int], :void
 
 # [128] C++ definition
 #     void Spinner::SpinnerSwingDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f)
   attach_function :SwingDots, :SpinnerSwingDots,   [:string, :float, :float], :void
-  attach_function :SwingDotsEx, :SpinnerSwingDotsEx, [:string, :float, :float, :pointer, :float], :void
+  attach_function :SwingDotsEx, :SpinnerSwingDotsEx, [:string, :float, :float, ImColor.by_value, :float], :void
 
 # [129] C++ definition
 #     void Spinner::SpinnerCircularPoints(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 1.8f, int lines = 8)
   attach_function :CircularPoints, :SpinnerCircularPoints,   [:string, :float, :float], :void
-  attach_function :CircularPointsEx, :SpinnerCircularPointsEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :CircularPointsEx, :SpinnerCircularPointsEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [130] C++ definition
 #     void Spinner::SpinnerCurvedCircle(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t circles = 1)
   attach_function :CurvedCircle, :SpinnerCurvedCircle,   [:string, :float, :float], :void
-  attach_function :CurvedCircleEx, :SpinnerCurvedCircleEx, [:string, :float, :float, :pointer, :float, :int], :void
+  attach_function :CurvedCircleEx, :SpinnerCurvedCircleEx, [:string, :float, :float, ImColor.by_value, :float, :int], :void
 
 # [131] C++ definition
 #     void Spinner::SpinnerModCircle(const char *label, float radius, float thickness, const ImColor &color = white, float ang_min = 1.f, float ang_max = 1.f, float speed = 2.8f)
   attach_function :ModCircle, :SpinnerModCircle,   [:string, :float, :float], :void
-  attach_function :ModCircleEx, :SpinnerModCircleEx, [:string, :float, :float, :pointer, :float, :float, :float], :void
+  attach_function :ModCircleEx, :SpinnerModCircleEx, [:string, :float, :float, ImColor.by_value, :float, :float, :float], :void
 
 # [132] C++ definition
 #     void Spinner::SpinnerDnaDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, int lt = 8, float delta = 0.5f, bool mode = 0)
   attach_function :DnaDots, :SpinnerDnaDots,   [:string, :float, :float], :void
-  attach_function :DnaDotsEx, :SpinnerDnaDotsEx, [:string, :float, :float, :pointer, :float, :int, :float, :bool], :void
+  attach_function :DnaDotsEx, :SpinnerDnaDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :float, :bool], :void
 
 # [133] C++ definition
 #     void Spinner::Spinner3SmuggleDots(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 4.8f, int lt = 8, float delta = 0.5f, bool mode = 0)
   attach_function :x3SmuggleDots, :Spinner3SmuggleDots,   [:string, :float, :float], :void
-  attach_function :x3SmuggleDotsEx, :Spinner3SmuggleDotsEx, [:string, :float, :float, :pointer, :float, :int, :float, :bool], :void
+  attach_function :x3SmuggleDotsEx, :Spinner3SmuggleDotsEx, [:string, :float, :float, ImColor.by_value, :float, :int, :float, :bool], :void
 
 # [134] C++ definition
 #     void Spinner::SpinnerRotateSegmentsPulsar(const char *label, float radius, float thickness, const ImColor &color = white, float speed = 2.8f, size_t arcs = 4, size_t layers = 1)
   attach_function :RotateSegmentsPulsar, :SpinnerRotateSegmentsPulsar,   [:string, :float, :float], :void
-  attach_function :RotateSegmentsPulsarEx, :SpinnerRotateSegmentsPulsarEx, [:string, :float, :float, :pointer, :float, :int, :int], :void
+  attach_function :RotateSegmentsPulsarEx, :SpinnerRotateSegmentsPulsarEx, [:string, :float, :float, ImColor.by_value, :float, :int, :int], :void
 
 # [135] C++ definition
 #     void Spinner::SpinnerSplineAng(const char *label, float radius, float thickness, const ImColor &color = white, const ImColor &bg = white, float speed = 2.8f, float angle = IM_PI, int mode = 0)
   attach_function :SplineAng, :SpinnerSplineAng,   [:string, :float, :float], :void
-  attach_function :SplineAngEx, :SpinnerSplineAngEx, [:string, :float, :float, :pointer, :pointer, :float, :float, :int], :void
+  attach_function :SplineAngEx, :SpinnerSplineAngEx, [:string, :float, :float, ImColor.by_value, ImColor.by_value, :float, :float, :int], :void
 
 # ImSpnner demo
   attach_function :demoSpinners,[], :void

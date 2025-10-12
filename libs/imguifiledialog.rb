@@ -207,21 +207,6 @@ module ImGuiFileDialog
   attach_function :IGFD_RemovePlace, [:pointer, :string, :string], :bool
   attach_function :RemovePlace, :IGFD_RemovePlace, [:pointer, :string, :string], :bool
 
-
-  # --- ヘルパー / 使用例 ---
-  # char* を返す関数の扱い:
-  # ptr = ImGuiFileDialog.IGFD_GetCurrentPath(ctx_ptr)
-  # unless ptr.null?
-  #   path = ptr.read_string
-  #   puts path
-  #   ImGuiFileDialog::LibC.free(ptr)
-  # end
-  #
-  # ImGuiFileDialog.IGFD_Destroy(ctx_ptr)
-  #
-  # 注意: IGFD_FileDialog_Config_Get など構造体を by_value で返す関数は FFI の ABI に依存します。
-  # 場合によってはプロジェクト固有のラッパー C 関数（ポインタを返す版）を用意することを推奨します。
-
-
+  # Free memory
   attach_function :free, :freeMem, [:pointer], :void # See.  ../libc/tools.c
 end

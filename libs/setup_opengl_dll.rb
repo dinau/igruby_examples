@@ -20,7 +20,7 @@ module SampleUtil
     when :OPENGL_PLATFORM_MACOSX
       './libglfw.dylib'
     when :OPENGL_PLATFORM_LINUX
-      "/usr/lib/#{RUBY_PLATFORM}-gnu/libglfw.so.3"
+      "/usr/lib/#{RUBY_PLATFORM}/libglfw.so.3"
     else
       raise RuntimeError, "Unsupported platform."
     end

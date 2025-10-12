@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
  require "pathname"
 
  # Gemfile.lock ‚ª1‚Âã‚É‚ ‚éê‡‚Ì‚İ Bundler ‚ğ—LŒø‰»

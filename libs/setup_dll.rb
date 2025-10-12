@@ -21,7 +21,12 @@ when /darwin/
   ImGui.import_internal_symbols()
 when /linux/
   arch = RUBY_PLATFORM.split('-')[0]
-  ImGui.load_lib(Dir.pwd + '/../lib/' + "imgui.#{arch}.so")
+  #ImGui.load_lib(Dir.pwd + '/../lib/' + "imgui.#{arch}.so")
+  ImGui_DLL.name = "imgui.so"
+  dll = Gem.find_files(ImGui_DLL.name)[0]
+  p Gem.find_files(ImGui_DLL.name)
+  ImGui.load_lib(dll)
+  #ImGui.load_lib(Dir.pwd + '/../lib/' + "imgui.so")
   ImGui.import_internal_symbols()
 else
   raise RuntimeError, "setup_dll.rb : Unknown OS: #{RUBY_PLATFORM}"

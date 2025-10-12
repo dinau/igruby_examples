@@ -21,14 +21,13 @@ def gui_main(window)
   ImGuiColorTextEdit.SetText(editor, sBuffer)
   ImGuiColorTextEdit.SetPalette(editor, ImGuiColorTextEdit::Dark) # Dark, Light, etc
 
-  mLine = FFI::MemoryPointer.new(:int)
-  mColumn =FFI::MemoryPointer.new(:int)
+  mLine =   FFIint.new()
+  mColumn = FFIint.new()
   fQuit = false
 
-  pio = ImGuiIO.new(ImGui::GetIO())
   # Setup programing fonts
   textPoint = 14.5
-  textFont = pio[:Fonts].AddFontFromFileTTF(fontFullPath, 19, nil, nil)
+  textFont = window.pio[:Fonts].AddFontFromFileTTF(fontFullPath, 19, nil, nil)
 
   #-----------
   # main loop
@@ -49,7 +48,7 @@ def gui_main(window)
     #-------------------------------
     ImGui::Begin("ImImColorTextEdit in Ruby  " + ICON_FA_CAT + " 2025/09" , nil, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar)
     begin
-      ImGuiColorTextEdit.GetCursorPosition(editor, mLine, mColumn)
+      ImGuiColorTextEdit.GetCursorPosition(editor, mLine.addr, mColumn.addr)
       ImGui::SetWindowSize_Vec2(ImVec2.create(800, 600), ImGuiCond_FirstUseEver)
       if ImGui::BeginMenuBar()
         begin
@@ -141,7 +140,7 @@ def gui_main(window)
         str2 =  "*"
       end
       ImGui::Text("%6d/%-6d %6d lines  | %s | %s | %s | %s",
-                  :int, mLine.read_int() + 1, :int, mColumn.read_int() + 1, :int, ImGuiColorTextEdit.GetLineCount(editor),
+                  :int, mLine.read + 1, :int, mColumn.read + 1, :int, ImGuiColorTextEdit.GetLineCount(editor),
                   :string, str1, :string, str2, :string, langNames[ImGuiColorTextEdit.GetLanguageDefinition(editor)], :string, fileName)
 
       ImGui::PushFont(textFont)

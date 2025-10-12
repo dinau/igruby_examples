@@ -23,7 +23,7 @@ when /mswin|msys|mingw|cygwin/
                ["segoeui.ttf", "Seoge UI",14.4]      # English region standard font
              ]
 when /linux/
-  FontTable = [["opentype/ipafont-gothic/ipag.ttf","IPAゴシック",14.0],        # Debian
+  FontTable = [["opentype/ipafont-gothic/ipag.ttf","IPAゴシック",13.0],        # Debian
                ["opentype/ipafont-gothic/ipam.ttf","IPAゴシック M",14.0],      # Debian
                ["opentype/noto/NotoSansCJK-Regular.ttc","Noto Sans CJK",14.0], # Linux Mint
                ["truetype/liberation/LiberationMono-Regular.ttf","LiberationMono",13.0] # Ubuntu english

@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
  require "pathname"
 
  # Gemfile.lock が1つ上にある場合のみ Bundler を有効化

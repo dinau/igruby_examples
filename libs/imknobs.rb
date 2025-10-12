@@ -51,20 +51,20 @@ module ImKnobs
                                  :float],  # float angle_max = -1
                                  :bool
 
-  def self.Knob(str, pfloat_value, fv_min, fv_max)
-    IgKnobFloat(str, pfloat_value, fv_min, fv_max, 0, "%.3f", self.ImGuiKnobVariant_Tick, 0, 0, 10, -1, -1)
+  def self.Knob(str, pfloat_value, fv_min, fv_max, fspeed, pFormat, flags_kind)
+    IgKnobFloat(str, pfloat_value, fv_min, fv_max, fspeed, pFormat, flags_kind, 0, 0, 10, -1, -1)
   end
 
   def self.KnobEx(str, pfloat_value, fv_min, fv_max, speed, pFormat, variant, fsize, flags, steps, angle_min, angle_max)
-    IgKnobFloat(str, pfloat_value, fv_min, fv_max, speed, pFormat, variant, fsize, flags, steps, angle_min, angle_max)
+    IgKnobFloat(  str, pfloat_value, fv_min, fv_max, speed, pFormat, variant, fsize, flags, steps, angle_min, angle_max)
   end
 
-  def self.KnobInt(str, pfloat_value, fv_min, fv_max)
-    IgKnobFloat(str, pfloat_value, fv_min, fv_max, 0, "%i", ImGui::IgKnobVariant_Tick, 0, 0, 10, -1, -1)
+  def self.KnobInt(str, pfloat_value, fv_min, fv_max, fspeed, pFormat, flags_kind)
+    IgKnobInt(   str, pfloat_value, fv_min, fv_max, fspeed, pFormat, flags_kind, 0, 0, 10, -1, -1)
   end
 
   def self.KnobIntEx(str, pint_value, fv_min, fv_max, speed, pFormat, variant, fsize, flags, steps, angle_min, angle_max)
-    IgKnobFloat(str, pint_value, fv_min, fv_max, speed, pFormat, variant, fsize, flags, steps, angle_min, angle_max)
+    IgKnobInt(     str, pint_value, fv_min, fv_max, speed, pFormat, variant, fsize, flags, steps, angle_min, angle_max)
   end
 
 end

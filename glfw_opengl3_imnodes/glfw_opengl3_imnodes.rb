@@ -159,10 +159,9 @@ def gui_main(window)
             begin
               ImGui.PushItemWidth(120.0)
               # Drag float: we must provide pointer to a C float
-              f_buf = FFI::MemoryPointer.new(:float)
-              f_buf.write_float(node.value)
-              ImGui.DragFloat("value", f_buf, 0.01, 0.0, 0.0, "%.3f", 0)
-              node.value = f_buf.read_float
+              f_buf = FFIfloat.new(node.value)
+              ImGui.DragFloat("value", f_buf.addr, 0.01, 0.0, 0.0, "%.3f", 0)
+              node.value = f_buf.read
               ImGui.PopItemWidth()
             ensure
               ImNodes.EndStaticAttribute()
@@ -188,18 +187,18 @@ def gui_main(window)
         ImNodes.EndNodeEditor()
       end
       # check link creation
-      l_start = FFI::MemoryPointer.new(:int)
-      l_end = FFI::MemoryPointer.new(:int)
-      if ImNodes.IsLinkCreated_BoolPtr(l_start, l_end, nil)
+      l_start = FFIint.new()
+      l_end = FFIint.new()
+      if ImNodes.IsLinkCreated_BoolPtr(l_start.addr, l_end.addr, nil)
         obj.current_id += 1
-        lnk = Link.new(id: obj.current_id, start_attr: l_start.read_int, end_attr: l_end.read_int)
+        lnk = Link.new(id: obj.current_id, start_attr: l_start.read, end_attr: l_end.read)
         obj.links << lnk
       end
       # check link destroyed
-      link_id_ptr = FFI::MemoryPointer.new(:int)
-      if ImNodes.IsLinkDestroyed(link_id_ptr)
-        link_id = link_id_ptr.read_int
-        idx = obj.links.index { |it| it.id == link_id }
+      link_id = FFIint.new()
+      if ImNodes.IsLinkDestroyed(link_id.addr)
+        link_id.set(link_id.read)
+        idx = obj.links.index { |it| it.id == link_id.read }
         obj.links.delete_at(idx) if idx
       end
     ensure

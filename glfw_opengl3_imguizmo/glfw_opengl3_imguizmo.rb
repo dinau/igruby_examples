@@ -13,45 +13,32 @@ def gui_main(window)
   # Setup fonts
   setupFonts()
 
-  pio = ImGuiIO.new(ImGui::GetIO())
-
-  zmo_op_ptr   = FFI::MemoryPointer.new(:int)
-  zmo_op_ptr.write_int(ImGuizmo::TRANSLATE)
-  zmo_mode_ptr = FFI::MemoryPointer.new(:int)
-  zmo_mode_ptr.write_int(ImGuizmo::LOCAL)
+  zmo_op   = FFIint.new(ImGuizmo::TRANSLATE)
+  zmo_mode = FFIint.new(ImGuizmo::LOCAL)
 
   # bounds 6 floats
-  zmobounds_ptr = FFI::MemoryPointer.new(:float, 6)
-  zmobounds_ptr.write_array_of_float([-0.5, -0.5, -0.5, 0.5, 0.5, 0.5])
+  zmobounds= FFIfloatArray.new([-0.5, -0.5, -0.5, 0.5, 0.5, 0.5], size: 6)
 
   # 16 floats
-  m_ident_ptr = FFI::MemoryPointer.new(:float, 16).write_array_of_float([
-    1,0,0,0,
-    0,1,0,0,
-    0,0,1,0,
-    0,0,0,1
-  ])
+  m_ident = FFIfloatArray.new([1,0,0,0,
+                               0,1,0,0,
+                               0,0,1,0,
+                               0,0,0,1 ], size: 16)
 
-  mv_mo_ptr = FFI::MemoryPointer.new(:float, 16).write_array_of_float([
-    1,0,0,0,
-    0,1,0,0,
-    0,0,1,0,
-    0,0,-7,1
-  ])
+  mv_mo   = FFIfloatArray.new([1,0,0,0,
+                               0,1,0,0,
+                               0,0,1,0,
+                               0,0,-7,1], size: 16)
 
-  mp_mo_ptr = FFI::MemoryPointer.new(:float, 16).write_array_of_float([
-    2.3787,0,0,0,
-    0,3.1716,0,0,
-    0,0,-1.0002,-1,
-    0,0,-0.2,0
-  ])
+  mp_mo   = FFIfloatArray.new([2.3787,0,0,0,
+                               0,3.1716,0,0,
+                               0,0,-1.0002,-1,
+                               0,0,-0.2,0], size: 16)
 
-  mo_mo_ptr = FFI::MemoryPointer.new(:float, 16).write_array_of_float([
-    1,0,0,0,
-    0,1,0,0,
-    0,0,1,0,
-    0.5,0.5,0.5,1
-  ])
+  mo_mo   = FFIfloatArray.new([1,0,0,0,
+                               0,1,0,0,
+                               0,0,1,0,
+                               0.5,0.5,0.5,1], size: 16)
 
   #-----------
   # main loop
@@ -73,37 +60,37 @@ def gui_main(window)
     begin
       ImGui::Begin("ImGuizmo window in Ruby  " + ICON_FA_WIFI + " 2025/09", nil)
       #
-      ImGui.igRadioButton_IntPtr("trans", zmo_op_ptr,   ImGuizmo::TRANSLATE)
+      ImGui.igRadioButton_IntPtr("trans", zmo_op.addr,   ImGuizmo::TRANSLATE)
       ImGui.igSameLine(0.0, -1.0)
-      ImGui.igRadioButton_IntPtr("rot",   zmo_op_ptr,   ImGuizmo::ROTATE)
+      ImGui.igRadioButton_IntPtr("rot",   zmo_op.addr,   ImGuizmo::ROTATE)
       ImGui.igSameLine(0.0, -1.0)
-      ImGui.igRadioButton_IntPtr("scale", zmo_op_ptr,   ImGuizmo::SCALE)
+      ImGui.igRadioButton_IntPtr("scale", zmo_op.addr,   ImGuizmo::SCALE)
       ImGui.igSameLine(0.0, -1.0)
-      ImGui.igRadioButton_IntPtr("bounds", zmo_op_ptr,  ImGuizmo::BOUNDS)
-      ImGui.igRadioButton_IntPtr("local", zmo_mode_ptr, ImGuizmo::LOCAL)
+      ImGui.igRadioButton_IntPtr("bounds", zmo_op.addr,  ImGuizmo::BOUNDS)
+      ImGui.igRadioButton_IntPtr("local", zmo_mode.addr, ImGuizmo::LOCAL)
       ImGui.igSameLine(0.0, -1.0)
-      ImGui.igRadioButton_IntPtr("world", zmo_mode_ptr, ImGuizmo::WORLD)
+      ImGui.igRadioButton_IntPtr("world", zmo_mode.addr, ImGuizmo::WORLD)
     ensure
       ImGui::End() # Window end proc
     end
 
     # --- ImGuizmo drawing & manipulation ---
-    ImGuizmo.SetRect(0.0, 0.0, pio[:DisplaySize][:x], pio[:DisplaySize][:y])
+    ImGuizmo.SetRect(0.0, 0.0, window.pio[:DisplaySize][:x], window.pio[:DisplaySize][:y])
     ImGuizmo.SetOrthographic(false)
-    ImGuizmo.DrawGrid(mv_mo_ptr, mp_mo_ptr, m_ident_ptr, 10)
-    ImGuizmo.DrawCubes(mv_mo_ptr, mp_mo_ptr, mo_mo_ptr, 1)
+    ImGuizmo.DrawGrid( mv_mo.addr, mp_mo.addr, m_ident.addr, 10)
+    ImGuizmo.DrawCubes(mv_mo.addr, mp_mo.addr, mo_mo.addr  , 1)
 
     # read current zmo_op value (int) from memory
-    current_op = zmo_op_ptr.read_int
-    current_mode = zmo_mode_ptr.read_int
+    current_op = zmo_op.read
+    current_mode = zmo_mode.read
 
-    pmp = (current_op == ImGuizmo::BOUNDS) ? zmobounds_ptr : nil
+    pmp = (current_op == ImGuizmo::BOUNDS) ? zmobounds.addr : nil
 
-    ImGuizmo.Manipulate(mv_mo_ptr, mp_mo_ptr, current_op, current_mode, mo_mo_ptr, nil, nil, pmp, nil)
+    ImGuizmo.Manipulate(mv_mo.addr, mp_mo.addr, current_op, current_mode, mo_mo.addr, nil, nil, pmp, nil)
 
-    pos_ptr = FFI::MemoryPointer.new(:float, 2).write_array_of_float([0.0, 0.0])
-    size_ptr = FFI::MemoryPointer.new(:float, 2).write_array_of_float([128.0, 128.0])
-    ImGuizmo.ViewManipulate_Float(mv_mo_ptr, 7.0, pos_ptr, size_ptr, 0x10101010)
+    pos  = FFIfloatArray.new([0.0, 0.0], size: 2)
+    size = FFIfloatArray.new([129.0, 128.0], size: 2)
+    ImGuizmo.ViewManipulate_Float(mv_mo.addr, 7.0, pos.addr, size.addr, 0x10101010)
 
     #--------
     # Render

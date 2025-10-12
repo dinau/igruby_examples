@@ -13,7 +13,7 @@ module ImGui
   typedef :pointer, :SDL_Event
   enum :ImplSDL2_GamepadMode, [:AutoFirst, :AutoAll, :Manual]
 
-  attach_function :ImplSDL2_InitForOpenGL,      :ImGui_ImplSDL2_InitForOpenGL,      [:SDL_Window, :pointer], :bool
+  attach_function :ImplSDL2_InitForOpenGL,      :ImGui_ImplSDL2_InitForOpenGL,    [:SDL_Window, :pointer], :bool
   attach_function :ImplSDL2_InitForVulkan,     :ImGui_ImplSDL2_InitForVulkan,     [:SDL_Window], :bool
   attach_function :ImplSDL2_InitForD3D,        :ImGui_ImplSDL2_InitForD3D,        [:SDL_Window], :bool
   attach_function :ImplSDL2_InitForMetal,      :ImGui_ImplSDL2_InitForMetal,      [:SDL_Window], :bool

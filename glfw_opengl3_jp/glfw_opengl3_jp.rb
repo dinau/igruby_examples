@@ -20,25 +20,18 @@ def gui_main(window)
   sBuf =  FFI::MemoryPointer.new(:char, sbuf_size)
 
   # For showing / hiding window
-  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowDemoWindow.write(:bool, true)
+  fShowDemoWindow = FFIbool.new(true)
 
   # For theme color
-  fToggleTheme = FFI::MemoryPointer.new(:bool)
+  fToggleTheme = FFIbool.new()
   theme, sTheme =  window.getTheme()
-  if theme == Theme::Light
-    fToggleTheme.write(:bool, true)
-  else
-  fToggleTheme.write(:bool, false)
-  end
+  theme == Theme::Light ? fToggleTheme.set(true) : fToggleTheme.set(false)
 
   # For Slider
-  valf = FFI::MemoryPointer.new(:float)
-  valf.write(:float, 0.33)
+  valf = FFIfloat.new(0.33)
 
   # Other definitions
   counter = 0
-  pio = ImGuiIO.new(ImGui::GetIO())
 
   sRubyImGuiVersion = window.getRubyImGuiVersion()
 
@@ -49,15 +42,12 @@ def gui_main(window)
     window.pollEvents()
 
     # Iconify sleep
-    if window.isIconified()
-        next
-    end
+    next if window.isIconified()
+
     window.newFrame()
 
     # Show window for Dear ImGui official demo
-    if fShowDemoWindow.read(:bool)
-      ImGui::ShowDemoWindow(fShowDemoWindow)
-    end
+    ImGui::ShowDemoWindow(fShowDemoWindow.addr) if fShowDemoWindow.read
 
     #----------------------------------
     # Show main window in left topside
@@ -66,12 +56,8 @@ def gui_main(window)
       ImGui::Begin("ImGui ウィンドウ in Ruby  " + ICON_FA_WIFI + " 2025/02", nil)
 
       # Toggle button for selecting theme
-      if ImGui::ToggleButton("テーマ", fToggleTheme)
-        if fToggleTheme.read(:bool)
-          sTheme = window.setTheme(Theme::Light)
-        else
-          sTheme = window.setTheme(Theme::Dark)
-        end
+      if ImGui::ToggleButton("テーマ", fToggleTheme.addr)
+        sTheme = fToggleTheme.read ? window.setTheme(Theme::Light) : window.setTheme(Theme::Dark)
       end
       ImGui::SameLine()
       ImGui::Text(sTheme)
@@ -86,10 +72,10 @@ def gui_main(window)
       # Show some widgets
       ImGui::InputTextWithHint("日本語を入力","ここに入力", sBuf ,sbuf_size)
       ImGui::Text("入力結果: ");ImGui::SameLine(); ImGui::Text(sBuf.read_string)
-      ImGui::Checkbox("ImGui デモ", fShowDemoWindow); ImGui::SameLine()
-      ImGui::SliderFloat("浮動小数", valf, 0.0, 1.0)
+      ImGui::Checkbox("ImGui デモ", fShowDemoWindow.addr); ImGui::SameLine()
+      ImGui::SliderFloat("浮動小数", valf.addr, 0.0, 1.0)
       ImGui::ColorEdit3("背景色", window.getBackgroundColorPtr())
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
+      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / window.pio[:Framerate], :float, window.pio[:Framerate])
 
       # Button for counter
       if ImGui::Button("ボタン")
@@ -99,10 +85,9 @@ def gui_main(window)
       # Show overlay hint for Button
       if ImGui::IsItemHovered(ImGuiHoveredFlags_DelayShort) and ImGui::BeginTooltip()
         ImGui::Text("*** ツールチップヘルプ  ***")
-        ary = FFI::MemoryPointer.new(:float, 7)
-        ary.put_array_of_float(0, [0.6, 0.1, 1.0, 0.5, 0.92, 0.1, 0.2])
-        sz = ImVec2.create(0,0)
-        ImGui::PlotLines("Curve" , ary , 7 , 0 , overlay_text = "Overlay string" , 0.0 , 1.0 , sz ,Fiddle::SIZEOF_FLOAT)
+
+        ary = FFIfloatArray.new([0.6, 0.1, 1.0, 0.5, 0.92, 0.1, 0.2], size: 7)
+        ImGui::PlotLines("Curve" , ary.addr , 7 , 0 , overlay_text = "Overlay string" , 0.0 , 1.0 ,ImVec2.create(0,0), FFI.type_size(:float))
         ImGui::Text("Sin(time) = %.2f", :float, Math.sin(ImGui::GetTime()))
         ImGui::EndTooltip()
       end

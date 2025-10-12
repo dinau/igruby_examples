@@ -1,7 +1,7 @@
 # coding: utf-8
 #
 require_relative '../utils/appImGui'
-require_relative './imguifiledialog'
+require_relative '../libs/imguifiledialog'
 
 class App
   #----------
@@ -13,7 +13,10 @@ class App
 
     cfd = ImGuiFileDialog.Create()
 
-    setFileStyle(cfd, main_font)
+    case RUBY_PLATFORM
+    when /mswin|msys|mingw|cygwin/
+      setFileStyle(cfd, main_font) # TODO
+    end
 
     sFilePathName = ""
     sFileDirPath  = ""
@@ -48,15 +51,13 @@ class App
                                            config)
         end
         #
-        pio = ImGuiIO.new(ImGui::GetIO())
         max_size = ImVec2.create()
-        max_size[:x] = pio[:DisplaySize][:x] * 0.8
-        max_size[:y] = pio[:DisplaySize][:y] * 0.8
+        max_size[:x] = window.pio[:DisplaySize][:x] * 0.8
+        max_size[:y] = window.pio[:DisplaySize][:y] * 0.8
         min_size = ImVec2.create()
         min_size[:x] = max_size[:x] * 0.25
         min_size[:y] = max_size[:y] * 0.25
-        if ImGuiFileDialog.DisplayDialog(cfd, "filedlg", 0, min_size.pointer, max_size.pointer)
-          ImGuiFileDialog.CloseDialog(cfd)
+        if ImGuiFileDialog.DisplayDialog(cfd, "filedlg", ImGuiWindowFlags_NoCollapse, min_size.pointer, max_size.pointer)
           if ImGuiFileDialog.IsOk(cfd)
             sFilePathName   = "?"
             pFilePathName   = ImGuiFileDialog.GetFilePathName(cfd, ImGuiFileDialog::ResultMode_AddIfNoFileExt)
@@ -83,6 +84,7 @@ class App
               ImGuiFileDialog.free(pDatas)
             end
           end
+          ImGuiFileDialog.CloseDialog(cfd)
         end
         # Show selected path
         ImGui.igText("Selected file = %s", :string, sFilePathName)

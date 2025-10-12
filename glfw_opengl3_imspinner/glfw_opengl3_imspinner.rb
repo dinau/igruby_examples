@@ -3,6 +3,15 @@
 require_relative '../utils/appImGui'
 require_relative '../libs/imspinner'
 
+class ImColorInt < FFI::Struct
+  layout(
+    :x, :int,
+    :y, :int,
+    :z, :int,
+    :w, :int
+  )
+end
+
 
 #----------
 # gui_main
@@ -12,9 +21,20 @@ def gui_main(window)
   setupFonts()
 
   # Other definitions
-  pio = ImGuiIO.new(ImGui::GetIO())
+  red   = ImColor.create(255, 0, 0)
 
-  red = ImColor.create(255,0,0,255)
+  colorFunc = Proc.new do |intensity|
+    h = FFIfloat.new
+    s = FFIfloat.new
+    v = FFIfloat.new
+    ImGui::ColorConvertRGBtoHSV(intensity * 0.25, 0.8, 0.8, h.addr, s.addr, v.addr)
+    col = ImColor.new
+    col[:Value][:x] = h.read
+    col[:Value][:y] = s.read
+    col[:Value][:z] = v.read
+    col[:Value][:w] = 1.0
+    col
+  end
 
   #-----------
   # main loop
@@ -47,8 +67,9 @@ def gui_main(window)
         ImSpinner::Atom(            "atom",     16, 2);                          ImGui::SameLine()
         ImSpinner::SwingDots(       "wheel",    16, 6);                          ImGui::SameLine()
         ImSpinner::DotsToBar(       "tobar",    16, 2, 0.5);                     ImGui::SameLine()
-        ImSpinner::BarChartRainbow("rainbow",   16, 4, red, 4);
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
+        ImSpinner::BarChartRainbow( "rainbow",  16, 4, red, 4);                  ImGui::SameLine()
+        ImSpinner::Camera(          "camera",   16, 7, colorFunc)
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / window.pio[:Framerate], :float, window.pio[:Framerate])
     ensure
       ImGui::End()
     end

@@ -45,17 +45,25 @@ module ImSpinner
   ffi_lib get_imgui_dll_path()
 EOF
 
+LeafColorCallbackName = "leafcolor_callback"
+
 def typeConv(ss)
-  if ss.include? "char *" or ss.include? "char*"
+  if ss.include?  "LeafColor"
+    ":" + LeafColorCallbackName
+  elsif ss.include? "char *" or ss.include? "char*"
     ":string"
-  elsif ss.include? "*" or ss.include? "ImColor"
+  elsif ss.include? "*"
     ":pointer"
+  elsif ss.include? "ImColor"
+    "ImColor.by_value"
   elsif ss.include?  "float"
     ":float"
   elsif ss.include?  "size_t" or ss.include? "int"
     ":int"
   elsif ss.include?  "bool"
     ":bool"
+  elsif ss.include?  "LeafColor"
+    ":" + LeafColorCallbackName
   end
 end
 
@@ -77,6 +85,11 @@ File.foreach(ImSpinnerHeader) {|line|
     cppFile.push  "\n# [#{sprintf("%3d",idx)}] C++ definition"
     idx += 1
     cppFile.push  "#     void Spinner::#{funcname}(#{cppArgs.gsub("/*","").gsub("*/","")})"
+    ######
+    if line =~/LeafColor/
+      cppFile.push "  callback :#{LeafColorCallbackName}, [:int], ImColor.by_value"
+    end
+    ######
     # get short argumants
     # void SpinnerFadeBars(const char *label, float w, const ImColor &color = white, float speed = 2.8f, size_t bars = 3, bool scale = false)
     #  cppArgs -->         const char *label, float w, const ImColor &color = white, float speed = 2.8f, size_t bars = 3, bool scale = false

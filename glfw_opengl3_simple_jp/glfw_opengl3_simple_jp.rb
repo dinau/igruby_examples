@@ -11,12 +11,10 @@ def gui_main(window)
   setupFonts()
 
   # For showing / hiding window
-  fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-  fShowDemoWindow.write(:bool, true)
+  fShowDemoWindow = FFIbool.new(true)
 
   # Other definitions
   counter = 0
-  pio = ImGuiIO.new(ImGui::GetIO())
 
   #-----------
   # main loop
@@ -31,9 +29,7 @@ def gui_main(window)
     window.newFrame()
 
     # Show ImGui demo window
-    if fShowDemoWindow.read(:bool)
-      ImGui::ShowDemoWindow(fShowDemoWindow)
-    end
+    ImGui::ShowDemoWindow(fShowDemoWindow.addr) if fShowDemoWindow.read
 
     #----------------------------------
     # Show main window in left side
@@ -48,9 +44,9 @@ def gui_main(window)
       ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, window.getBackendVersionString())
 
       # Show some widgets
-      ImGui::Checkbox("ImGui demo", fShowDemoWindow)
+      ImGui::Checkbox("ImGui demo", fShowDemoWindow.addr)
       ImGui::ColorEdit3("背景色", window.getBackgroundColorPtr())
-      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / pio[:Framerate], :float, pio[:Framerate])
+      ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / window.pio[:Framerate], :float, window.pio[:Framerate])
 
       if ImGui::Button("ボタン") # Button for counter
         counter += 1

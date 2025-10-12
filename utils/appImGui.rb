@@ -11,14 +11,18 @@ ImGui_DLL.name = 'imgui.dll'
 require_relative '../libs/setup_dll'
 #-----------------------------------------------------
 
+RubyImGuiVersion = '0.1.17-dev'
+
 #require_relative '../libs/setup_opengl_dll'
 require_relative './setupFonts'
 require_relative './loadImage'
 require_relative './zoomglass'
 require_relative './togglebutton'
 require_relative './utils'
+require_relative './ffitypes'
 require_relative '../libs/impl_glfw'
 require_relative '../libs/impl_opengl3'
+require_relative '../libs/setup_opengl_dll'
 
 DefaultJson = <<EOF
 {
@@ -83,14 +87,21 @@ end
 
 Null = Fiddle::Pointer.new(0)
 class Window
+  attr_reader  :pio
   def initialize(title, titleBarIcon)
     @ini = IniData.new
     # Background color
-    @ini.clearColor = FFI::MemoryPointer.new(:float, 3)
+    @ini.clearColor = FFIfloatArray.new([0], size: 3)
     self.loadIni()
 
-    #GLFW.load_lib(SampleUtil.glfw_library_path)
-    GLFW.load_lib(get_glfw_dll_path(__method__))
+    case RUBY_PLATFORM
+    when /mswin|msys|mingw|cygwin/
+      GLFW.load_lib(get_glfw_dll_path(__method__))
+    when /linux/
+      GLFW.load_lib(SampleUtil.glfw_library_path)
+    else
+    end
+
     if GLFW.Init() == GL::FALSE
       puts("Failed to init GLFW.")
       exit
@@ -110,9 +121,7 @@ class Window
       # Hide window at start up
       GLFW.WindowHint(GLFW::VISIBLE, GLFW::FALSE)
       @handle = GLFW.CreateWindow(@ini.viewportWidth, @ini.viewportHeight, title, Null, Null)
-      if not @handle != Null
-        break
-      end
+      break unless @handle.null?
     end
     if @handle == Null
       GLFW.Terminate()
@@ -135,8 +144,10 @@ class Window
     ImGui::CreateContext()
 
     glsl_version = "#version " + (ver_major * 100 + ver_minor * 10).to_s
-    windowHandleFFI = FFI::Pointer.new(@handle.to_i)
-    ImGui::ImplGlfw_InitForOpenGL(windowHandleFFI, true)
+
+    # @handle is Fiddle pointer, so it must be convert to FFI pointer by changing to integer value.
+    ImGui::ImplGlfw_InitForOpenGL(FFI::Pointer.new(@handle.to_i), true)
+
     ImGui::ImplOpenGL3_Init(glsl_version)
 
     # Set window Icon
@@ -150,17 +161,12 @@ class Window
     self.setTheme(@ini.theme)
 
     # For theme color
-    @fToggleTheme = FFI::MemoryPointer.new(:bool)
+    @fToggleTheme = FFIbool.new()
     @theme, @sTheme =  self.getTheme()
-    if @theme == Theme::Light
-      @fToggleTheme.write(:bool, true)
-    else
-      @fToggleTheme.write(:bool, false)
-    end
+    @fToggleTheme.set(@theme == Theme::Light ?  true : false)
 
     # For showing / hiding window
-    @fShowDemoWindow = FFI::MemoryPointer.new(:bool)
-    @fShowDemoWindow.write(:bool, false)
+    @fShowDemoWindow = FFIbool.new()
   end
 
   #--------------
@@ -179,7 +185,7 @@ class Window
   # getClearColor
   #---------------
   def getClearColor()
-       @ini.clearColor
+    @ini.clearColor.addr
   end
   #--------
   # render
@@ -196,7 +202,7 @@ class Window
       GL.Viewport(0, 0, width, height)
 
       # Set background color
-      ary3 = @ini.clearColor.get_array_of_float(0, 3)
+      ary3 = @ini.clearColor.read
       GL.ClearColor(ary3[0], ary3[1], ary3[2], 1.00)
       #
       GL.Clear(GL::COLOR_BUFFER_BIT)
@@ -257,33 +263,29 @@ class Window
     ImGui::Begin("Info window " + ICON_FA_CIRCLE_INFO, nil)
     begin
       # Toggle button for selecting theme
-      if ImGui::ToggleButton("Theme", @fToggleTheme)
-        if @fToggleTheme.read(:bool)
-          @sTheme = self.setTheme(Theme::Light)
-        else
-          @sTheme = self.setTheme(Theme::Dark)
-        end
+      if ImGui::ToggleButton("Theme", @fToggleTheme.addr)
+        @sTheme =  @fToggleTheme.read ? self.setTheme(Theme::Light) : self.setTheme(Theme::Dark)
       end
       ImGui::SameLine()
       ImGui::Text(@sTheme)
       ImGui::SameLine()
-      ImGui::Checkbox("ImGui demo", @fShowDemoWindow)
+      ImGui::Checkbox("ImGui demo", @fShowDemoWindow.addr)
 
       # Show version info
       ImGui::Text(ICON_FA_APPLE_WHOLE  + "  Ruby:  %s",       :string, RUBY_VERSION)
-      #ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, sRubyImGuiVersion)
+      ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, getRubyImGuiVersion())
       ImGui::Text(ICON_FA_PAGER        + "  Dear ImGui:  %s", :string, ImGui::GetVersion().read_string)
       ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, getFrontendVersionString())
       ImGui::Text(ICON_FA_CUBES        + "  OpenGL:  v%s",    :string, getBackendVersionString())
-      ImGui::ColorEdit3("Background color", @ini.clearColor)
+      ImGui::ColorEdit3("Background color", @ini.clearColor.addr)
       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / @pio[:Framerate], :float, @pio[:Framerate])
     ensure
       ImGui::End() # Window end proc
     end
 
     # Show window for Dear ImGui official demo
-    if @fShowDemoWindow.read(:bool)
-      ImGui::ShowDemoWindow(@fShowDemoWindow)
+    if @fShowDemoWindow.read
+      ImGui::ShowDemoWindow(@fShowDemoWindow.addr)
     end
   end
 
@@ -337,7 +339,7 @@ class Window
     y = dtj
     dtj = jsdata[:window][:colBGz]; raise eMsg if nil == dtj
     z = dtj
-    @ini.clearColor.put_array_of_float(0, [x, y, z])
+    @ini.clearColor.set([x, y, z])
 
     # Image format index
     dtj = jsdata[:image][:imageSaveFormatIndex]; raise eMsg if nil == dtj
@@ -370,7 +372,7 @@ class Window
     jsdata[:window][:viewportHeight] = ws[:y]
 
     # Background color
-    ary3 = @ini.clearColor.get_array_of_float(0, 3)
+    ary3 = @ini.clearColor.read
     jsdata[:window][:colBGx] = ary3[0]
     jsdata[:window][:colBGy] = ary3[1]
     jsdata[:window][:colBGz] = ary3[2]
@@ -414,7 +416,7 @@ class Window
   # setClearColor
   #---------------
   def setClearColor(r,g,b)
-    @ini.clearColor.put_array_of_float(0, [r, g, b])
+    @ini.clearColor.set([r, g, b])
   end
 
   #--------------------
@@ -428,7 +430,7 @@ class Window
   # getBackgroundColorPtr
   #-----------------------
   def getBackgroundColorPtr()
-    @ini.clearColor
+    @ini.clearColor.addr
   end
 
   #--------------
@@ -447,34 +449,35 @@ class Window
     #if sRubyImGuiVersion[0] =~ /\/(\w+\-\w+\-\d\.\d\.\d+)\-.+\// then
     #  sRubyImGuiVersion = $1
     #end
-    #return sRubyImGuiVersion
-    return "WIP"
+    return RubyImGuiVersion
+    #return "WIP"
   end
 end
 
 
-require 'fiddle'
-require 'fiddle/import'
+case RUBY_PLATFORM
+when /mswin|msys|mingw|cygwin/
+  require 'fiddle'
+  require 'fiddle/import'
 
-module WinAPI
-  extend Fiddle::Importer
- dlload 'kernel32.dll'
-  extern 'void* GetModuleHandleA(const char*)'
-  extern 'unsigned long GetModuleFileNameA(void*, char*, unsigned long)'
-end
-
-def get_glfw_dll_path(place)
-  # Get load info about glfw3.dll
-  hmod = WinAPI.GetModuleHandleA('glfw3.dll')
-  if hmod != 0
-    buffer = "\0" * 2048
-    WinAPI.GetModuleFileNameA(hmod, buffer, buffer.size)
-    path = buffer.split("\0").first
-    puts "glfw3.dll path: #{path} : #{place}"
-  else
-    puts "Not loaded glfw3.dll"
+  module WinAPI
+    extend Fiddle::Importer
+    dlload 'kernel32.dll'
+    extern 'void* GetModuleHandleA(const char*)'
+    extern 'unsigned long GetModuleFileNameA(void*, char*, unsigned long)'
   end
-  return path
-end
 
-#  sRubyImGuiVersion = getRubyImGuiVersion()
+  def get_glfw_dll_path(place)
+    # Get load info about glfw3.dll
+    hmod = WinAPI.GetModuleHandleA('glfw3.dll')
+    if hmod != 0
+      buffer = "\0" * 2048
+      WinAPI.GetModuleFileNameA(hmod, buffer, buffer.size)
+      path = buffer.split("\0").first
+      puts "glfw3.dll path: #{path} : #{place}"
+    else
+      puts "Not loaded glfw3.dll"
+    end
+    return path
+  end
+end

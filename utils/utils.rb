@@ -42,3 +42,20 @@ module Theme
   module_function :setTheme
   module_function :getThemeString
 end
+
+
+class FFIint
+  def initialize(val)
+    @value = FFI::MemoryPointer.new(:int)
+    @value.write_int(val)
+  end
+  def addr()
+    @value
+  end
+  def set(val)
+    @value.write(:int, val)
+  end
+  def read()
+    @value.read_int()
+  end
+end

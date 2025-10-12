@@ -20,6 +20,6 @@ module ImGui
   attach_function :ImplSDL3_InitForOther,       :ImGui_ImplSDL3_InitForOther,       [:SDL_Window], :bool
   attach_function :ImplSDL3_Shutdown,           :ImGui_ImplSDL3_Shutdown,           [], :void
   attach_function :ImplSDL3_NewFrame,           :ImGui_ImplSDL3_NewFrame,           [], :void
-  attach_function :ImplSDL3_ProcessEvent,      :ImGui_ImplSDL3_ProcessEvent,      [:pointer], :bool
-  attach_function :ImplSDL3_SetGamepadMode,    :ImGui_ImplSDL3_SetGamepadMode,    [:ImplSDL3_GamepadMode, :pointer, :int], :void
+  attach_function :ImplSDL3_ProcessEvent,      :ImGui_ImplSDL3_ProcessEvent,        [:pointer], :bool
+  attach_function :ImplSDL3_SetGamepadMode,    :ImGui_ImplSDL3_SetGamepadMode,      [:ImplSDL3_GamepadMode, :pointer, :int], :void
 end

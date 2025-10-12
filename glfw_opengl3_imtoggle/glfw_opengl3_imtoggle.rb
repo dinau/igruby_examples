@@ -18,7 +18,8 @@ def gui_main(window)
 
   # State
   values = [true, true, true, true, true, true, true, true]
-  value_ptr = FFI::MemoryPointer.new(:bool, 1)
+  value = FFIbool.new(true)
+
   #-----------
   # main loop
   #-----------
@@ -42,53 +43,53 @@ def gui_main(window)
       value_index = 0
 
       # Default
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.Toggle('Default Toggle', value_ptr, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.Toggle('Default Toggle', value.addr, size)
+      values[value_index] = value.read
       ImGui.SameLine()
       value_index += 1
 
       # Animation
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.ToggleAnim('Animated Toggle', value_ptr, ImToggle::ImGuiToggleFlags::Animated, 1.0, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.ToggleAnim('Animated Toggle', value.addr, ImToggle::ImGuiToggleFlags::Animated, 1.0, size)
+      values[value_index] = value.read
       value_index += 1
 
       # Border
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.ToggleAnim('Bordered Knob', value_ptr, ImToggle::ImGuiToggleFlags::Bordered, 1.0, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.ToggleAnim('Bordered Knob', value.addr, ImToggle::ImGuiToggleFlags::Bordered, 1.0, size)
+      values[value_index] = value.read
       ImGui.SameLine()
       value_index += 1
 
       # Shadow
       ImGui.PushStyleColor_Vec4(ImGuiCol_BorderShadow, green_shadow)
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.ToggleAnim('Shadowed Knob', value_ptr, ImToggle::ImGuiToggleFlags::Shadowed, 1.0, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.ToggleAnim('Shadowed Knob', value.addr, ImToggle::ImGuiToggleFlags::Shadowed, 1.0, size)
+      values[value_index] = value.read
       value_index += 1
 
       # Border + Shadow
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.ToggleAnim('Bordered + Shadowed Knob', value_ptr, ImToggle::ImGuiToggleFlags::Bordered | ImToggle::ImGuiToggleFlags::Shadowed, 1.0, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.ToggleAnim('Bordered + Shadowed Knob', value.addr, ImToggle::ImGuiToggleFlags::Bordered | ImToggle::ImGuiToggleFlags::Shadowed, 1.0, size)
+      values[value_index] = value.read
       value_index += 1
       ImGui.PopStyleColor(1)
 
       # Green
       ImGui.PushStyleColor_Vec4(ImGuiCol_Button, green)
       ImGui.PushStyleColor_Vec4(ImGuiCol_ButtonHovered, green_hover)
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.Toggle('Green Toggle', value_ptr, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.Toggle('Green Toggle', value.addr, size)
+      values[value_index] = value.read
       ImGui.SameLine()
       ImGui.PopStyleColor(2)
       value_index += 1
 
       # A11y label
-      value_ptr.write_uint8(values[value_index] ? 1 : 0)
-      ImToggle.ToggleFlag('Toggle with A11y Labels', value_ptr, ImToggle::ImGuiToggleFlags::A11y, size)
-      values[value_index] = value_ptr.read_uint8 == 1
+      value.set(values[value_index])
+      ImToggle.ToggleFlag('Toggle with A11y Labels', value.addr, ImToggle::ImGuiToggleFlags::A11y, size)
+      values[value_index] = value.read
       value_index += 1
 
     ensure

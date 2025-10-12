@@ -3,7 +3,7 @@
 
 - [IgRuby Examples](#igruby-examples)
   - [Prerequisites](#prerequisites)
-  - [Donwload and running examples](#donwload-and-running-examples)
+  - [Donwload and running examples on Windows OS](#donwload-and-running-examples-on-windows-os)
   - [Snapshots](#snapshots)
     - [ImGui-Toggle / CImGui-Toggle](#imgui-toggle--cimgui-toggle)
     - [ImDrawList party](#imdrawlist-party)
@@ -16,15 +16,15 @@
     - [Iconfonts viewer](#iconfonts-viewer)
     - [Image loading](#image-loading)
     - [Showing CJK fonts](#showing-cjk-fonts)
+  - [For Linux x86_64](#for-linux-x86_64)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 
 ### IgRuby Examples
 
 ---
 
-Ruby language + Dear ImGui + Additional libraries project
+Ruby language + [Dear ImGui](https://github.com/ocornut/imgui) + Additional libraries and examples project
 
 See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev) 
 
@@ -32,21 +32,22 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
 
 ---
 
-✅ Windows10 or later  
-- Install [RubyInstaller + **Devkit** ](https://rubyinstaller.org/downloads/) 3.4.6 or later  
-  (Install Devkit (MSys2/MinGW))
+✅ Windows11 or later  
+- Install [RubyInstaller + **Devkit** ](https://rubyinstaller.org/downloads/) 3.4.7 or later  
+  (You must install Devkit)
 
-🟥 ~~Linux OS~~
+✅  Linux OS x86_64 
+- Debian13 Trixie, Ubuntu families and Windows WSL2
 
 
-#### Donwload and running examples
+#### Donwload and running examples on Windows OS
 ---
 
-1. Download `igruby_examples-1.9x.y.w.zip` from [Release page](https://github.com/dinau/igruby_examples/releases) and extract zip file.
+1. Download `igruby_examples-1.9x.y-bdn.zip` from [Release page](https://github.com/dinau/igruby_examples/releases) then extract zip file.
 1. Execute bundler command,
 
    ```sh
-   $ cd igruby_examples-1.9x.y.w/igruby_examples
+   $ cd igruby_examples-1.91.8-bd2/igruby_examples
    $ bundle install
 
    Fetching gem metadata from https://rubygems.org/..
@@ -62,7 +63,7 @@ See [ruby-imgui-dev](https://github.com/dinau/ruby-imgui-dev)
    ```sh
    cd  glfw_opengl3
    r.bat              # Or double click glfw_opengl3.rbw in Windows explorer
-                      # Ignore many warnings emmited in console
+                      # Ignore many warnings emmited in console window
    ```
 
 
@@ -113,6 +114,7 @@ Reference to [ImDrawList coding party - deadline Nov 30, 2020! #3606](https://gi
 Amazing !
 
 ![alt](img/imspinner.gif)
+
 
 ##### ImGuizmo / CImGuizmo
 
@@ -177,3 +179,90 @@ Amazing !
 [glfw_opengl3_jp.rb](https://github.com/dinau/igruby_examples/blob/main/glfw_opengl3_jp/glfw_opengl3_jp.rb)
 
 ![alt](https://github.com/dinau/igruby_examples/raw/main/img/glfw_opengl3_jp.png)
+
+
+
+#### For Linux x86_64
+
+---
+1. Install tools 
+
+   ```sh
+   $ sudo apt install clang git make ninja-build
+   $ sudo apt install lib{opengl-dev,gl1-mesa-dev,glfw3,glfw3-dev,xcursor-dev,xinerama-dev,xi-dev}
+   $ sudo apt install libsdl2-dev libsdl3-dev
+   ```
+
+1. Download files,
+
+   ```sh
+   $ pwd 
+   my_dev_folder
+   $ git clone --recursive https://github.com/dinau/ruby-imgui-dev
+   $ git clone https://github.com/dinau/igruby_examples
+   ```
+   
+      Folder structure,
+   
+      ```txt
+      my_dev_folder
+       |--- igruby_examples
+       `--- ruby-imgui-dev
+      ```
+
+1. Generate imgui.so
+   
+   ```sh
+   $ cd ruby-imgui-dev/imgui_dll
+   $ make
+   ```
+
+   `imgui.so` file is generated in `ruby-imgui-dev/lib`
+   
+1. Install bundler
+
+   ```sh
+   $ sudo apt install ruby-dev gcc
+   $ gem install --user-install bundler
+   ```
+
+1. Set environment variable,
+
+   ```sh
+   export GEM_HOME =~/.local/share/gem/ruby/3.3.0/bin
+   ```
+
+   Part of the `3.3.0` depends on your system.
+
+1. Execute `bundle install`
+
+   ```sh
+   $ pwd 
+   igruby_examples
+
+   $ bundle install
+
+   Fetching gem metadata from https://rubygems.org/..
+   Resolving dependencies...
+   Installing fiddle 1.1.8 with native extensions
+   Fetching opengl-bindings2 2.0.4
+   Installing opengl-bindings2 2.0.4
+   Bundle complete! 6 Gemfile dependencies, 9 gems now installed.
+   Use `bundle info [gemname]` to see where a bundled gem is installed.
+   ```
+
+1. Execute a example
+
+   ```sh
+   $ cd glfw_opengl3
+   $ sh r.sh 
+   ```
+
+   or 
+   
+   `$ chmod +x glfw_opengl3.rbw`  
+   then double click `glfw_opengl3.rbw` in your file explorer 
+
+   or
+
+   `$ bundle exec ruby glfw_opengl3.rb` on your console
