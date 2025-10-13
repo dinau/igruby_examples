@@ -11,19 +11,15 @@ def gui_main(window)
   setupFonts()
 
   # Other definitions
-  red   = ImColor.create(255, 0, 0)
+  red   = ImColor.createi(255, 0, 0)
+  blue1 = ImColor.createi(51, 153, 255)
 
   colorFunc = Proc.new do |intensity|
     h = FFIfloat.new
     s = FFIfloat.new
     v = FFIfloat.new
     ImGui::ColorConvertRGBtoHSV(intensity * 0.25, 0.8, 0.8, h.addr, s.addr, v.addr)
-    col = ImColor.new
-    col[:Value][:x] = h.read
-    col[:Value][:y] = s.read
-    col[:Value][:z] = v.read
-    col[:Value][:w] = 1.0
-    col
+    ImColor.createf(h.read, s.read, v.read)
   end
 
   #-----------
@@ -50,14 +46,14 @@ def gui_main(window)
     #-----------------------
     begin
       ImGui::Begin("ImSpinner in Ruby  " + ICON_FA_SPINNER , nil)
-        ImSpinner::DnaDotsEx(       "DnaDots",  16, 2, red, 1.2, 8, 0.25, true); ImGui::SameLine()
-        ImSpinner::FadeTris(        "fadetris", 16);                             ImGui::SameLine()
-        ImSpinner::Ang8(            "Ang8",     16, 2);                          ImGui::SameLine()
-        ImSpinner::Clock(           "Clock",    16, 2);                          ImGui::SameLine()
-        ImSpinner::Atom(            "atom",     16, 2);                          ImGui::SameLine()
-        ImSpinner::SwingDots(       "wheel",    16, 6);                          ImGui::SameLine()
-        ImSpinner::DotsToBar(       "tobar",    16, 2, 0.5);                     ImGui::SameLine()
-        ImSpinner::BarChartRainbow( "rainbow",  16, 4, red, 4);                  ImGui::SameLine()
+        ImSpinner::DnaDotsEx(       "DnaDots",  16, 2, blue1, 1.2, 8, 0.25, true); ImGui::SameLine()
+        ImSpinner::FadeTris(        "fadetris", 16);                               ImGui::SameLine()
+        ImSpinner::Ang8(            "Ang8",     16, 2);                            ImGui::SameLine()
+        ImSpinner::Clock(           "Clock",    16, 2);                            ImGui::SameLine()
+        ImSpinner::Atom(            "atom",     16, 2);                            ImGui::SameLine()
+        ImSpinner::SwingDots(       "wheel",    16, 6);                            ImGui::SameLine()
+        ImSpinner::DotsToBar(       "tobar",    16, 2, 0.5);                       ImGui::SameLine()
+        ImSpinner::BarChartRainbow( "rainbow",  16, 4, red, 4);                    ImGui::SameLine()
         ImSpinner::Camera(          "camera",   16, 7, colorFunc)
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", :float, 1000.0 / window.pio[:Framerate], :float, window.pio[:Framerate])
     ensure

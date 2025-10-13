@@ -44,18 +44,15 @@ module Theme
 end
 
 
-class FFIint
-  def initialize(val)
-    @value = FFI::MemoryPointer.new(:int)
-    @value.write_int(val)
-  end
-  def addr()
-    @value
-  end
-  def set(val)
-    @value.write(:int, val)
-  end
-  def read()
-    @value.read_int()
-  end
+def ImColor.createi(r = 0, g = 0, b = 0, a = 255)
+  return ImColor.create(r, g, b, a)
+end
+
+def ImColor.createf(r = 0.0, g = 0.0, b = 0.0, a = 1.0)
+  instance = ImColor.new
+  instance[:Value][:x] = r
+  instance[:Value][:y] = g
+  instance[:Value][:z] = b
+  instance[:Value][:w] = a
+  return instance
 end

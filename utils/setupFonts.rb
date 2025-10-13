@@ -15,18 +15,19 @@ Config = ImFontConfig.create
 
 case RUBY_PLATFORM
 when /mswin|msys|mingw|cygwin/
-  FontTable = [["meiryo.ttc",  "メイリオ",14.5],     # Windows7, 8
-               ["YuGothM.ttc", "遊ゴシック M",11.0], # Windows10, 11
-               ["meiryob.ttc", "メイリオ B",14.0],
-               ["msgothic.ttc","MS ゴシック",11.0],
-               ["myricam.ttc", "MyricaM",11.0],
-               ["segoeui.ttf", "Seoge UI",14.4]      # English region standard font
+  FontTable = [["meiryo.ttc",   "メイリオ",     14.5], # Windows7, 8
+               ["YuGothM.ttc",  "遊ゴシック M", 11.0], # Windows10, 11
+               ["meiryob.ttc",  "メイリオ B",   14.0],
+               ["msgothic.ttc", "MS ゴシック",  11.0],
+               ["myricam.ttc",  "MyricaM",      11.0],
+               ["segoeui.ttf",  "Seoge UI",     14.4]  # English region standard font
              ]
 when /linux/
-  FontTable = [["opentype/ipafont-gothic/ipag.ttf","IPAゴシック",13.0],        # Debian
-               ["opentype/ipafont-gothic/ipam.ttf","IPAゴシック M",14.0],      # Debian
-               ["opentype/noto/NotoSansCJK-Regular.ttc","Noto Sans CJK",14.0], # Linux Mint
-               ["truetype/liberation/LiberationMono-Regular.ttf","LiberationMono",13.0] # Ubuntu english
+  FontTable = [["opentype/ipafont-gothic/ipag.ttf",              "IPAゴシック",    13.0], # Debian jp
+               ["opentype/ipafont-gothic/ipam.ttf",              "IPAゴシック M",  14.0], # Debian jp
+               ["opentype/noto/NotoSansCJK-Regular.ttc",         "Noto Sans CJK",  14.0], # Linux Mint
+               ["truetype/liberation/LiberationMono-Regular.ttf", "LiberationMono", 13.0], # Ubuntu english
+               ["truetype/dejavu/DejaVuSansMono.ttf",             "DejaVuSansMono", 13.0], # English region standard font
               ]
 else
   raise RuntimeError, "setupFonts.rb : Unknown OS: #{RUBY_PLATFORM}"

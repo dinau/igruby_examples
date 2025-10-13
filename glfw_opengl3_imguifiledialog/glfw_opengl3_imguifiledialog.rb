@@ -37,7 +37,7 @@ class App
       #-----------------------------
       ImGui::Begin("ImGuiFileDialog in Ruby  " + ICON_FA_FOLDER_OPEN)
       begin
-        if ImGui::Button("OpenFile")
+        if ImGui::Button("OpenFile", ImVec2.create(100, 50))
           config = ImGuiFileDialog.FileDialog_Config_Get()
           config[:path] = FFI::MemoryPointer.from_string(".")
           config[:flags] = ImGuiFileDialog::ImGuiFileDialogFlags_Modal |
