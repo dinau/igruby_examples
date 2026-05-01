@@ -8,7 +8,7 @@
     - [ImGui-Toggle / CImGui-Toggle](#imgui-toggle--cimgui-toggle)
     - [ImDrawList party](#imdrawlist-party)
     - [ImGui-Knobs / CImGui-Knobs](#imgui-knobs--cimgui-knobs)
-    - [ImSpinner / CImSpinner](#imspinner--cimspinner)
+    - [ImSpinner](#imspinner)
     - [ImGuizmo / CImGuizmo](#imguizmo--cimguizmo)
     - [ImGuiColorTextEdit / cimCTE](#imguicolortextedit--cimcte)
     - [ImNodes / CImNodes](#imnodes--cimnodes)

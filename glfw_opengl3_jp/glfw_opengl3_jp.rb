@@ -63,7 +63,7 @@ def gui_main(window)
       ImGui::Text(sTheme)
 
       # Show version info
-      ImGui::Text(ICON_FA_APPLE_WHOLE  + "  Ruby:  %s",       :string, RUBY_VERSION)
+      ImGui::Text(ICON_FA_GEM          + "  Ruby:  %s",       :string, RUBY_VERSION)
       ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, sRubyImGuiVersion)
       ImGui::Text(ICON_FA_PAGER        + "  Dear ImGui:  %s", :string, ImGui::GetVersion().read_string)
       ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, window.getFrontendVersionString())

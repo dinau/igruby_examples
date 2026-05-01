@@ -1,3 +1,7 @@
+modified and referenced: 2025/10 by dinau
+  util/setup_*.rb files are subject to below license,
+
+
 Ruby-ImGui : Yet another ImGui wrapper for Ruby
 Copyright (c) 2019-2025 vaiorabbit <http://twitter.com/vaiorabbit>
 

@@ -166,7 +166,7 @@ class Window
     @fToggleTheme.set(@theme == Theme::Light ?  true : false)
 
     # For showing / hiding window
-    @fShowDemoWindow = FFIbool.new()
+    @fShowDemoWindow = FFIbool.new(true)
   end
 
   #--------------
@@ -272,7 +272,7 @@ class Window
       ImGui::Checkbox("ImGui demo", @fShowDemoWindow.addr)
 
       # Show version info
-      ImGui::Text(ICON_FA_APPLE_WHOLE  + "  Ruby:  %s",       :string, RUBY_VERSION)
+      ImGui::Text(ICON_FA_GEM          + "  Ruby:  %s",       :string, RUBY_VERSION)
       ImGui::Text(ICON_FA_MUSIC        + "  ImGui-Ruby:  %s", :string, getRubyImGuiVersion())
       ImGui::Text(ICON_FA_PAGER        + "  Dear ImGui:  %s", :string, ImGui::GetVersion().read_string)
       ImGui::Text(ICON_FA_DISPLAY      + "  GLFW:  v%s",      :string, getFrontendVersionString())

@@ -1,3 +1,6 @@
+*.sh
+*.bat
+*.yml.txt
 *.lock
 *.exe
 *.html

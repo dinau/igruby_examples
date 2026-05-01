@@ -11,4 +11,4 @@ require File.join(__dir__, "#{File.basename(__dir__)}.rb")
 #------
 # main
 #------
- main()
+App.new
